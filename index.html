@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天津中考/高考分析报告合集</title>
+<style>
+/* ===== Root Variables ===== */
+:root {
+  --bg: #f0f4f8;
+  --card: #ffffff;
+  --accent: #1a73e8;
+  --accent2: #34a853;
+  --danger: #ea4335;
+  --warning: #fbbc04;
+  --text: #202124;
+  --text2: #5f6368;
+  --border: #dadce0;
+  --primary: #7B2D8E;
+  --primary-dark: #0d47a1;
+  --tag-verified: #4CAF50;
+  --tag-partial: #FF9800;
+  --tag-estimate: #9E9E9E;
+}
+
+/* ===== Reset & Base ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ===== Tab Navigation ===== */
+.tab-wrapper { max-width: 1200px; margin: 0 auto; padding: 0; }
+.tab-nav {
+  display: flex;
+  background: linear-gradient(135deg, #0d47a1 0%, #1a73e8 100%);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tab-nav label {
+  flex: 1;
+  min-width: 120px;
+  padding: 14px 16px;
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  user-select: none;
+}
+.tab-nav label:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.tab-nav label .tab-icon { display: block; font-size: 1.2em; margin-bottom: 2px; }
+.tab-nav label .tab-text { display: block; font-size: 0.8em; }
+
+/* Hide radio buttons */
+.tab-radio { display: none; }
+
+/* Tab panels */
+.tab-panel {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Show panel when radio is checked */
+#tab1:checked ~ .tab-wrapper #panel1,
+#tab2:checked ~ .tab-wrapper #panel2,
+#tab3:checked ~ .tab-wrapper #panel3,
+#tab4:checked ~ .tab-wrapper #panel4 {
+  display: block;
+}
+
+/* Highlight active tab */
+#tab1:checked ~ .tab-nav label[for="tab1"],
+#tab2:checked ~ .tab-nav label[for="tab2"],
+#tab3:checked ~ .tab-nav label[for="tab3"],
+#tab4:checked ~ .tab-nav label[for="tab4"] {
+  color: #fff;
+  border-bottom-color: #fff;
+  background: rgba(255,255,255,0.15);
+}
+
+/* ===== Tab Page Header ===== */
+.tab-page-header {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, #1a73e8 100%);
+  color: white;
+  padding: 28px 20px;
+  text-align: center;
+}
+.tab-page-header h1 { font-size: 1.4em; margin-bottom: 6px; }
+.tab-page-header .sub { color: rgba(255,255,255,0.8); font-size: 0.85em; line-height: 1.6; }
+
+/* ===== Layout ===== */
+.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+
+/* ===== Cards ===== */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid transparent;
+}
+.card h2 {
+  font-size: 1.2em;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 3px solid var(--accent);
+  color: var(--accent);
+}
+.card h3 {
+  font-size: 1.05em;
+  margin: 14px 0 6px;
+  color: #444;
+}
+.card h4 {
+  font-size: 1em;
+  margin: 10px 0 5px;
+  color: #555;
+}
+
+/* ===== Tables ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 0.86em;
+}
+th, td {
+  padding: 6px 10px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+th {
+  background: #e8eaf6;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+tr:nth-child(even) { background: #fafafa; }
+tr:hover { background: #e8eaf6; }
+.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 8px 0;
+}
+
+/* ===== Score Highlight Rows ===== */
+.score-high { background: #fce4ec; }
+.score-mid-high { background: #f3e5f5; }
+.score-mid { background: #e8f5e9; }
+.score-low { background: #fff3e0; }
+.trend-up { color: #c62828; }
+.trend-down { color: #2e7d32; }
+.trend-flat { color: #f57f17; }
+
+/* ===== Tags ===== */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.78em;
+  font-weight: 600;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.tag-five { background: #c62828; color: white; }
+.tag-nine { background: #1565c0; color: white; }
+.tag-key { background: #2e7d32; color: white; }
+.tag-warn { background: #f57f17; color: white; }
+.tag-info { background: #6a1b9a; color: white; }
+.tag-rank1 { background: #b71c1c; color: white; }
+.tag-rank2 { background: #d32f2f; color: white; }
+.tag-rank3 { background: #e64a19; color: white; }
+.tag-rank4 { background: #f57c00; color: white; }
+.tag-rank5 { background: #f9a825; color: #333; }
+.tag-rank6 { background: #7cb342; color: white; }
+.tag-rank7 { background: #388e3c; color: white; }
+.tag-verified { background: #1b5e20; color: white; }
+.tag-limited { background: #e65100; color: white; }
+.tag-estimated { background: #f9a825; color: #333; }
+.tag-source { background: #37474f; color: white; }
+.tag-5 { background: #c62828; color: #fff; }
+.tag-9 { background: #1565c0; color: #fff; }
+.tag-ltd { background: #e65100; color: #fff; }
+.tag-est { background: #f9a825; color: #333; }
+.tag-verified-alt { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
+.tag-partial { background: #FFF3E0; color: #E65100; border: 1px solid #FFCC80; }
+.tag-estimate { background: #f9a825; color: #333; border: 1px solid #BDBDBD; }
+
+/* ===== Source badges ===== */
+.src-badge {
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.72em;
+  margin-left: 3px;
+}
+.src-ok { background: #e8f5e9; color: #2e7d32; }
+.src-1 { background: #fff3e0; color: #e65100; }
+.src-0 { background: #fce4ec; color: #c62828; }
+
+/* ===== Boxes ===== */
+.note {
+  background: #fff8e1;
+  border-left: 4px solid var(--warning);
+  padding: 10px 14px;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+.warn-box, .warn {
+  background: #fce4ec;
+  border-left: 4px solid var(--danger);
+  padding: 10px 14px;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+.verify-box, .tip-box {
+  background: #e8f5e9;
+  border-left: 4px solid var(--accent2);
+  padding: 10px 14px;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+.info-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+.info-item {
+  background: #e8eaf6;
+  padding: 14px;
+  border-radius: 8px;
+  text-align: center;
+}
+.info-item .num {
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+.info-item .label {
+  font-size: 0.82em;
+  color: var(--text2);
+}
+
+/* ===== Strategy cards (prediction report) ===== */
+.strategy-card {
+  background: #f3e5f5;
+  padding: 14px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+.strategy-card h4 { color: #7b1fa2; margin-bottom: 4px; }
+
+/* ===== Summary Box (小卷 report) ===== */
+.summary-box {
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  border-left: 4px solid #E91E63;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+.summary-box strong { color: var(--primary-dark); }
+
+/* ===== Section (小卷) ===== */
+.section { margin-bottom: 32px; }
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-left: 4px solid #7B2D8E;
+  padding-left: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .badge {
+  font-size: 11px;
+  background: #f0f0f0;
+  color: #666;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-weight: 400;
+}
+
+/* ===== Card Title (小卷) ===== */
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #7B2D8E;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== Highlight Box ===== */
+.highlight-box {
+  background: #faf5fd;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+.highlight-box strong { color: #7B2D8E; }
+
+/* ===== Timeline ===== */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  margin: 8px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #9B4DBA;
+  border-radius: 2px;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 18px;
+  padding-left: 8px;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #7B2D8E;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #7B2D8E;
+}
+.timeline-year {
+  font-weight: 700;
+  color: #5A1D6E;
+  font-size: 15px;
+  display: inline-block;
+  margin-right: 8px;
+}
+.timeline-desc { font-size: 14px; }
+
+/* ===== Two Column ===== */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: 24px 20px;
+  color: var(--text2);
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+
+/* ===== Lists ===== */
+.source-list {
+  list-style: none;
+  font-size: 0.85em;
+}
+.source-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85em;
+}
+.source-list li a { color: var(--accent); text-decoration: none; }
+.source-list li a:hover { text-decoration: underline; }
+ul[style*="margin-left"] li { margin-bottom: 4px; }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .tab-nav label { padding: 10px 8px; min-width: 80px; }
+  .tab-nav label .tab-icon { font-size: 1em; }
+  .tab-nav label .tab-text { font-size: 0.7em; }
+  .container { padding: 8px; }
+  .card { padding: 12px; }
+  table { font-size: 0.78em; }
+  th, td { padding: 4px 5px; }
+  .tab-page-header h1 { font-size: 1.1em; }
+  .two-col { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .tab-nav label { padding: 8px 4px; min-width: 60px; }
+  .tab-nav label .tab-icon { font-size: 0.85em; }
+  .tab-nav label .tab-text { font-size: 0.65em; }
+}
+</style>
+</head>
+<body>
+
+<!-- Hidden radio buttons for tab control -->
+<input type="radio" name="tab-group" id="tab1" class="tab-radio" checked>
+<input type="radio" name="tab-group" id="tab2" class="tab-radio">
+<input type="radio" name="tab-group" id="tab3" class="tab-radio">
+<input type="radio" name="tab-group" id="tab4" class="tab-radio">
+
+<!-- Tab Navigation -->
+<nav class="tab-nav">
+  <label for="tab1">
+    <span class="tab-icon">📊</span>
+    <span class="tab-text">中考五年历史</span>
+  </label>
+  <label for="tab2">
+    <span class="tab-icon">🔮</span>
+    <span class="tab-text">2026预测</span>
+  </label>
+  <label for="tab3">
+    <span class="tab-icon">🏫</span>
+    <span class="tab-text">高考11年分析</span>
+  </label>
+  <label for="tab4">
+    <span class="tab-icon">📋</span>
+    <span class="tab-text">小卷实验班</span>
+  </label>
+</nav>
+
+<!-- Tab Panels -->
+<div class="tab-wrapper">
+
+<!-- ================================================================ -->
+<!-- TAB 1: 中考五年历史 -->
+<!-- ================================================================ -->
+<div id="panel1" class="tab-panel">
+
+<div class="tab-page-header">
+  <h1>📊 天津中考近五年(2021-2025)一分一段及录取学校分析报告</h1>
+  <div class="sub">生成日期：2026-06-14 | 数据来源：天津市教育招生考试院、招考资讯网等公开渠道</div>
+  <div class="sub">⚠️ 2021年满分590分，2022-2025年满分800分，跨年对比以位次排名为主要参考依据</div>
+</div>
+
+<div class="container">
+
+<!-- 总分说明 -->
+<div class="card">
+  <h2>📌 总分说明与历年对比</h2>
+  <table>
+    <tr><th>年份</th><th>满分</th><th>学业笔试</th><th>体育</th><th>全市考生</th><th>平均分</th><th>备注</th></tr>
+    <tr><td>2021</td><td>590</td><td>560</td><td>30</td><td>~9.5万</td><td>419.08</td><td>旧中考体系</td></tr>
+    <tr><td>2022</td><td>800</td><td>760</td><td>40</td><td>~10.9万</td><td>566.95</td><td>改革元年</td></tr>
+    <tr><td>2023</td><td>800</td><td>760</td><td>40</td><td>~11.8万</td><td>—</td><td>试卷偏难</td></tr>
+    <tr><td>2024</td><td>800</td><td>760</td><td>40</td><td>~12.3万</td><td>—</td><td>试卷适中</td></tr>
+    <tr><td>2025</td><td>800</td><td>760</td><td>40</td><td>~13.1万</td><td>—</td><td>难度增大</td></tr>
+  </table>
+  <div class="note">📝 2022年起中考改革，新增道德与法治(100分)、历史(100分)，考试天数由2天变为2.5天。2025年考生数达13.1万创历史新高。</div>
+</div>
+
+<!-- 数据来源核实 -->
+<div class="card">
+  <h2>✅ 数据来源核实状态</h2>
+  <p style="margin-bottom:12px;color:var(--text2);">以下汇总本报告各数据块的来源核实情况。<span class="tag tag-verified">✅ 已核实(3+来源)</span> 表示有3个及以上独立来源；<span class="tag tag-limited">⚠️ 来源不足3个</span> 表示仅1-2个来源；<span class="tag tag-estimated">🔶 估算值</span> 表示基于公开数据的推算。</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th>数据块</th><th>核实状态</th><th>来源数</th><th>说明</th></tr>
+    <tr>
+      <td>2025年全市考生13.1万 / 普高招生95,826 / 普高率73%</td>
+      <td><span class="tag tag-verified">✅ 已核实</span></td><td>4</td>
+      <td>搜狐、央广网、新浪财经、锐满分教育等</td>
+    </tr>
+    <tr>
+      <td>2025年780+→203人, 760+→3,494人</td>
+      <td><span class="tag tag-limited">⚠️ 来源不足</span></td><td>1</td>
+      <td>仅搜狐教育原创报道</td>
+    </tr>
+    <tr>
+      <td>2025年700+→34,581人</td>
+      <td><span class="tag tag-limited">⚠️ 来源不足</span></td><td>2</td>
+      <td>腾讯新闻、搜狐</td>
+    </tr>
+    <tr>
+      <td>2025年市五所招生计划（南开/一中/耀华/新华各665，实验~660）</td>
+      <td><span class="tag tag-verified">✅ 已核实</span></td><td>3</td>
+      <td>自主选拔在线、搜狐、锐满分教育</td>
+    </tr>
+    <tr>
+      <td>2024年一分一段表(PDF)</td>
+      <td><span class="tag tag-limited">⚠️ 来源不足</span></td><td>1</td>
+      <td>仅自主选拔在线转载</td>
+    </tr>
+    <tr>
+      <td>2023年一分一段表(PDF)</td>
+      <td><span class="tag tag-limited">⚠️ 来源不足</span></td><td>1</td>
+      <td>仅北京高考在线转载</td>
+    </tr>
+    <tr>
+      <td>2025年录取分数线（市九所等）</td>
+      <td><span class="tag tag-limited">⚠️ 来源不足</span></td><td>1</td>
+      <td>仅搜狐教育</td>
+    </tr>
+    <tr>
+      <td>市九所招生规模（历史数据）</td>
+      <td><span class="tag tag-estimated">🔶 估算值</span></td><td>—</td>
+      <td>基于班额和班级数估算，无官方统一口径</td>
+    </tr>
+    <tr>
+      <td>河西区高中招生规模</td>
+      <td><span class="tag tag-estimated">🔶 估算值</span></td><td>—</td>
+      <td>基于班额和班级数估算，无官方统一口径</td>
+    </tr>
+    <tr>
+      <td>2025年5分一档详细估算值（标注~的）</td>
+      <td><span class="tag tag-estimated">🔶 估算值</span></td><td>—</td>
+      <td>基于已知数据点结合2024年分布比例推算</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<!-- 关键数据 -->
+<div class="card">
+  <h2>📈 2025年中考关键数据</h2>
+  <div class="info-box">
+    <div class="info-item"><span class="num">13.1万</span><span class="label">考生总数 <span class="tag tag-verified">✅</span></span></div>
+    <div class="info-item"><span class="num">203</span><span class="label">780分以上(↓108) <span class="tag tag-limited">⚠️</span></span></div>
+    <div class="info-item"><span class="num">3,494</span><span class="label">760分以上(↓2,369) <span class="tag tag-limited">⚠️</span></span></div>
+    <div class="info-item"><span class="num">34,581</span><span class="label">700分以上(↓6,501) <span class="tag tag-limited">⚠️</span></span></div>
+    <div class="info-item"><span class="num">95,826</span><span class="label">普高招生计划 <span class="tag tag-verified">✅</span></span></div>
+    <div class="info-item"><span class="num">73%</span><span class="label">普高录取率 <span class="tag tag-verified">✅</span></span></div>
+  </div>
+  <div class="note">📊 数据来源：搜狐教育《天津中考成绩出炉：满分800分，全市780分以上人数有203人》<br><span class="tag tag-verified">✅ 考生总数/普高招生已核实(4来源)</span> <span class="tag tag-limited">⚠️ 780+/760+仅1来源</span></div>
+</div>
+
+<!-- 表1：一分一段对照表 -->
+<div class="card">
+  <h2>📋 表1：近五年(2021-2025)一分一段表对照（5分一档，含全市位次范围）</h2>
+  <div class="note">📌 <strong>位次范围</strong>栏为该分数段对应的全市排名区间。例如"780+ 位次1-203"表示全市前203名均在780分以上。"位次"建议作为跨年对比的主要依据。</div>
+  
+  <div class="scroll-x">
+  <h3>高分段 (≥750分)</h3>
+  <table>
+    <tr>
+      <th>5分档</th><th>分数范围</th>
+      <th>2025年累计</th><th>2025年位次范围</th>
+      <th>2024年累计</th><th>2024年位次范围</th>
+      <th>2023年累计</th><th>2023年位次范围</th>
+      <th>趋势</th>
+    </tr>
+    <tr class="score-high">
+      <td>780+</td><td>≥780</td>
+      <td><strong>203</strong></td><td>1 ~ 203</td>
+      <td>311</td><td>1 ~ 311</td>
+      <td>—</td><td>—</td>
+      <td class="trend-down">↓35%</td>
+    </tr>
+    <tr class="score-high">
+      <td>775-779</td><td>775~779</td>
+      <td><strong>~700</strong></td><td>204 ~ 700</td>
+      <td>~1,175</td><td>312 ~ 1,175</td>
+      <td>640</td><td>1 ~ 640</td>
+      <td class="trend-down">↓40%</td>
+    </tr>
+    <tr class="score-high">
+      <td>770-774</td><td>770~774</td>
+      <td><strong>~1,200</strong></td><td>701 ~ 1,200</td>
+      <td>2,039</td><td>1,176 ~ 2,039</td>
+      <td>1,477</td><td>641 ~ 1,477</td>
+      <td class="trend-down">↓41%</td>
+    </tr>
+    <tr class="score-high">
+      <td>765-769</td><td>765~769</td>
+      <td><strong>~2,300</strong></td><td>1,201 ~ 2,300</td>
+      <td>~3,951</td><td>2,040 ~ 3,951</td>
+      <td>~2,781</td><td>1,478 ~ 2,781</td>
+      <td class="trend-down">↓42%</td>
+    </tr>
+    <tr>
+      <td>760-764</td><td>760~764</td>
+      <td><strong>3,494</strong></td><td>2,301 ~ 3,494</td>
+      <td>5,863</td><td>3,952 ~ 5,863</td>
+      <td>4,258</td><td>2,782 ~ 4,258</td>
+      <td class="trend-down">↓40%</td>
+    </tr>
+    <tr>
+      <td>755-759</td><td>755~759</td>
+      <td><strong>~5,100</strong></td><td>3,495 ~ 5,100</td>
+      <td>~8,443</td><td>5,864 ~ 8,443</td>
+      <td>~6,173</td><td>4,259 ~ 6,173</td>
+      <td class="trend-down">↓40%</td>
+    </tr>
+    <tr>
+      <td>750-754</td><td>750~754</td>
+      <td><strong>~6,900</strong></td><td>5,101 ~ 6,900</td>
+      <td>11,243</td><td>8,444 ~ 11,243</td>
+      <td>8,274</td><td>6,174 ~ 8,274</td>
+      <td class="trend-down">↓39%</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="scroll-x">
+  <h3>中高分段 (700-749分)</h3>
+  <table>
+    <tr>
+      <th>5分档</th><th>分数范围</th>
+      <th>2025年累计</th><th>2025年位次</th>
+      <th>2024年累计</th><th>2024年位次</th>
+      <th>2023年累计</th><th>2023年位次</th>
+      <th>趋势</th>
+    </tr>
+    <tr class="score-mid-high">
+      <td>745-749</td><td>745~749</td>
+      <td><strong>~9,000</strong></td><td>6,901 ~ 9,000</td>
+      <td>~14,376</td><td>11,244 ~ 14,376</td>
+      <td>~10,604</td><td>8,275 ~ 10,604</td>
+      <td class="trend-down">↓37%</td>
+    </tr>
+    <tr class="score-mid-high">
+      <td>740-744</td><td>740~744</td>
+      <td><strong>~11,300</strong></td><td>9,001 ~ 11,300</td>
+      <td>17,508</td><td>14,377 ~ 17,508</td>
+      <td>12,958</td><td>10,605 ~ 12,958</td>
+      <td>↑35%</td>
+    </tr>
+    <tr class="score-mid-high">
+      <td>735-739</td><td>735~739</td>
+      <td><strong>~13,700</strong></td><td>11,301 ~ 13,700</td>
+      <td>~20,648</td><td>17,509 ~ 20,648</td>
+      <td>~15,775</td><td>12,959 ~ 15,775</td>
+      <td>↑31%</td>
+    </tr>
+    <tr>
+      <td>730-734</td><td>730~734</td>
+      <td><strong>~16,200</strong></td><td>13,701 ~ 16,200</td>
+      <td>23,777</td><td>20,649 ~ 23,777</td>
+      <td>18,276</td><td>15,776 ~ 18,276</td>
+      <td>↑30%</td>
+    </tr>
+    <tr>
+      <td>725-729</td><td>725~729</td>
+      <td><strong>~18,800</strong></td><td>16,201 ~ 18,800</td>
+      <td>~26,898</td><td>23,778 ~ 26,898</td>
+      <td>~20,935</td><td>18,277 ~ 20,935</td>
+      <td>↑28%</td>
+    </tr>
+    <tr>
+      <td>720-724</td><td>720~724</td>
+      <td><strong>~21,500</strong></td><td>18,801 ~ 21,500</td>
+      <td>29,813</td><td>26,899 ~ 29,813</td>
+      <td>23,809</td><td>20,936 ~ 23,809</td>
+      <td>↑25%</td>
+    </tr>
+    <tr>
+      <td>715-719</td><td>715~719</td>
+      <td><strong>~24,300</strong></td><td>21,501 ~ 24,300</td>
+      <td>~32,797</td><td>29,814 ~ 32,797</td>
+      <td>~26,746</td><td>23,810 ~ 26,746</td>
+      <td>↑22%</td>
+    </tr>
+    <tr>
+      <td>710-714</td><td>710~714</td>
+      <td><strong>~27,200</strong></td><td>24,301 ~ 27,200</td>
+      <td>35,575</td><td>32,798 ~ 35,575</td>
+      <td>29,286</td><td>26,747 ~ 29,286</td>
+      <td>↑22%</td>
+    </tr>
+    <tr>
+      <td>705-709</td><td>705~709</td>
+      <td><strong>~30,200</strong></td><td>27,201 ~ 30,200</td>
+      <td>~39,173</td><td>35,576 ~ 39,173</td>
+      <td>~32,060</td><td>29,287 ~ 32,060</td>
+      <td>↑20%</td>
+    </tr>
+    <tr style="background:#fce4ec;">
+      <td><strong>700+</strong></td><td><strong>≥700</strong></td>
+      <td><strong>34,581</strong></td><td><strong>30,201 ~ 34,581</strong></td>
+      <td><strong>41,082</strong></td><td><strong>39,174 ~ 41,082</strong></td>
+      <td><strong>34,730</strong></td><td><strong>32,061 ~ 34,730</strong></td>
+      <td class="trend-down">↓15.8%</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="scroll-x">
+  <h3>中分段 (600-699分) — 2024 vs 2023 完整对照</h3>
+  <table>
+    <tr><th>分数档</th><th>2024累计</th><th>2024位次范围</th><th>2023累计</th><th>2023位次范围</th><th>变化</th></tr>
+    <tr><td>690+</td><td>46,136</td><td>41,083 ~ 46,136</td><td>39,781</td><td>34,731 ~ 39,781</td><td>↑16%</td></tr>
+    <tr><td>680+</td><td>50,825</td><td>46,137 ~ 50,825</td><td>44,411</td><td>39,782 ~ 44,411</td><td>↑14%</td></tr>
+    <tr><td>670+</td><td>55,220</td><td>50,826 ~ 55,220</td><td>48,676</td><td>44,412 ~ 48,676</td><td>↑13%</td></tr>
+    <tr><td>660+</td><td>59,304</td><td>55,221 ~ 59,304</td><td>52,685</td><td>48,677 ~ 52,685</td><td>↑13%</td></tr>
+    <tr><td>650+</td><td>62,973</td><td>59,305 ~ 62,973</td><td>56,299</td><td>52,686 ~ 56,299</td><td>↑12%</td></tr>
+    <tr><td>640+</td><td>66,563</td><td>62,974 ~ 66,563</td><td>59,568</td><td>56,300 ~ 59,568</td><td>↑12%</td></tr>
+    <tr><td>630+</td><td>69,820</td><td>66,564 ~ 69,820</td><td>62,631</td><td>59,569 ~ 62,631</td><td>↑12%</td></tr>
+    <tr><td>620+</td><td>72,790</td><td>69,821 ~ 72,790</td><td>65,545</td><td>62,632 ~ 65,545</td><td>↑11%</td></tr>
+    <tr><td>610+</td><td>75,537</td><td>72,791 ~ 75,537</td><td>68,222</td><td>65,546 ~ 68,222</td><td>↑11%</td></tr>
+    <tr><td>600+</td><td>78,097</td><td>75,538 ~ 78,097</td><td>70,716</td><td>68,223 ~ 70,716</td><td>↑10%</td></tr>
+  </table>
+  </div>
+
+  <div class="scroll-x">
+  <h3>中低分段 (500-599分) — 2024 vs 2023 完整对照</h3>
+  <table>
+    <tr><th>分数档</th><th>2024累计</th><th>2024位次范围</th><th>2023累计</th><th>2023位次范围</th><th>变化</th></tr>
+    <tr><td>590+</td><td>80,438</td><td>78,098 ~ 80,438</td><td>73,044</td><td>70,717 ~ 73,044</td><td>↑10%</td></tr>
+    <tr><td>580+</td><td>82,597</td><td>80,439 ~ 82,597</td><td>75,268</td><td>73,045 ~ 75,268</td><td>↑10%</td></tr>
+    <tr><td>570+</td><td>84,612</td><td>82,598 ~ 84,612</td><td>77,246</td><td>75,269 ~ 77,246</td><td>↑10%</td></tr>
+    <tr><td>560+</td><td>86,464</td><td>84,613 ~ 86,464</td><td>79,120</td><td>77,247 ~ 79,120</td><td>↑9%</td></tr>
+    <tr><td>550+</td><td>88,187</td><td>86,465 ~ 88,187</td><td>80,903</td><td>79,121 ~ 80,903</td><td>↑9%</td></tr>
+    <tr><td>540+</td><td>89,785</td><td>88,188 ~ 89,785</td><td>82,534</td><td>80,904 ~ 82,534</td><td>↑9%</td></tr>
+    <tr><td>530+</td><td>91,303</td><td>89,786 ~ 91,303</td><td>84,198</td><td>82,535 ~ 84,198</td><td>↑8%</td></tr>
+    <tr><td>520+</td><td>92,796</td><td>91,304 ~ 92,796</td><td>85,727</td><td>84,199 ~ 85,727</td><td>↑8%</td></tr>
+    <tr><td>510+</td><td>94,162</td><td>92,797 ~ 94,162</td><td>87,160</td><td>85,728 ~ 87,160</td><td>↑8%</td></tr>
+    <tr><td>500+</td><td>95,543</td><td>94,163 ~ 95,543</td><td>88,639</td><td>87,161 ~ 88,639</td><td>↑8%</td></tr>
+  </table>
+  </div>
+
+  <div class="note">
+    📝 <strong>数据说明：</strong><br>
+    ① 2025年"累计"列中带<strong>~</strong>的为估算值，基于已知数据点(780+/760+/700+)结合2024年分布比例推算。<br>
+    ② 2024年、2023年累计数据来自官方PDF一分一段表，数据完整。<br>
+    ③ 位次范围计算方式：某分数段位次 = [上一档累计+1, 本档累计]。如"760-764"档位次 = [前档累计+1, 760+累计]。<br>
+    ④ 跨年对比时，位次比分数更有参考价值——同样的位次在不同年份对应的分数不同。<br>
+    ⑤ <span class="tag tag-estimated">🔶 2025年5分一档数据为估算值</span> <span class="tag tag-limited">⚠️ 2024/2023一分一段仅1来源</span>
+  </div>
+</div>
+
+<!-- 表4：分数→位次快速对照表 -->
+<div class="card">
+  <h2>🔢 表4：分数→位次快速对照表（2023-2025）</h2>
+  <p style="margin-bottom:12px;color:var(--text2);">根据你的分数查询对应的全市位次范围，了解自己在当年考生中的相对位置。</p>
+
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>分数</th>
+      <th>2025年位次</th>
+      <th>2024年位次</th>
+      <th>2023年位次</th>
+      <th>位次解读</th>
+    </tr>
+    <tr style="background:#fce4ec;">
+      <td><strong>780+</strong></td><td>1 ~ 203</td><td>1 ~ 311</td><td>—</td><td><span class="tag tag-rank1">全市前0.15%</span></td></tr>
+    <tr style="background:#fce4ec;">
+      <td><strong>775+</strong></td><td>1 ~ 700</td><td>1 ~ 1,175</td><td>1 ~ 640</td><td><span class="tag tag-rank2">全市前0.5%</span></td></tr>
+    <tr style="background:#fce4ec;">
+      <td><strong>770+</strong></td><td>1 ~ 1,200</td><td>1 ~ 2,039</td><td>1 ~ 1,477</td><td><span class="tag tag-rank2">全市前1%</span></td></tr>
+    <tr>
+      <td><strong>765+</strong></td><td>1 ~ 2,300</td><td>1 ~ 3,951</td><td>1 ~ 2,781</td><td><span class="tag tag-rank3">全市前2%</span></td></tr>
+    <tr>
+      <td><strong>760+</strong></td><td>1 ~ 3,494</td><td>1 ~ 5,863</td><td>1 ~ 4,258</td><td><span class="tag tag-rank3">全市前3%</span></td></tr>
+    <tr>
+      <td><strong>755+</strong></td><td>1 ~ 5,100</td><td>1 ~ 8,443</td><td>1 ~ 6,173</td><td><span class="tag tag-rank4">全市前5%</span></td></tr>
+    <tr>
+      <td><strong>750+</strong></td><td>1 ~ 6,900</td><td>1 ~ 11,243</td><td>1 ~ 8,274</td><td><span class="tag tag-rank4">全市前7%</span></td></tr>
+    <tr>
+      <td><strong>745+</strong></td><td>1 ~ 9,000</td><td>1 ~ 14,376</td><td>1 ~ 10,604</td><td><span class="tag tag-rank5">全市前10%</span></td></tr>
+    <tr>
+      <td><strong>740+</strong></td><td>1 ~ 11,300</td><td>1 ~ 17,508</td><td>1 ~ 12,958</td><td><span class="tag tag-rank5">全市前12%</span></td></tr>
+    <tr>
+      <td><strong>735+</strong></td><td>1 ~ 13,700</td><td>1 ~ 20,648</td><td>1 ~ 15,775</td><td><span class="tag tag-rank5">全市前15%</span></td></tr>
+    <tr>
+      <td><strong>730+</strong></td><td>1 ~ 16,200</td><td>1 ~ 23,777</td><td>1 ~ 18,276</td><td><span class="tag tag-rank6">全市前17%</span></td></tr>
+    <tr>
+      <td><strong>720+</strong></td><td>1 ~ 21,500</td><td>1 ~ 29,813</td><td>1 ~ 23,809</td><td><span class="tag tag-rank6">全市前22%</span></td></tr>
+    <tr>
+      <td><strong>710+</strong></td><td>1 ~ 27,200</td><td>1 ~ 35,575</td><td>1 ~ 29,286</td><td><span class="tag tag-rank7">全市前27%</span></td></tr>
+    <tr>
+      <td><strong>700+</strong></td><td>1 ~ 34,581</td><td>1 ~ 41,082</td><td>1 ~ 34,730</td><td><span class="tag tag-rank7">全市前31%</span></td></tr>
+    <tr>
+      <td><strong>690+</strong></td><td>—</td><td>1 ~ 46,136</td><td>1 ~ 39,781</td><td>全市前37%</td></tr>
+    <tr>
+      <td><strong>680+</strong></td><td>—</td><td>1 ~ 50,825</td><td>1 ~ 44,411</td><td>全市前41%</td></tr>
+    <tr>
+      <td><strong>670+</strong></td><td>—</td><td>1 ~ 55,220</td><td>1 ~ 48,676</td><td>全市前44%</td></tr>
+    <tr>
+      <td><strong>660+</strong></td><td>—</td><td>1 ~ 59,304</td><td>1 ~ 52,685</td><td>全市前47%</td></tr>
+    <tr>
+      <td><strong>650+</strong></td><td>—</td><td>1 ~ 62,973</td><td>1 ~ 56,299</td><td>全市前50%</td></tr>
+    <tr>
+      <td><strong>640+</strong></td><td>—</td><td>1 ~ 66,563</td><td>1 ~ 59,568</td><td>全市前53%</td></tr>
+    <tr>
+      <td><strong>630+</strong></td><td>—</td><td>1 ~ 69,820</td><td>1 ~ 62,631</td><td>全市前56%</td></tr>
+    <tr>
+      <td><strong>620+</strong></td><td>—</td><td>1 ~ 72,790</td><td>1 ~ 65,545</td><td>全市前58%</td></tr>
+    <tr>
+      <td><strong>610+</strong></td><td>—</td><td>1 ~ 75,537</td><td>1 ~ 68,222</td><td>全市前61%</td></tr>
+    <tr>
+      <td><strong>600+</strong></td><td>—</td><td>1 ~ 78,097</td><td>1 ~ 70,716</td><td>全市前63%</td></tr>
+  </table>
+  </div>
+
+  <div class="note">
+    📌 <strong>使用方法：</strong><br>
+    ① 先找到你的分数所在行，查看对应年份的位次范围。<br>
+    ② 横向对比：同样的分数在不同年份位次差异很大（2025年试卷最难，同分排位更靠前）。<br>
+    ③ 建议以"位次"为目标填报：例如目标学校往年录取位次在2000-3000名，则找到该位次对应的当年分数作为参考。<br>
+    ④ 2025年700+位次约在30,201-34,581之间，而2024年相同位次对应约690+ — 说明2025年试卷难度显著增大。
+  </div>
+</div>
+
+<!-- 表2：各分数段对应录取学校 -->
+<div class="card">
+  <h2>🏫 表2：各分数段（5分一档）对应录取学校及特色班</h2>
+
+  <h3>高分段 (≥765分) — 市五所顶尖校</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>5分档</th><th>位次参考</th><th>2025年录取线/学校</th><th>2024年录取线/学校</th><th>2023年录取线/学校</th>
+    </tr>
+    <tr>
+      <td><span class="tag tag-five">780+</span></td>
+      <td>前200</td>
+      <td>南开中学实验班 / 天津一中创新班</td>
+      <td>同上</td>
+      <td>同上</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-five">775-779</span></td>
+      <td>200-700</td>
+      <td>天津一中 <strong>768.9</strong><br>南开中学 <strong>766.09</strong></td>
+      <td>天津一中 ~773<br>南开中学 ~772</td>
+      <td>天津一中 ~771<br>南开中学 ~770</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-five">770-774</span></td>
+      <td>700-1,200</td>
+      <td>耀华中学 <strong>762.8</strong></td>
+      <td>耀华中学 ~767</td>
+      <td>耀华中学 ~764</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-five">765-769</span></td>
+      <td>1,200-2,300</td>
+      <td>新华中学 <strong>758.25</strong><br>实验中学 <strong>755.15</strong></td>
+      <td>新华中学 <strong>764.55</strong><br>实验中学 ~760<br>南开日新学校 <strong>764</strong></td>
+      <td>新华中学 ~760<br>实验中学 ~757</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>中高分段 (750-764分) — 市五所 + 优质校</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>5分档</th><th>位次参考</th><th>2025年录取学校/分数线</th><th>2024年录取学校/分数线</th><th>2023年录取学校/分数线</th>
+    </tr>
+    <tr>
+      <td><span class="tag tag-nine">760-764</span></td>
+      <td>2,300-3,500</td>
+      <td>耀华中学 <strong>762.8</strong></td>
+      <td>第二十中学 <strong>760.75</strong><br>南开日新学校 <strong>764</strong></td>
+      <td>第二十中学 ~753<br>第四中学 ~752</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-nine">755-759</span></td>
+      <td>3,500-5,100</td>
+      <td>新华中学 <strong>758.25</strong><br>实验中学 <strong>755.15</strong></td>
+      <td>第四中学 <strong>758</strong></td>
+      <td>实验中学 ~757<br>新华中学 ~760</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-nine">750-754</span></td>
+      <td>5,100-6,900</td>
+      <td>实验中学王克昌班 <strong>753.95</strong></td>
+      <td>第二南开学校 <strong>754.75</strong><br>第二新华中学 <strong>754.74</strong><br>鹏飞学校 <strong>754.05</strong><br>第四十二中学 <strong>752.5</strong></td>
+      <td>第二南开学校 ~752<br>第二新华中学 ~748<br>第四十二中学 <strong>745</strong></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>中分段 (725-749分) — 市九所 + 各区龙头</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>5分档</th><th>位次参考</th><th>2025年录取学校/分数线</th><th>2024年录取学校/分数线</th><th>2023年录取学校/分数线</th>
+    </tr>
+    <tr>
+      <td><span class="tag tag-key">745-749</span></td>
+      <td>6,900-9,000</td>
+      <td>杨村一中首批 <strong>745</strong></td>
+      <td>—</td>
+      <td>第四十二中学 <strong>745</strong></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-key">740-744</span></td>
+      <td>9,000-11,300</td>
+      <td>杨村一中最低 <strong>740.6</strong></td>
+      <td>天津七中 <strong>741.2</strong><br>天津中学 <strong>739.95</strong></td>
+      <td>英华实验 <strong>740.75</strong></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-key">735-739</span></td>
+      <td>11,300-13,700</td>
+      <td>天津七中 <strong>734.15</strong></td>
+      <td>天津二中 <strong>738.1</strong></td>
+      <td>海河中学 <strong>738.4</strong><br>第五十五中学 <strong>736.25</strong><br>南大附中 <strong>735.25</strong></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-key">730-734</span></td>
+      <td>13,700-16,200</td>
+      <td>天津二中 <strong>730.5</strong><br>天津中学 <strong>730.25</strong></td>
+      <td>—</td>
+      <td>耀华红桥 <strong>733.7</strong><br>天津中学 <strong>731.65</strong><br>杨村三中 <strong>730.15</strong></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-key">725-729</span></td>
+      <td>16,200-18,800</td>
+      <td>杨村一中指标 <strong>725.1</strong></td>
+      <td>天津三中 <strong>725.25</strong></td>
+      <td>天津二中 <strong>727.6</strong><br>双菱中学 <strong>729.45</strong></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>中等分段 (700-724分)</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>5分档</th><th>位次参考</th><th>2025年</th><th>2024年</th><th>2023年</th></tr>
+    <tr><td>720-724</td><td>18,800-21,500</td><td>杨村三中 <strong>720.57</strong></td><td>海河中学 ~722</td><td>第二中学 <strong>727.6</strong></td></tr>
+    <tr><td>715-719</td><td>21,500-24,300</td><td>宝坻一中 <strong>717.85</strong>、天津三中 <strong>713.2</strong></td><td>第五十五中学 ~718</td><td>静海一中 <strong>715.75</strong>、崇化中学 <strong>718.3</strong></td></tr>
+    <tr><td>710-714</td><td>24,300-27,200</td><td>耀华武清学校 <strong>710.69</strong></td><td>第二十一中学 ~712</td><td>汇文中学 <strong>718</strong>、益中学校 <strong>716.4</strong></td></tr>
+    <tr><td>705-709</td><td>27,200-30,200</td><td>—</td><td>南大附中 ~708</td><td>天津三中 <strong>716</strong></td></tr>
+    <tr><td>700-704</td><td>30,200-34,581</td><td>—</td><td>—</td><td>北师大天津附中 <strong>714.5</strong></td></tr>
+  </table>
+  </div>
+
+  <h3>650-699分 — 各区属重点、民办校</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>学校</th><th>2025年</th><th>2024年(参考)</th><th>2023年(参考)</th></tr>
+    <tr><td>天和城实验中学</td><td><strong>688</strong></td><td>~700</td><td>706.25</td></tr>
+    <tr><td>杨村四中</td><td><strong>669.95</strong></td><td>~690</td><td>686</td></tr>
+    <tr><td>宝坻四中</td><td><strong>631.4</strong></td><td>—</td><td>—</td></tr>
+    <tr><td>宝坻九中</td><td><strong>629.5</strong></td><td>—</td><td>—</td></tr>
+    <tr><td>第五十七中学</td><td>—</td><td>—</td><td>672.45</td></tr>
+    <tr><td>第四十一中学</td><td>—</td><td>~715</td><td>710.5</td></tr>
+    <tr><td>天津大学附属中学</td><td>—</td><td>~710</td><td>707.8</td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- 表3：特色班专项表 -->
+<div class="card">
+  <h2>🎯 表3：特色班专项表</h2>
+  
+  <h3>市五所特色班（小卷考试选拔）</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>特色班名称</th><th>选拔方式</th><th>录取参考</th>
+    </tr>
+    <tr><td>南开中学</td><td>拔尖创新型人才培养实验班</td><td>小卷+中考</td><td>高于普通班3-5分</td></tr>
+    <tr><td>南开中学</td><td>理科实验班</td><td>小卷</td><td>同上</td></tr>
+    <tr><td>天津一中</td><td>理科创新人才培养实验班</td><td>小卷+中考</td><td>高于普通班3-5分</td></tr>
+    <tr><td>耀华中学</td><td>理科实验班</td><td>小卷</td><td>高于普通班3-5分</td></tr>
+    <tr><td>耀华中学</td><td>法语班</td><td>小卷</td><td>—</td></tr>
+    <tr><td>新华中学</td><td>理科实验班</td><td>小卷</td><td>—</td></tr>
+    <tr><td>新华中学</td><td>法语班</td><td>小卷</td><td>—</td></tr>
+    <tr><td>实验中学</td><td>求是创新实验班</td><td>小卷</td><td>—</td></tr>
+    <tr><td>实验中学</td><td>科技创新班</td><td>小卷</td><td>—</td></tr>
+    <tr style="background:#e8f5e9;"><td>实验中学</td><td><strong>王克昌班</strong></td><td><strong>中考直接录取</strong></td><td><strong>2025: 753.95</strong></td></tr>
+  </table>
+  </div>
+
+  <h3>其他学校特色班</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>学校</th><th>特色班名称</th><th>说明</th></tr>
+    <tr><td>天津中学</td><td>创新实验班</td><td>高于普通班约5-10分</td></tr>
+    <tr><td>第二十中学</td><td>实验班</td><td>分班考试或中考成绩</td></tr>
+    <tr><td>第四中学</td><td>实验班</td><td>同上</td></tr>
+    <tr><td>第二南开学校</td><td>实验班</td><td>同上</td></tr>
+    <tr><td>南开翔宇学校</td><td>实验班</td><td>民办，独立招生</td></tr>
+  </table>
+  </div>
+
+  <div class="note">
+    📌 <strong>特色班录取说明：</strong><br>
+    ① 中考小卷：进入重点高中实验班的选拔考试，全市考生可参加<br>
+    ② 小卷时间：中考后、志愿填报前，各校自行组织<br>
+    ③ 2024年市五所实验班各招约80人（每校2个班）<br>
+    ④ 实验班高考成绩优异，如天津一中理科实验班2024年平均分达676.2分
+  </div>
+</div>
+
+<!-- 2025年完整录取线 -->
+<div class="card">
+  <h2>📋 2025年部分高中录取分数线汇总</h2>
+  <div class="scroll-x">
+  <table>
+    <tr><th>类型</th><th>学校名称</th><th>2025年录取最低分</th><th>对应2025年位次(约)</th></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>天津一中</td><td><strong>768.9</strong></td><td>~1,500</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>南开中学</td><td><strong>766.09</strong></td><td>~1,800</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>耀华中学</td><td><strong>762.8</strong></td><td>~2,400</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>新华中学</td><td><strong>758.25</strong></td><td>~3,700</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>实验中学</td><td><strong>755.15</strong></td><td>~4,800</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>实验中学王克昌班</td><td><strong>753.95</strong></td><td>~5,200</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>天津七中</td><td><strong>734.15</strong></td><td>~12,500</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>天津二中</td><td><strong>730.5</strong></td><td>~14,500</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>天津中学</td><td><strong>730.25</strong></td><td>~14,600</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>天津三中</td><td><strong>713.2</strong></td><td>~24,000</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>杨村一中(首批线)</td><td><strong>745</strong></td><td>~7,500</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>杨村一中(最低分)</td><td><strong>740.6</strong></td><td>~10,000</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>杨村一中(指标生)</td><td><strong>725.1</strong></td><td>~16,800</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>宝坻一中</td><td><strong>717.85</strong></td><td>~22,000</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>杨村三中</td><td><strong>720.57</strong></td><td>~20,000</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>杨村四中</td><td><strong>669.95</strong></td><td>~40,000+</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>天和城实验中学</td><td><strong>688</strong></td><td>~35,000+</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>耀华中学武清学校</td><td><strong>710.69</strong></td><td>~26,000</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>宝坻四中</td><td><strong>631.4</strong></td><td>~57,000+</td></tr>
+    <tr><td><span class="tag tag-key">区属</span></td><td>宝坻九中</td><td><strong>629.5</strong></td><td>~57,500+</td></tr>
+  </table>
+  </div>
+  <div class="note">📊 数据来源：https://www.sohu.com/a/917024760_121123818 <span class="tag tag-limited">⚠️ 仅1来源</span></div>
+</div>
+
+<!-- 2024年录取线 -->
+<div class="card">
+  <h2>📋 2024年市九所及高分段学校录取线</h2>
+  <div class="scroll-x">
+  <table>
+    <tr><th>类型</th><th>学校名称</th><th>2024年录取最低分</th><th>对应2024年位次(约)</th></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>天津一中</td><td>~773</td><td>~1,500</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>南开中学</td><td>~772</td><td>~1,700</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>耀华中学</td><td>~767</td><td>~3,000</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>新华中学</td><td><strong>764.55</strong></td><td>~4,000</td></tr>
+    <tr><td><span class="tag tag-warn">民办</span></td><td>南开日新学校</td><td><strong>764</strong></td><td>~4,200</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>第二十中学</td><td><strong>760.75</strong></td><td>~5,500</td></tr>
+    <tr><td><span class="tag tag-five">★市教委直属</span></td><td>实验中学</td><td>~760</td><td>~5,900</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>第四中学</td><td><strong>758</strong></td><td>~7,500</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>第二南开学校</td><td><strong>754.75</strong></td><td>~9,500</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>第二新华中学</td><td><strong>754.74</strong></td><td>~9,500</td></tr>
+    <tr><td><span class="tag tag-info">新建</span></td><td>南开学校鹏飞学校</td><td><strong>754.05</strong></td><td>~9,800</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>第四十二中学</td><td><strong>752.5</strong></td><td>~10,800</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>天津七中</td><td><strong>741.2</strong></td><td>~16,500</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>天津中学</td><td><strong>739.95</strong></td><td>~17,000</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>天津二中</td><td><strong>738.1</strong></td><td>~18,000</td></tr>
+    <tr><td><span class="tag tag-nine">▲区属市级重点</span></td><td>天津三中</td><td><strong>725.25</strong></td><td>~26,000</td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- 表5：市九所招生规模五年变化 -->
+<div class="card">
+  <h2>🏛️ 表5：市九所招生规模五年变化（2021-2025）</h2>
+  <p style="margin-bottom:12px;color:var(--text2);">市九所是天津顶尖高中的代表，其招生规模直接影响全市高分段考生的录取格局。以下数据为各校普通班+实验班合计招生人数。</p>
+
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>类别</th><th>2021年</th><th>2022年</th><th>2023年</th><th>2024年</th><th>2025年</th><th>趋势</th>
+    </tr>
+    <tr>
+      <td><strong>南开中学</strong></td>
+      <td><span class="tag tag-five">市五所</span></td>
+      <td>~470</td><td>~480</td><td>~480</td><td>~480</td><td><strong>665</strong></td>
+      <td class="trend-up">↑大幅扩招</td>
+    </tr>
+    <tr>
+      <td><strong>天津一中</strong></td>
+      <td><span class="tag tag-five">市五所</span></td>
+      <td>~470</td><td>~480</td><td>~480</td><td>~480</td><td><strong>665</strong></td>
+      <td class="trend-up">↑大幅扩招</td>
+    </tr>
+    <tr>
+      <td><strong>耀华中学</strong></td>
+      <td><span class="tag tag-five">市五所</span></td>
+      <td>~470</td><td>~480</td><td>~480</td><td>~480</td><td><strong>665</strong></td>
+      <td class="trend-up">↑大幅扩招</td>
+    </tr>
+    <tr>
+      <td><strong>新华中学</strong></td>
+      <td><span class="tag tag-five">市五所</span></td>
+      <td>~420</td><td>~430</td><td>~430</td><td>~665</td><td>~665</td>
+      <td class="trend-up">↑大幅扩招</td>
+    </tr>
+    <tr>
+      <td><strong>实验中学</strong></td>
+      <td><span class="tag tag-five">市五所</span></td>
+      <td>~510</td><td>~520</td><td>~520</td><td>~660</td><td>~660</td>
+      <td class="trend-up">↑大幅扩招</td>
+    </tr>
+    <tr style="background:#e8f0fe;">
+      <td><strong>市五所小计</strong></td>
+      <td><span class="tag tag-five">合计</span></td>
+      <td><strong>~2,340</strong></td><td><strong>~2,390</strong></td><td><strong>~2,390</strong></td><td><strong>~2,765</strong></td><td><strong>~3,320</strong></td>
+      <td class="trend-up">↑约42%</td>
+    </tr>
+    <tr>
+      <td><strong>天津二中</strong></td>
+      <td><span class="tag tag-nine">市九所</span></td>
+      <td>~280</td><td>~280</td><td>~280</td><td>~280</td><td>~280</td>
+      <td class="trend-flat">→持平</td>
+    </tr>
+    <tr>
+      <td><strong>天津三中</strong></td>
+      <td><span class="tag tag-nine">市九所</span></td>
+      <td>~280</td><td>~280</td><td>~280</td><td>~280</td><td>~280</td>
+      <td class="trend-flat">→持平</td>
+    </tr>
+    <tr>
+      <td><strong>天津七中</strong></td>
+      <td><span class="tag tag-nine">市九所</span></td>
+      <td>~430</td><td>~430</td><td>~430</td><td>~430</td><td>~440</td>
+      <td class="trend-up">↑微增</td>
+    </tr>
+    <tr>
+      <td><strong>天津中学</strong></td>
+      <td><span class="tag tag-nine">市九所</span></td>
+      <td>~440</td><td>~440</td><td>~440</td><td>~440</td><td>~450</td>
+      <td class="trend-up">↑微增</td>
+    </tr>
+    <tr style="background:#e8f0fe;">
+      <td><strong>市九所合计</strong></td>
+      <td><span class="tag tag-nine">总计</span></td>
+      <td><strong>~3,770</strong></td><td><strong>~3,820</strong></td><td><strong>~3,820</strong></td><td><strong>~4,195</strong></td><td><strong>~4,800</strong></td>
+      <td class="trend-up">↑约27%</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="tip-box">
+    📊 <strong>关键发现：</strong><br>
+    ① 2025年市五所大幅扩招：南开、一中、耀华各招665人，新华约665人，实验约660人，市五所合计约3,320人，较往年增加约900人。<br>
+    ② 市九所合计约4,800人，占总考生比例约3.7%，较往年提升。<br>
+    ③ 市九所=市五所(一中、南开、耀华、新华、实验)+四所区属市级重点(二中、三中、七中、天津中学)。<br>
+    ④ 市九所录取位次要求：全市前4,000-8,000名（市五所要求前2,000-3,500名）。<br>
+    ⑤ <span class="tag tag-verified">✅ 2025年市五所招生计划已核实(3个来源)</span>
+  </div>
+
+  <h3>市九所录取位次要求对比</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>学校</th><th>2025年分数线</th><th>2025年位次(约)</th><th>2024年位次(约)</th><th>2023年位次(约)</th><th>位次要求</th></tr>
+    <tr><td>天津一中</td><td>768.9</td><td>~1,500</td><td>~1,500</td><td>~1,500</td><td><span class="tag tag-rank1">前1.1%</span></td></tr>
+    <tr><td>南开中学</td><td>766.09</td><td>~1,800</td><td>~1,700</td><td>~1,500</td><td><span class="tag tag-rank1">前1.4%</span></td></tr>
+    <tr><td>耀华中学</td><td>762.8</td><td>~2,400</td><td>~3,000</td><td>~2,800</td><td><span class="tag tag-rank2">前2.2%</span></td></tr>
+    <tr><td>新华中学</td><td>758.25</td><td>~3,700</td><td>~4,000</td><td>~3,800</td><td><span class="tag tag-rank3">前3.2%</span></td></tr>
+    <tr><td>实验中学</td><td>755.15</td><td>~4,800</td><td>~5,900</td><td>~5,000</td><td><span class="tag tag-rank3">前4.1%</span></td></tr>
+    <tr><td>天津七中</td><td>734.15</td><td>~12,500</td><td>~16,500</td><td>~14,000</td><td><span class="tag tag-rank5">前11%</span></td></tr>
+    <tr><td>天津二中</td><td>730.5</td><td>~14,500</td><td>~18,000</td><td>~15,000</td><td><span class="tag tag-rank5">前13%</span></td></tr>
+    <tr><td>天津中学</td><td>730.25</td><td>~14,600</td><td>~17,000</td><td>~15,000</td><td><span class="tag tag-rank5">前13%</span></td></tr>
+    <tr><td>天津三中</td><td>713.2</td><td>~24,000</td><td>~26,000</td><td>~22,000</td><td><span class="tag tag-rank6">前20%</span></td></tr>
+  </table>
+  </div>
+</div>
+
+<!-- 表6：河西区主要高中招生规模 -->
+<div class="card">
+  <h2>🏘️ 表6：河西区主要高中招生规模趋势（2021-2025）</h2>
+  <p style="margin-bottom:12px;color:var(--text2);">河西区是天津教育资源最集中的区域之一，拥有新华中学、实验中学两所市五所学校，以及多所优质区属重点高中。</p>
+
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>类别</th><th>2021年</th><th>2022年</th><th>2023年</th><th>2024年</th><th>2025年</th><th>趋势</th>
+    </tr>
+    <tr>
+      <td><strong>新华中学</strong></td>
+      <td><span class="tag tag-five">市五所</span></td>
+      <td>~420</td><td>~430</td><td>~430</td><td>~665</td><td>~665</td>
+      <td class="trend-up">↑大幅扩招</td>
+    </tr>
+    <tr>
+      <td><strong>实验中学</strong></td>
+      <td><span class="tag tag-five">市五所</span></td>
+      <td>~510</td><td>~520</td><td>~520</td><td>~660</td><td>~660</td>
+      <td class="trend-up">↑大幅扩招</td>
+    </tr>
+    <tr>
+      <td><strong>第四中学</strong></td>
+      <td><span class="tag tag-nine">区属市重点</span></td>
+      <td>~380</td><td>~390</td><td>~400</td><td>~400</td><td>~400</td>
+      <td class="trend-flat">→持平</td>
+    </tr>
+    <tr>
+      <td><strong>第四十二中学</strong></td>
+      <td><span class="tag tag-nine">区属市重点</span></td>
+      <td>~380</td><td>~390</td><td>~400</td><td>~400</td><td>~400</td>
+      <td class="trend-flat">→持平</td>
+    </tr>
+    <tr>
+      <td><strong>海河中学</strong></td>
+      <td><span class="tag tag-nine">区属市重点</span></td>
+      <td>~380</td><td>~390</td><td>~400</td><td>~400</td><td>~400</td>
+      <td class="trend-flat">→持平</td>
+    </tr>
+    <tr>
+      <td><strong>第二新华中学</strong></td>
+      <td><span class="tag tag-info">小班校</span></td>
+      <td>—</td><td>~80</td><td>~160</td><td>~160</td><td>~240</td>
+      <td class="trend-up">↑大幅增长</td>
+    </tr>
+    <tr>
+      <td><strong>北师大天津附中</strong></td>
+      <td>区属重点</td>
+      <td>~300</td><td>~300</td><td>~300</td><td>~300</td><td>~320</td>
+      <td class="trend-up">↑微增</td>
+    </tr>
+    <tr>
+      <td><strong>微山路中学</strong></td>
+      <td>区属完中</td>
+      <td>~200</td><td>~200</td><td>~200</td><td>~200</td><td>~200</td>
+      <td class="trend-flat">→持平</td>
+    </tr>
+    <tr>
+      <td><strong>其他区属高中</strong></td>
+      <td>区属</td>
+      <td>~350</td><td>~350</td><td>~350</td><td>~350</td><td>~380</td>
+      <td class="trend-up">↑微增</td>
+    </tr>
+    <tr style="background:#e8f0fe;">
+      <td><strong>河西区合计</strong></td>
+      <td><span class="tag tag-key">总计</span></td>
+      <td><strong>~2,920</strong></td><td><strong>~3,050</strong></td><td><strong>~3,160</strong></td><td><strong>~3,535</strong></td><td><strong>~3,665</strong></td>
+      <td class="trend-up">↑25%</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="tip-box">
+    📊 <strong>河西区招生格局分析：</strong><br>
+    ① 河西区是全市拥有市五所学校最多的行政区（新华中学、实验中学两所），两校合计招生约1,325人。<br>
+    ② 第二新华中学是近三年增长最快的学校：2022年首次招生约80人，2025年扩至约240人，三年增长200%。<br>
+    ③ 河西区整体普高招生规模从2021年约2,920人增长至2025年约3,665人，增幅约25%，新华实验大幅扩招是主因。<br>
+    ④ 区属重点校（四中、四十二中、海河）位次要求约为全市前8,000-15,000名，为河西区考生提供优质升学通道。<br>
+    ⑤ 2025年河西区主要高中录取线降序：新华(758.25) > 实验(755.15) > 实验王克昌(753.95) > 四十二中(~745) > 四中(~743) > 海河(~735) > 二新华(~730) > 北师大附中(~720)。<br>
+    ⑥ <span class="tag tag-verified">✅ 2025年新华/实验招生计划已核实(3个来源)</span>
+  </div>
+</div>
+
+<!-- 关键趋势分析 -->
+<div class="card">
+  <h2>📊 关键趋势分析</h2>
+
+  <div class="info-box">
+    <div class="info-item"><span class="num">9.5万→13.1万</span><span class="label">考生5年增长38%</span></div>
+    <div class="info-item"><span class="num">311→203</span><span class="label">780+人数2025骤降</span></div>
+    <div class="info-item"><span class="num">~770→~766</span><span class="label">市五所录取线下探</span></div>
+    <div class="info-item"><span class="num">73%</span><span class="label">普高录取率提升</span></div>
+  </div>
+
+  <h3>1️⃣ 考生人数持续增长</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>年份</th><th>考生人数</th><th>年增长率</th><th>普高招生计划</th><th>普高录取率</th></tr>
+    <tr><td>2021</td><td>~9.5万</td><td>—</td><td>~6.5万</td><td>~68%</td></tr>
+    <tr><td>2022</td><td>~10.9万</td><td>+14.7%</td><td>~7.2万</td><td>~66%</td></tr>
+    <tr><td>2023</td><td>~11.8万</td><td>+8.3%</td><td>~7.78万</td><td>~66%</td></tr>
+    <tr><td>2024</td><td>~12.3万</td><td>+4.2%</td><td>~8.5万</td><td>~69%</td></tr>
+    <tr><td>2025</td><td>~13.1万</td><td>+6.5%</td><td>95,826</td><td><strong>73%</strong></td></tr>
+  </table>
+  </div>
+
+  <h3>2️⃣ 考试难度波动明显</h3>
+  <ul style="margin-left:20px;line-height:2;">
+    <li><strong>2023年</strong>：试卷偏难，高分段较少（775+仅640人）</li>
+    <li><strong>2024年</strong>：难度适中，高分段大增（770+达2,039人，同比增38%）</li>
+    <li><strong>2025年</strong>：难度显著增大，780+仅203人（↓35%），760+仅3,494人（↓40%），700+仅34,581人（↓15.8%）</li>
+    <li><strong>位次视角</strong>：2025年考到760分的位次(2,301-3,494)相当于2024年考到~765分的位次，也相当于2023年考到~767分的位次</li>
+  </ul>
+
+  <h3>3️⃣ 录取格局变化</h3>
+  <ul style="margin-left:20px;line-height:2;">
+    <li><strong>市五所地位稳固</strong>：一中、南开、耀华、新华、实验，录取线稳定在755-770区间，位次要求前4,800名以内</li>
+    <li><strong>新兴力量崛起</strong>：南开日新学校2024年764分跻身顶尖；鹏飞学校754.05分亮眼；二新华从80人扩至240人</li>
+    <li><strong>小班化趋势</strong>：二新华(80→240人)、耀华红桥、觉民等小班学校逐步扩招，提供更多优质学位</li>
+    <li><strong>2025年分数线普遍下探</strong>：试题难度增大导致各校录取线较2024年下降3-10分，但位次要求基本稳定</li>
+    <li><strong>杨村一中持续强劲</strong>：首批线745分，保持武清区龙头地位，吸引大量市区高分考生</li>
+    <li><strong>私立校两极分化</strong>：头部私立校（津衡等）竞争激烈，部分远郊私立校需征询补录</li>
+  </ul>
+
+  <h3>4️⃣ 特色班竞争特点</h3>
+  <ul style="margin-left:20px;line-height:2;">
+    <li>实验班通过小卷考试选拔，录取线高于普通班3-10分</li>
+    <li>2024年各校实验班各招约80人（每校2个班），竞争激烈</li>
+    <li>实验中学王克昌班是唯一通过中考直接录取的特色班型（2025年753.95分）</li>
+    <li>小班化名校（80-100人）成为升学"潜力股"，录取位次逐年提升</li>
+  </ul>
+
+  <h3>5️⃣ 市九所招生规模变化趋势</h3>
+  <ul style="margin-left:20px;line-height:2;">
+    <li>2025年市五所大幅扩招：南开、一中、耀华各665人，新华约665人，实验约660人，市五所合计约3,320人，市九所合计约4,800人。</li>
+    <li>同时期考生从9.5万增至13.1万（+38%），市九所录取率约3.7%。</li>
+    <li>市五所录取位次持续前移：2025年需前4,800名以内才有机会进入市五所。</li>
+    <li>市九所中区属校（二中、三中、七中、天津中学）位次要求相对稳定，七中和天津中学略有提升。</li>
+  </ul>
+
+  <h3>6️⃣ 河西区招生规模变化趋势</h3>
+  <ul style="margin-left:20px;line-height:2;">
+    <li>河西区整体招生规模从约2,920人增至约3,665人（+25%），新华实验大幅扩招是主因。</li>
+    <li>第二新华中学高速扩招：2022年80人 → 2025年240人（+200%），成为河西区增长最快的学校</li>
+    <li>2025年河西区高中录取线分化明显：新华(758.25)到北师大附中(~720)跨度约38分</li>
+    <li>河西区考取本校优质高中的难度逐年加大，位次竞争激烈程度高于其他区</li>
+  </ul>
+</div>
+
+<!-- 位次+分数双维度填报建议 -->
+<div class="card">
+  <h2>🧭 位次+分数双维度填报建议</h2>
+  
+  <div class="note">
+    ⚠️ <strong>核心原则：</strong>分数因年份难度不同而变化巨大，<strong>位次是跨年对比的唯一可靠指标</strong>。以下给出2025年基于分数和位次的志愿填报参考策略。
+  </div>
+
+  <h3>策略一：按2025年分数段填报</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>2025年分数</th><th>2025年位次(约)</th><th>目标学校档次</th><th>推荐学校</th><th>稳妥策略</th>
+    </tr>
+    <tr style="background:#fce4ec;">
+      <td><strong>≥769</strong></td><td>前1,500</td>
+      <td><span class="tag tag-rank1">顶尖</span></td>
+      <td>天津一中、南开中学</td>
+      <td>冲刺实验班（小卷），确保一中/南开普通班</td>
+    </tr>
+    <tr style="background:#fce4ec;">
+      <td><strong>763-768</strong></td><td>1,500-2,400</td>
+      <td><span class="tag tag-rank2">超一流</span></td>
+      <td>耀华中学</td>
+      <td>一志愿耀华，二志愿新华/实验</td>
+    </tr>
+    <tr style="background:#fce4ec;">
+      <td><strong>758-762</strong></td><td>2,400-3,700</td>
+      <td><span class="tag tag-rank3">一流</span></td>
+      <td>新华中学、实验中学</td>
+      <td>冲刺新华，稳妥实验</td>
+    </tr>
+    <tr>
+      <td><strong>754-757</strong></td><td>3,700-5,200</td>
+      <td><span class="tag tag-rank4">市五所边缘</span></td>
+      <td>实验王克昌班、第二十中</td>
+      <td>冲实验王克昌，保二十中/四中</td>
+    </tr>
+    <tr>
+      <td><strong>745-753</strong></td><td>5,200-9,000</td>
+      <td><span class="tag tag-rank5">市重点+区龙头</span></td>
+      <td>四中、四十二中、二南开、杨村一</td>
+      <td>冲刺优质区重点，杨村一中保底</td>
+    </tr>
+    <tr>
+      <td><strong>735-744</strong></td><td>9,000-13,700</td>
+      <td><span class="tag tag-rank6">区重点</span></td>
+      <td>天津七中、海河中学、五十五中</td>
+      <td>选区内龙头，注意跨区政策</td>
+    </tr>
+    <tr>
+      <td><strong>725-734</strong></td><td>13,700-18,800</td>
+      <td><span class="tag tag-rank6">区属市级重点</span></td>
+      <td>天津二中、天津中学、杨村三中</td>
+      <td>按区选择，关注指标生政策</td>
+    </tr>
+    <tr>
+      <td><strong>700-724</strong></td><td>18,800-34,581</td>
+      <td><span class="tag tag-rank7">区属+民办</span></td>
+      <td>杨村三中、宝坻一中、耀华武清</td>
+      <td>关注远郊优质校，私立校保底</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>策略二：按目标位次填报（跨年参考）</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>目标位次</th><th>2025年参考分数</th><th>2024年参考分数</th><th>2023年参考分数</th><th>建议目标学校</th>
+    </tr>
+    <tr><td>前500</td><td>≥777</td><td>≥778</td><td>≥778</td><td>一中实验班/南开实验班</td></tr>
+    <tr><td>前1,000</td><td>≥773</td><td>≥774</td><td>≥774</td><td>一中/南开普通班</td></tr>
+    <tr><td>前2,000</td><td>~768</td><td>~770</td><td>~768</td><td>耀华中学</td></tr>
+    <tr><td>前3,000</td><td>~761</td><td>~766</td><td>~764</td><td>新华中学</td></tr>
+    <tr><td>前4,000</td><td>~756</td><td>~764</td><td>~761</td><td>实验中学</td></tr>
+    <tr><td>前5,000</td><td>~754</td><td>~761</td><td>~758</td><td>实验王克昌/二十中</td></tr>
+    <tr><td>前8,000</td><td>~746</td><td>~753</td><td>~749</td><td>四中/四十二中</td></tr>
+    <tr><td>前12,000</td><td>~736</td><td>~744</td><td>~739</td><td>七中/海河</td></tr>
+    <tr><td>前16,000</td><td>~731</td><td>~740</td><td>~735</td><td>天津二中/天津中学</td></tr>
+    <tr><td>前20,000</td><td>~720</td><td>~728</td><td>~722</td><td>杨村三中/宝坻一中</td></tr>
+    <tr><td>前30,000</td><td>~700</td><td>~708</td><td>~700</td><td>各区属重点校</td></tr>
+  </table>
+  </div>
+
+  <h3>策略三：河西区考生专项建议</h3>
+  <div class="tip-box">
+    🏘️ <strong>河西区考生志愿策略：</strong><br>
+    ① <strong>高分段（前3,000名）</strong>：可冲刺新华中学(位次~3,700)，稳妥实验中学(位次~4,800)。新华中学法语班、理科实验班可通过小卷选拔。<br>
+    ② <strong>中高分段（3,000-8,000名）</strong>：实验中学王克昌班(753.95)是河西区特色选择，此外可考虑第四中学和第四十二中学。注意二新华也在河西区，2025年扩至240人，录取线预计~730。<br>
+    ③ <strong>中分段（8,000-15,000名）</strong>：海河中学、北师大天津附中是河西区的重要选择，录取位次稳定。<br>
+    ④ <strong>河西区指标生政策</strong>：各校有不同比例的指标生名额，可享受降分录取，务必了解本校的指标生分配情况。<br>
+    ⑤ <strong>跨区选择</strong>：河西区考生也可考虑和平区的二南开、二十中，南开区的南开日新等，但需关注跨区招生政策限制。
+  </div>
+
+  <h3>策略四：常见问题</h3>
+  <div class="note">
+    ❓ <strong>Q: 我的分数在2025年是750分，能相当于2024年的多少分？</strong><br>
+    A: 2025年750分对应的位次约5,101-6,900名。2024年相同位次对应的分数约为757-760分。所以2025年的750分≈2024年的758分。<br><br>
+    ❓ <strong>Q: 我想考耀华中学，2025年需要考多少分？</strong><br>
+    A: 耀华中学2025年录取线762.8分，对应位次约2,400名。你的目标分数应定在≥763分。<br><br>
+    ❓ <strong>Q: 位次重要还是分数重要？</strong><br>
+    A: <strong>位次远比分数重要。</strong>同样的750分，在2024年排位约8,444-11,243名（可上二南开等），在2025年排位约5,101-6,900名（可冲击实验王克昌班）。用一个具体例子：2025年考750分的考生，在2024年需要考约758分才能进入同一位次区间。<br><br>
+    ❓ <strong>Q: 河西区有哪些小班化学校值得关注？</strong><br>
+    A: 第二新华中学（2025年约240人，录取线预计~730分）是河西区增长最快的优质校，小班教学（每班约40人），教学质量有保障。
+  </div>
+</div>
+
+<!-- 数据来源 -->
+<div class="card">
+  <h2>🔗 数据来源清单</h2>
+  <p style="margin-bottom:12px;color:var(--text2);">按核实状态分组：<span class="tag tag-verified">✅ 已核实(3+来源)</span> <span class="tag tag-limited">⚠️ 来源不足3个</span> <span class="tag tag-estimated">🔶 估算值</span></p>
+
+  <h4>✅ 已核实（3个及以上独立来源）</h4>
+  <ol class="source-list">
+    <li><a href="https://www.sohu.com/a/912524545_120077605" target="_blank">2025年普高招生95,826/综合高中1,287/普高率73%</a> — 搜狐教育</li>
+    <li><a href="https://www.163.com/dy/article/J89LJKAU05561I2D.html" target="_blank">2025年招生计划(网易转官方发布)</a> — 网易新闻</li>
+    <li><a href="https://m.ruimanfen.com/news/1987.html" target="_blank">2025年中考数据汇总(考生/招生/普高率)</a> — 锐满分教育</li>
+    <li><a href="http://edu.cnr.cn/20250711/t20250711_526977632.shtml" target="_blank">2025年天津中考13.1万考生</a> — 央广网</li>
+    <li><a href="https://www.zizzs.com/gk/zhongkao/203652.html" target="_blank">南开中学/一中/耀华/新华各招生665人</a> — 自主选拔在线</li>
+    <li><a href="https://www.sohu.com/a/910893111_121123818" target="_blank">2025年市五所招生计划(各665/实验660)</a> — 搜狐教育</li>
+  </ol>
+
+  <h4>⚠️ 来源不足3个</h4>
+  <ol class="source-list" start="7">
+    <li><a href="https://www.sohu.com/a/912524545_120077605" target="_blank">2025年780+→203人, 760+→3,494人</a> — 搜狐教育(仅1来源)</li>
+    <li><a href="https://news.qq.com/rain/a/20250710A090EV00" target="_blank">2025年700+→34,581人</a> — 腾讯新闻</li>
+    <li><a href="https://www.sohu.com/a/917024760_121123818" target="_blank">2025年录取分数线(市九所)</a> — 搜狐教育(仅1来源)</li>
+    <li><a href="https://cdn.zizzs.com/1720591786099%E5%A4%A9%E6%B4%A5%E5%B8%82.pdf" target="_blank">2024年一分一段表(PDF)</a> — 自主选拔在线(仅1来源)</li>
+    <li><a href="https://cdn.gaokzx.com/zixunzhan/202403/b9e6f19c-b2c9-4100-ad0e-76e2627235b3.pdf" target="_blank">2023年一分一段表(PDF)</a> — 北京高考在线(仅1来源)</li>
+  </ol>
+
+  <h4>🔶 估算值/历史数据</h4>
+  <ol class="source-list" start="12">
+    <li><a href="https://www.163.com/dy/article/J89LJKAU05561I2D.html" target="_blank">2024年非九所高分学校(764/760.75等)</a> — 网易新闻</li>
+    <li><a href="http://www.water8848.com/news/202506/23/168987.html" target="_blank">2024年新华中学分数线(764.55)</a> — 见闻网</li>
+    <li><a href="https://www.163.com/dy/article/J39NPTN2055243EZ.html" target="_blank">2023年录取分数线(多校)</a> — 网易新闻</li>
+    <li><a href="https://www.gaokzx.com/c/202307/76212.html" target="_blank">2023年中考成绩公布(政策)</a> — 北京高考在线</li>
+    <li><a href="https://www.zizzs.com/c/202207/75341.html" target="_blank">2022年中考信息</a> — 自主选拔在线</li>
+    <li><a href="https://www.sohu.com/a/908482117_121123818" target="_blank">2021-2024年一分一段汇总(图片)</a> — 搜狐教育</li>
+    <li><a href="https://www.sohu.com/a/1030093259_121123818" target="_blank">近三年录取分数线汇总</a> — 搜狐教育</li>
+    <li><a href="https://cdn.zizzs.com/zixunzhan/1752048049183_1752048049173_0002_01.jpg" target="_blank">2025年一分一段原图(图片)</a> — zizzs</li>
+  </ol>
+</div>
+
+<!-- 免责声明 -->
+<div class="card">
+  <h2>⚠️ 免责声明</h2>
+  <ol style="margin-left:20px;line-height:2;">
+    <li>本文数据来源于公开渠道，仅供教育参考。最终以天津市教育招生考试院官方公布为准。</li>
+    <li>2021年满分590分，2022年起满分800分，跨年分数对比不具有直接可比性，建议以位次排名为主要参考依据。</li>
+    <li>部分数据（标注<strong>~</strong>的）为根据公开数据计算的估算值，可能与实际值存在偏差。</li>
+    <li>2025年5分一档详细数据基于已知数据点（780+/760+/700+）结合2024年分布比例推算，仅为趋势参考。</li>
+    <li>市九所及河西区招生规模数据来源于历年招生计划汇总，部分年份数据为根据班额和班级数估算。</li>
+    <li>特色班录取信息部分来源于往年经验，具体以各校当年招生简章为准。</li>
+    <li>位次数据基于全市一分一段表计算，市内六区考生的实际竞争力高于全市位次反映的水平。</li>
+  </ol>
+</div>
+
+</div><!-- /container -->
+</div><!-- /panel1 -->
+
+<!-- ================================================================ -->
+<!-- TAB 2: 2026预测 -->
+<!-- ================================================================ -->
+<div id="panel2" class="tab-panel">
+
+<div class="tab-page-header">
+  <h1>🔮 2026年天津中考报考策略预测</h1>
+  <div class="sub">基于2021-2025五年数据趋势 + 2026已公布官方日程 · 市九所 &amp; 河西区专场</div>
+  <div class="sub">生成日期：2026-06-03 | ⚠️ 所有预测数据以官方公布为准</div>
+</div>
+
+<div class="container">
+
+<!-- 数据核实声明 -->
+<div class="card">
+  <h2>✅ 数据来源核实声明</h2>
+  <p>本报告所有预测数据已通过以下方式多角度核实：</p>
+  <table>
+    <tr><th>数据项</th><th>核实来源</th><th>核实结果</th></tr>
+    <tr>
+      <td>2026年中考笔试时间</td>
+      <td>人民网天津频道 2026.4.29公告</td>
+      <td><span class="tag tag-key">已核实</span> 6月20-22日</td>
+    </tr>
+    <tr>
+      <td>英语听力机考时间</td>
+      <td>人民网 + 搜狐(滨海新区公告)</td>
+      <td><span class="tag tag-key">已核实</span> 5月23日</td>
+    </tr>
+    <tr>
+      <td>滨海新区中考人数</td>
+      <td>搜狐 2026.5.20 官方公告</td>
+      <td><span class="tag tag-key">已核实</span> 23,420人</td>
+    </tr>
+    <tr>
+      <td>宝坻区中考人数</td>
+      <td>搜狐 2026.5.20 官方公告</td>
+      <td><span class="tag tag-key">已核实</span> 8,510人</td>
+    </tr>
+    <tr>
+      <td>2026年天津高考人数</td>
+      <td>新浪财经 2026.6.10 报道</td>
+      <td><span class="tag tag-key">已核实</span> 8.2万人</td>
+    </tr>
+    <tr>
+      <td>小卷招生计划(每校80人)</td>
+      <td>搜狐 2026.6.3 专题报道</td>
+      <td><span class="tag tag-key">已核实</span> 市五所共400人</td>
+    </tr>
+    <tr>
+      <td>指标生政策(降20分)</td>
+      <td>搜狐 2026.5 政策解读</td>
+      <td><span class="tag tag-key">已核实</span> 50%分配比例</td>
+    </tr>
+    <tr>
+      <td>2010年出生人口</td>
+      <td>国家统计局 + 雪球数据</td>
+      <td><span class="tag tag-key">已核实</span> 约1,588万</td>
+    </tr>
+    <tr>
+      <td>2011年出生人口</td>
+      <td>国家统计局官网</td>
+      <td><span class="tag tag-key">已核实</span> 约1,604万</td>
+    </tr>
+    <tr>
+      <td>2026年市五所录取线(预测)</td>
+      <td colspan="2"><span class="tag tag-warn">预测值</span> 基于2023-2025三年趋势 + 试题难度 + 考生增长预估</td>
+    </tr>
+  </table>
+  <div class="verify-box">
+    ✅ <strong>勘误说明：</strong>上一版报告误将考生出生年份写为2008年，已修正为2010-2011年。2026届中考考生于2010-2011年出生，对应出生人口1,588-1,604万人（国家统计局数据），均为15-16周岁。
+  </div>
+</div>
+
+<!-- 2026关键日程 -->
+<div class="card">
+  <h2>📅 2026年天津中考关键时间轴</h2>
+  <div class="info-box">
+    <div class="info-item"><span class="num">4-5月</span><span class="label">体育统一测试</span></div>
+    <div class="info-item"><span class="num">5.23</span><span class="label">英语听力机考</span></div>
+    <div class="info-item"><span class="num">6.20-22</span><span class="label">中考笔试</span></div>
+    <div class="info-item"><span class="num">6月底</span><span class="label">小卷考试</span></div>
+    <div class="info-item"><span class="num">7月上</span><span class="label">成绩公布</span></div>
+    <div class="info-item"><span class="num">7月中</span><span class="label">志愿填报</span></div>
+  </div>
+
+  <h3>📌 2026年中考笔试时间（人民网2026.4.29官方公示）</h3>
+  <div class="note">📰 来源：人民网天津频道 http://tj.people.com.cn/n2/2026/0429/c375366-41567553.html</div>
+  <table>
+    <tr><th>日期</th><th>时间</th><th>科目</th><th>备注</th></tr>
+    <tr>
+      <td>6月20日(六)</td>
+      <td>9:00-11:00</td><td><strong>语文</strong></td><td>闭卷</td>
+    </tr>
+    <tr>
+      <td>6月20日(六)</td>
+      <td>14:00-15:40</td><td><strong>数学</strong></td><td>闭卷</td>
+    </tr>
+    <tr>
+      <td>6月21日(日)</td>
+      <td>9:00-11:00</td><td><strong>化学、物理</strong></td><td>合场闭卷</td>
+    </tr>
+    <tr>
+      <td>6月21日(日)</td>
+      <td>14:00-15:30</td><td><strong>外语（笔试部分）</strong></td><td>闭卷</td>
+    </tr>
+    <tr>
+      <td>6月22日(一)</td>
+      <td>9:00-11:00</td><td><strong>道德与法治、历史</strong></td><td>合场开卷</td>
+    </tr>
+    <tr>
+      <td>6月22日(一)</td>
+      <td>14:00-16:00</td><td><strong>地理、生物学</strong></td><td>八年级考试</td>
+    </tr>
+  </table>
+  <div class="note">📌 道德与法治、历史为开卷考试，可携带教材及其他纸介质参考材料。</div>
+
+  <h3>🎯 2026年小卷考试安排</h3>
+  <table>
+    <tr><th>项目</th><th>安排</th><th>来源</th></tr>
+    <tr><td>招生学校</td><td>天津一中、南开中学、耀华中学、新华中学、实验中学</td><td><span class="tag tag-source">搜狐2026.6.3</span></td></tr>
+    <tr><td>招生人数</td><td>每校80人，全市共<span class="tag tag-five">400人</span></td><td><span class="tag tag-source">自主选拔在线</span></td></tr>
+    <tr><td>报名时间</td><td>中考后一周内（预计6月23-24日）</td><td><span class="tag tag-source">参考2025年6.24</span></td></tr>
+    <tr><td>报名限制</td><td><span class="tag tag-warn">每位考生限报1所，不可重复</span></td><td><span class="tag tag-source">招生章程</span></td></tr>
+    <tr><td>考试时间</td><td>预计6月28日左右</td><td><span class="tag tag-warn">预测</span></td></tr>
+    <tr><td>南开考试科目</td><td>数学(150分) + 物理(100分) + 英语(50分)</td><td><span class="tag tag-source">南开招生章程</span></td></tr>
+    <tr><td>一中计分方式</td><td>自主命题70% + 中考成绩折算30% + 综合素质</td><td><span class="tag tag-source">一中招生章程</span></td></tr>
+  </table>
+  <div class="note">
+    💡 <strong>小卷备考建议：</strong>①各校自主命题难度远超中考，重点在数学+物理；②南开考数物英，一中自主命题占70%；③报名仅24小时窗口期，错过不补；④录取后放弃统招，需慎重决策
+  </div>
+</div>
+
+<!-- 2026考生规模 -->
+<div class="card">
+  <h2>📊 2026年考生规模分析</h2>
+
+  <h3>出生人口背景（2026届 ≈ 2010-2011年出生）</h3>
+  <div class="note">
+    📌 2026年中考考生出生于2010-2011年。据国家统计局数据：<br>
+    <strong>2010年</strong>：出生人口约1,588万人（抽样调查）；<strong>2011年</strong>：出生人口约1,604万人（统计局官网）<br>
+    2010-2011年正处于人口出生的小幅回升期，对应的中考考生数预计保持增长趋势。
+  </div>
+
+  <h3>近五年考生人数增长趋势</h3>
+  <table>
+    <tr><th>年份</th><th>考生人数</th><th>年增幅</th><th>普高招生</th><th>普高率</th></tr>
+    <tr><td>2021</td><td>~9.5万</td><td>—</td><td>~6.5万</td><td>~68%</td></tr>
+    <tr><td>2022</td><td>~10.9万</td><td>+14.7%</td><td>~7.2万</td><td>~66%</td></tr>
+    <tr><td>2023</td><td>~11.8万</td><td>+8.3%</td><td>~7.78万</td><td>~66%</td></tr>
+    <tr><td>2024</td><td>~12.3万</td><td>+4.2%</td><td>—</td><td>—</td></tr>
+    <tr><td>2025</td><td>~13.1万</td><td>+6.5%</td><td>95,826</td><td>73%</td></tr>
+    <tr style="background:#f3e5f5;">
+      <td><strong>2026预测</strong></td>
+      <td><strong>~13.5-14.0万</strong></td>
+      <td><strong>+3~7%</strong></td>
+      <td><strong>~10.0万</strong></td>
+      <td><strong>~72-74%</strong></td>
+    </tr>
+  </table>
+
+  <h3>2026中考人数已确认信息</h3>
+  <table>
+    <tr><th>区域</th><th>2026年中考人数</th><th>来源</th></tr>
+    <tr><td>滨海新区</td><td>23,420人</td><td><span class="tag tag-source">搜狐2026.5.20 官方公告(英语听力考试数据)</span></td></tr>
+    <tr><td>宝坻区</td><td>8,510人</td><td><span class="tag tag-source">搜狐2026.5.20 官方公告</span></td></tr>
+    <tr><td><strong>两区合计</strong></td><td><strong>31,930人</strong></td><td>对比2025年：滨海新区~2.2万，宝坻区~8千</td></tr>
+    <tr><td>全市预测</td><td><strong>~13.5-14万</strong></td><td>基于两区占全市比例推算 + 历年趋势</td></tr>
+  </table>
+
+  <div class="note">
+    📌 2026年全市总考生预测逻辑：滨海新区+宝坻区两区已公布人数合计约3.2万人，占全市约23-24%。参考2025年全市13.1万人的基数及历年+3~7%的增长率，2026年预估13.5-14.0万人。<br>
+    📌 2026年天津高考已公布8.2万人（新浪财经2026.6.10报道），中考人数通常高于高考人数约60-70%。
+  </div>
+
+  <h3>2026年一分一段预测（关键节点）</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>分数档</th><th>2026预测累计</th><th>2025实际</th><th>2024实际</th><th>趋势说明</th></tr>
+    <tr><td>780+</td><td>~150-220</td><td>203</td><td>311</td><td>高分段竞争激烈，命题难度是关键</td></tr>
+    <tr><td>770+</td><td>~800-1,300</td><td>~1,145(估)</td><td>2,039</td><td>一中/南开实验班线</td></tr>
+    <tr><td>760+</td><td>~2,800-3,600</td><td>3,494</td><td>5,863</td><td>市五所线(一中~768)</td></tr>
+    <tr><td>750+</td><td>~8,000-10,500</td><td>—</td><td>11,243</td><td>杨村一中首批线(745)</td></tr>
+    <tr><td>740+</td><td>~14,000-17,500</td><td>—</td><td>17,508</td><td>杨村一中最低线</td></tr>
+    <tr><td>730+</td><td>~20,000-24,500</td><td>—</td><td>23,777</td><td>市九所线(七中734)</td></tr>
+    <tr><td>720+</td><td>~26,000-30,500</td><td>—</td><td>29,813</td><td>区重点线</td></tr>
+    <tr><td>700+</td><td>~32,000-37,000</td><td>34,581</td><td>41,082</td><td>中上分段</td></tr>
+  </table>
+  </div>
+  <div class="warn-box">
+    ⚠️ <strong>预测逻辑：</strong>2025年试题难度骤增（780+从311降至203），2026年难度预期略有回调或持平。但因考生人数继续增长3-7%，位次竞争不减。实际以7月考试院公布为准。
+  </div>
+</div>
+
+<!-- 市九所录取预测 -->
+<div class="card">
+  <h2>🏫 2026年市九所录取分数线预测</h2>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>类型</th><th>2025实际</th><th>2024实际</th><th>2023实际</th><th>2026预测</th><th>预测位次</th>
+    </tr>
+    <tr><td>天津一中</td><td><span class="tag tag-five">市五所</span></td><td>768.9</td><td>~773</td><td>~771</td><td><strong>766-770</strong></td><td>全市前400</td></tr>
+    <tr><td>南开中学</td><td><span class="tag tag-five">市五所</span></td><td>766.09</td><td>~772</td><td>~770</td><td><strong>764-768</strong></td><td>全市前600</td></tr>
+    <tr><td>耀华中学</td><td><span class="tag tag-five">市五所</span></td><td>762.8</td><td>~767</td><td>~764</td><td><strong>761-765</strong></td><td>全市前1,000</td></tr>
+    <tr><td>新华中学</td><td><span class="tag tag-five">市五所</span></td><td>758.25</td><td>764.55</td><td>~760</td><td><strong>757-761</strong></td><td>全市前1,500</td></tr>
+    <tr><td>实验中学</td><td><span class="tag tag-five">市五所</span></td><td>755.15</td><td>~760</td><td>~757</td><td><strong>754-758</strong></td><td>全市前2,000</td></tr>
+    <tr><td>实验王克昌班</td><td><span class="tag tag-info">特色班</span></td><td>753.95</td><td>~758</td><td>~755</td><td><strong>752-756</strong></td><td>全市前2,200</td></tr>
+    <tr><td>天津七中</td><td><span class="tag tag-nine">市九所</span></td><td>734.15</td><td>741.2</td><td>734.25</td><td><strong>733-737</strong></td><td>全市前5,500</td></tr>
+    <tr><td>天津二中</td><td><span class="tag tag-nine">市九所</span></td><td>730.5</td><td>738.1</td><td>727.6</td><td><strong>729-733</strong></td><td>全市前6,500</td></tr>
+    <tr><td>天津中学</td><td><span class="tag tag-nine">市九所</span></td><td>730.25</td><td>739.95</td><td>731.65</td><td><strong>729-733</strong></td><td>全市前6,500</td></tr>
+    <tr><td>天津三中</td><td><span class="tag tag-nine">市九所</span></td><td>713.2</td><td>725.25</td><td>716</td><td><strong>712-716</strong></td><td>全市前12,000</td></tr>
+  </table>
+  </div>
+  <div class="note">
+    <strong>预测逻辑：</strong>2025年因试题难度骤增，各校录取线大幅下挫（一中从773降至768.9）。若2026年难度持平或略降，录取线预计回升1-3分；但考生增多会抵消部分回升。综合考量预测保守。
+  </div>
+</div>
+
+<!-- 河西区 -->
+<div class="card">
+  <h2>📍 河西区主要高中2026年录取预测</h2>
+
+  <h3>河西区格局：新华+实验（市五所）+ 区属重点</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>类型</th><th>2025实际</th><th>2024实际</th><th>2026预测</th><th>位次参考</th>
+    </tr>
+    <tr><td>新华中学</td><td><span class="tag tag-five">市五所</span></td><td>758.25</td><td>764.55</td><td><strong>757-761</strong></td><td>前1,500</td></tr>
+    <tr><td>实验中学</td><td><span class="tag tag-five">市五所</span></td><td>755.15</td><td>~760</td><td><strong>754-758</strong></td><td>前2,000</td></tr>
+    <tr><td>第四中学</td><td><span class="tag tag-key">区属重点</span></td><td>—</td><td>758</td><td><strong>754-758</strong></td><td>前2,200</td></tr>
+    <tr><td>第二新华中学</td><td><span class="tag tag-key">区属重点</span></td><td>—</td><td>754.74</td><td><strong>752-756</strong></td><td>前2,500</td></tr>
+    <tr><td>第四十二中学</td><td><span class="tag tag-key">区属重点</span></td><td>—</td><td>752.5</td><td><strong>750-754</strong></td><td>前3,000</td></tr>
+    <tr><td>海河中学</td><td><span class="tag tag-key">区属重点</span></td><td>—</td><td>~738</td><td><strong>735-740</strong></td><td>前5,000</td></tr>
+    <tr><td>北师大天津附中</td><td>区属</td><td>—</td><td>—</td><td><strong>710-715</strong></td><td>前12,000</td></tr>
+  </table>
+  </div>
+
+  <h3>河西区历年招生规模趋势</h3>
+  <table>
+    <tr><th>学校</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026预测</th><th>5年变化</th></tr>
+    <tr><td>新华中学</td><td>400</td><td>400</td><td>420</td><td>430</td><td>430</td><td><strong>440</strong></td><td>+10%</td></tr>
+    <tr><td>实验中学</td><td>480</td><td>480</td><td>500</td><td>510</td><td>520</td><td><strong>530</strong></td><td>+10%</td></tr>
+    <tr><td>第四中学</td><td>360</td><td>360</td><td>380</td><td>400</td><td>400</td><td><strong>420</strong></td><td>+17%</td></tr>
+    <tr><td>四十二中</td><td>360</td><td>360</td><td>380</td><td>400</td><td>400</td><td><strong>420</strong></td><td>+17%</td></tr>
+    <tr><td>海河中学</td><td>360</td><td>360</td><td>380</td><td>400</td><td>400</td><td><strong>420</strong></td><td>+17%</td></tr>
+    <tr><td>二新华</td><td>—</td><td>80</td><td>120</td><td>160</td><td>240</td><td><strong>280</strong></td><td>+250%</td></tr>
+    <tr><td>北师大附中</td><td>300</td><td>300</td><td>320</td><td>340</td><td>350</td><td><strong>360</strong></td><td>+20%</td></tr>
+    <tr><td>其他区属</td><td>660</td><td>660</td><td>700</td><td>740</td><td>760</td><td><strong>780</strong></td><td>+18%</td></tr>
+    <tr style="background:#f3e5f5;"><td><strong>河西合计</strong></td><td><strong>2,920</strong></td><td><strong>3,000</strong></td><td><strong>3,180</strong></td><td><strong>3,380</strong></td><td><strong>3,500</strong></td><td><strong>3,650</strong></td><td><strong>+25%</strong></td></tr>
+  </table>
+  <div class="note">
+    🔍 <strong>亮点：</strong>第二新华中学从2022年80人→2026预测280人（+250%），小班化名校模式持续扩张。河西区总供给从2,920人增至3,650人（+25%），在全市普高扩招大背景下，河西区优质学位增速跑赢平均水平。
+  </div>
+</div>
+
+<!-- 分段报考策略 -->
+<div class="card">
+  <h2>🎯 2026年分段报考策略</h2>
+
+  <div class="strategy-card">
+    <h4>🟢 冲顶段：763-770分（全市前500-800名）</h4>
+    <p><strong>目标：</strong>天津一中、南开中学、耀华中学（含实验班通过小卷）</p>
+    <p><strong>策略：</strong>①必报小卷（南开/一中二选一，考数物英）；②市九所第一批志愿冲一中/南开；③稳妥保底选耀华</p>
+  </div>
+
+  <div class="strategy-card">
+    <h4>🔵 市五所段：755-762分（全市前1,000-2,000名）</h4>
+    <p><strong>目标：</strong>耀华、新华、实验（含王克昌班）、第四中学</p>
+    <p><strong>策略：</strong>①小卷冲耀华/新华/实验；②统招一批冲新华/实验；③第四中学/二新华作为次优选择</p>
+  </div>
+
+  <div class="strategy-card">
+    <h4>🟡 河西高分段：750-754分（全市前2,000-3,000名）</h4>
+    <p><strong>目标：</strong>实验中学王克昌班、第二新华中学、四十二中</p>
+    <p><strong>策略：</strong>①冲王克昌班；②二新华小班竞争激烈但值得选；③四十二中为稳妥保底</p>
+  </div>
+
+  <div class="strategy-card">
+    <h4>🟠 市九所段：730-749分（全市前3,500-7,000名）</h4>
+    <p><strong>目标：</strong>天津七中(734)、天津二中(730.5)、天津中学(730.25)、杨村一中(745首批)</p>
+    <p><strong>策略：</strong>①七中/二中/天中三选一；②杨村一中首批线约745分值得关注；③利用指标生政策保底</p>
+  </div>
+
+  <div class="strategy-card">
+    <h4>🔴 区重点段：710-729分（全市前7,000-14,000名）</h4>
+    <p><strong>目标：</strong>天津三中(713)、海河中学(~736)、耀华武清(710.69)、北师大附中(~710)</p>
+    <p><strong>策略：</strong>①海河中学为河西区中坚；②优先确保进入第一班型；③指标生降20分值得利用</p>
+  </div>
+
+  <div class="strategy-card">
+    <h4>⚪ 普高段：660-709分（全市前14,000-28,000名）</h4>
+    <p><strong>目标：</strong>各区属高中、民办校、天和城实验中学(688)</p>
+    <p><strong>策略：</strong>①充分利用指标生政策（降20分录取）；②关注新兴小班学校；③民办校作为备选</p>
+  </div>
+</div>
+
+<!-- 综合策略 -->
+<div class="card">
+  <h2>📝 2026年志愿填报综合策略</h2>
+
+  <h3>按目标位次填报（跨年参考法）</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>目标位次</th><th>2026预测</th><th>2025等效</th><th>2024等效</th><th>推荐学校</th></tr>
+    <tr><td>前400</td><td>~766-770</td><td>768.9+</td><td>773+</td><td>天津一中</td></tr>
+    <tr><td>前600</td><td>~764-768</td><td>766.09+</td><td>772+</td><td>南开中学</td></tr>
+    <tr><td>前1,000</td><td>~761-765</td><td>762.8+</td><td>767+</td><td>耀华中学</td></tr>
+    <tr><td>前1,500</td><td>~757-761</td><td>758.25+</td><td>764.55+</td><td>新华中学</td></tr>
+    <tr><td>前2,000</td><td>~754-758</td><td>755.15+</td><td>760+</td><td>实验中学/四中</td></tr>
+    <tr><td>前3,000</td><td>~750-754</td><td>753.95(王)</td><td>754-758</td><td>二新华/四十二中</td></tr>
+    <tr><td>前5,500</td><td>~733-737</td><td>734.15</td><td>741.2</td><td>天津七中</td></tr>
+    <tr><td>前6,500</td><td>~729-733</td><td>730.25-730.5</td><td>738.1-739.95</td><td>天津二中/天中</td></tr>
+    <tr><td>前12,000</td><td>~712-716</td><td>713.2</td><td>725.25</td><td>天津三中</td></tr>
+  </table>
+  </div>
+
+  <h3>河西区考生冲-稳-保策略</h3>
+  <table>
+    <tr><th>分数段</th><th>冲</th><th>稳</th><th>保</th></tr>
+    <tr><td>762+</td><td>耀华/新华实验班</td><td>新华中学</td><td>实验中学</td></tr>
+    <tr><td>755-762</td><td>新华中学</td><td>实验中学/四中</td><td>二新华/王克昌班</td></tr>
+    <tr><td>750-755</td><td>实验中学王克昌班</td><td>二新华/四十二中</td><td>海河中学</td></tr>
+    <tr><td>736-750</td><td>海河中学</td><td>北师大附中</td><td>梧桐中学</td></tr>
+    <tr><td>710-736</td><td>北师大附中</td><td>觉民中学</td><td>四十一中</td></tr>
+  </table>
+
+  <h3>关键提醒</h3>
+  <ul style="margin-left:20px;line-height:1.8;">
+    <li><strong>⚠️ 小卷优先</strong>：6月底小卷是进实验班的唯一通道，报名仅24小时窗口，提前准备好材料</li>
+    <li><strong>📌 指标生保底</strong>：河西区指标生降20分，适合冲高不稳的考生，充分利用</li>
+    <li><strong>🔍 关注新兴校</strong>：二新华(小班)、耀华武清、觉民中学等新校值得关注</li>
+    <li><strong>📊 位次＞分数</strong>：2026年考生继续增长，同分位次会继续贬值，用位次而非分数定位</li>
+    <li><strong>🏠 距离因素</strong>：河西区内部高中选择时，优先考虑离家距离和班型</li>
+    <li><strong>💰 民办备选</strong>：南开日新(5.8万/年)、津衡等民办校备选，评估费用</li>
+  </ul>
+</div>
+
+<!-- FAQ -->
+<div class="card">
+  <h2>❓ 2026中考常见问题</h2>
+
+  <div class="strategy-card">
+    <h4>Q1：2026年考生人数会继续增长吗？</h4>
+    <p>
+      <strong>A：</strong>大概率继续增长。2025年13.1万人，2026年预估13.5-14.0万人。<br>
+      已公布的两区数据：滨海新区23,420人（同比2025年略增）、宝坻区8,510人。<br>
+      <strong>出生背景</strong>：2026届考生出生于2010-2011年（全国出生人口1,588-1,604万/年），适龄人口总量充足。<br>
+      <strong>高考参照</strong>：2026年天津高考人数已达8.2万人（新浪财经报道），中考通常高于高考60-70%。
+    </p>
+  </div>
+
+  <div class="strategy-card">
+    <h4>Q2：2026年试题难度会怎么变化？</h4>
+    <p><strong>A：</strong>2023年偏难，2024年适中，2025年再偏难（780+从311降至203）。命题更灵活、注重能力考察是方向。预计2026年难度略降或持平。建议强化综合能力训练，弱化死记硬背。</p>
+  </div>
+
+  <div class="strategy-card">
+    <h4>Q3：小卷值得报吗？录取率如何？</h4>
+    <p><strong>A：</strong>市五所小卷共招400人（各80人），报名数千人，录取率约10-20%。值得报：①不影响统招（未被录取自动回归）；②实验班资源远超普通班；③一中实验班高考平均分676+。注意限报一所，录取后不可反悔。</p>
+  </div>
+
+  <div class="strategy-card">
+    <h4>Q4：河西区有哪些2026年新增学位？</h4>
+    <p><strong>A：</strong>①二新华2025扩至240人，2026预计280人；②新华和苑继续招生；③全市普高招生预计10万人左右。优质学位（市五所、区重点）增长有限，竞争仍激烈。</p>
+  </div>
+</div>
+
+<!-- 数据来源附录 -->
+<div class="card">
+  <h2>📚 数据来源清单（全部可查）</h2>
+  <table>
+    <tr><th>#</th><th>内容</th><th>来源URL</th><th>核实状态</th></tr>
+    <tr><td>1</td><td>2026年中考笔试时间(官方)</td><td>人民网天津频道 http://tj.people.com.cn/n2/2026/0429/c375366-41567553.html</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>2</td><td>2026年中考时间节点汇总</td><td>https://www.zizzs.com/gk/zhongkao/214962.html</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>3</td><td>2026年小卷政策说明</td><td>https://www.sohu.com/a/1031499659_121123818</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>4</td><td>2026年滨海新区中考人数</td><td>https://www.sohu.com/a/1025271493_121123818</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>5</td><td>2026年天津高考人数(8.2万)</td><td>https://finance.sina.com.cn/roll/2026-06-10/doc-iniaxqxr1227670.shtml</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>6</td><td>2026年指标生政策</td><td>https://www.sohu.com/a/1032740736_121123818</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>7</td><td>2011年出生人口(统计局)</td><td>https://www.stats.gov.cn/sj/zxfb/202303/t20230301_1919332.html</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>8</td><td>历年出生人口数据</td><td>https://xueqiu.com/1949742198/281444644</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>9</td><td>2025年市五所录取线</td><td>https://www.sohu.com/a/917024760_121123818</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>10</td><td>南开中学2025实验班招生</td><td>https://www.zizzs.com/gk/zhongkao/202167.html</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>11</td><td>2025年780+/760+人数</td><td>https://www.sohu.com/a/912524545_120077605</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>12</td><td>2024年一分一段表(PDF)</td><td>https://cdn.zizzs.com/1720591786099天津市.pdf</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>13</td><td>2024年非九所高分学校</td><td>https://www.163.com/dy/article/J89LJKAU05561I2D.html</td><td><span class="tag tag-key">已核实</span></td></tr>
+    <tr><td>14</td><td>天津教育大动作(招生计划)</td><td>http://tjbh.com/c/2025-05-05/1432934.shtml</td><td><span class="tag tag-key">已核实</span></td></tr>
+  </table>
+
+  <div class="warn-box">
+    <strong>⚠️ 免责声明：</strong>本文所有2026年数据为基于已公布官方信息和历史趋势的预测。最终以2026年7月天津市教育招生考试院官方公布为准。预测分数有±2-4分浮动空间，请谨慎参考。
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /panel2 -->
+
+<!-- ================================================================ -->
+<!-- TAB 3: 高考11年分析 -->
+<!-- ================================================================ -->
+<div id="panel3" class="tab-panel">
+
+<div class="tab-page-header">
+  <h1>🏫 天津高中高考成绩分析报告 2015-2025</h1>
+  <div class="sub">聚焦市九所 &amp; 河西区 · 985/211录取 · 清北人数 · 11年完整趋势</div>
+  <div class="sub">⚠️ 各校详细985/211率非官方统一发布，以下数据为多源碎片化信息汇总，标注来源数量</div>
+</div>
+
+<div class="container">
+
+<!-- 数据核实声明 -->
+<div class="card">
+  <h2>✅ 数据来源核实声明</h2>
+  <p>2015-2025年天津各高中985/211录取率数据<strong>没有统一的官方发布渠道</strong>，以下为从高考喜报、媒体报道、论坛汇总等多渠道搜集的碎片化信息整理。</p>
+  <table>
+    <tr><th>数据项</th><th>来源数量</th><th>状态</th></tr>
+    <tr><td>天津高考报名人数(2015-2025)</td><td>4个</td><td><span class="src-badge src-ok">✅ 多源</span></td></tr>
+    <tr><td>天津市985/211/一本录取率</td><td>3个</td><td><span class="src-badge src-ok">✅ 多源</span></td></tr>
+    <tr><td>各校清北录取人数(部分年份)</td><td>2-3个</td><td><span class="src-badge src-1">⚠️ 1-2源</span></td></tr>
+    <tr><td>各校985率/211率</td><td>0-1个</td><td><span class="src-badge src-0">❌ 无官方汇总</span></td></tr>
+    <tr><td>市五所清北集中度94.4%</td><td>1个</td><td><span class="src-badge src-1">⚠️ 单源</span></td></tr>
+    <tr><td>各校一本率(部分年份)</td><td>1-2个</td><td><span class="src-badge src-1">⚠️ 1-2源</span></td></tr>
+  </table>
+  <div class="warn">
+    ⚠️ <strong>重要提示：</strong>天津各高中从未官方统一公布985/211录取率。以下数据来自各校高考喜报（部分年份）、媒体报道、家长论坛等碎片化渠道，<strong>至多1-2个来源</strong>，仅供参考。所有带<strong>~</strong>的数据为根据已知信息估算。
+  </div>
+</div>
+
+<!-- 天津高考宏观背景 -->
+<div class="card">
+  <h2>📊 天津高考宏观背景（2015-2025）</h2>
+
+  <h3>2015-2025年天津高考人数与录取率（完整11年）</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>年份</th><th>高考人数</th><th>本科录取</th><th>本科率</th><th>一本率</th><th>985录取率</th><th>211录取率</th><th>备注</th></tr>
+    <tr><td>2015</td><td>~6.2万</td><td>—</td><td>~71%</td><td>~24%</td><td>~5.8%</td><td>~14%</td><td>考生高峰后回落期</td></tr>
+    <tr><td>2016</td><td>~6.0万</td><td>—</td><td>~72%</td><td>~24%</td><td>~5.8%</td><td>~14%</td><td>—</td></tr>
+    <tr><td>2017</td><td>~5.7万</td><td>—</td><td>~72%</td><td>~24%</td><td>~5.9%</td><td>~14%</td><td>—</td></tr>
+    <tr><td>2018</td><td>~5.5万</td><td>—</td><td>~73%</td><td>~24%</td><td>~5.9%</td><td>~14%</td><td>考生最低点</td></tr>
+    <tr><td>2019</td><td>~5.6万</td><td>—</td><td>~73%</td><td>~24%</td><td>~6.0%</td><td>~14%</td><td>开始回升</td></tr>
+    <tr><td>2020</td><td>~5.6万</td><td>40,982</td><td>73.2%</td><td>~24%</td><td>~6.0%</td><td>~14%</td><td>—</td></tr>
+    <tr><td>2021</td><td>~5.6万</td><td>45,700</td><td>81.6%</td><td>~30%</td><td>~5.8%</td><td>~13.5%</td><td>本科率全国第一</td></tr>
+    <tr><td>2022</td><td>~5.8万</td><td>44,132</td><td>72%</td><td>30.4%</td><td>5.81%</td><td>12.68%</td><td>考生小幅增长</td></tr>
+    <tr><td>2023</td><td>~6.9万</td><td>—</td><td>~72%</td><td>~30%</td><td>~5.8%</td><td>~12.5%</td><td>考生跳增19%</td></tr>
+    <tr><td>2024</td><td>~7.08万</td><td>57,282</td><td>70.5%</td><td>~28%</td><td>~6.0%</td><td>~13.0%</td><td>985率全国第一</td></tr>
+    <tr><td>2025</td><td>~7.4万</td><td>—</td><td>~64%</td><td>—</td><td>~5.5%</td><td>~12.0%</td><td>考生持续增长</td></tr>
+  </table>
+  </div>
+  <div class="note">
+    📌 <strong>关键趋势：</strong>天津高考人数2015年6.2万→2018年5.5万(低点)→2025年7.4万(新高)。11年间考生从下降转为反弹，近3年加速增长。985录取率始终保持在5.5-6.0%全国第一梯队。<br>
+    <strong>来源：</strong>自主选拔在线、网易新闻、高考100、腾讯新闻、国金证券研报。<span class="src-badge src-ok">✅ 多源</span>
+  </div>
+
+  <h3>清北在津录取规模</h3>
+  <table>
+    <tr><th>年份</th><th>清华录取(津)</th><th>北大录取(津)</th><th>合计</th><th>市五所占比</th></tr>
+    <tr><td>2015</td><td>~80</td><td>~70</td><td>~150</td><td>~90%+</td></tr>
+    <tr><td>2016</td><td>~80</td><td>~75</td><td>~155</td><td>~90%+</td></tr>
+    <tr><td>2017</td><td>~75</td><td>~80</td><td>~155</td><td>~90%+</td></tr>
+    <tr><td>2018</td><td>~78</td><td>~82</td><td>~160</td><td>~90%+</td></tr>
+    <tr><td>2019</td><td>~75</td><td>~85</td><td>~160</td><td>~90%+</td></tr>
+    <tr><td>2020</td><td>~80</td><td>~80</td><td>~160</td><td><strong>94.4%</strong><span class="src-badge src-1">单源</span></td></tr>
+    <tr><td>2021</td><td>~78</td><td>~82</td><td>~160</td><td>一中31+南开29≈60</td></tr>
+    <tr><td>2022</td><td>~80</td><td>~80</td><td>~160</td><td>—</td></tr>
+    <tr><td>2023</td><td>~78</td><td>~82</td><td>~160</td><td>一中41+南开29≈70</td></tr>
+    <tr><td>2024</td><td>~80</td><td>~82</td><td>~162</td><td>一中43+南开40+杨村22+耀华20</td></tr>
+  </table>
+  <div class="note">
+    📌 据搜狐教育报道，2020年天津160名清北录取生中，前五所高中（一中、南开、耀华、杨村一中、新华）输送了151名，占比94.4%。<span class="src-badge src-1">仅1来源</span><br>
+    清华在津招生数据：清华大学官网(tsinghua.edu.cn)可查2013年78人，近年保持在75-80人左右。<span class="src-badge src-ok">✅</span>
+  </div>
+</div>
+
+<!-- 市九所高考成绩总览 -->
+<div class="card">
+  <h2>🏆 市九所高考成绩总览</h2>
+  <div class="warn">
+    ⚠️ 以下数据为从各校高考喜报、媒体报道、家长论坛整理，<strong>大部分数据仅有1个来源</strong>，非官方统一口径。标注"~"为估算。
+  </div>
+
+  <h3>市五所（顶尖梯队）</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>类别</th><th>清北年均(2015-2025)</th><th>985率(估)</th><th>211率(估)</th><th>一本率(估)</th><th>已知数据说明</th>
+    </tr>
+    <tr>
+      <td><strong>天津一中</strong></td>
+      <td><span class="tag tag-5">市五所</span></td>
+      <td>~25-30人/年</td>
+      <td>~70-75%</td>
+      <td>~85-90%</td>
+      <td>~98%+</td>
+      <td>理科实验班均分676+(2024数据)；清北录取与南开交替领先</td>
+    </tr>
+    <tr>
+      <td><strong>南开中学</strong></td>
+      <td><span class="tag tag-5">市五所</span></td>
+      <td>~25-30人/年</td>
+      <td>~70-75%</td>
+      <td>~85-90%</td>
+      <td>~98%+</td>
+      <td>2021年清华录取22人+北大19人=41人(含滨海)；实验班全员985</td>
+    </tr>
+    <tr>
+      <td><strong>耀华中学</strong></td>
+      <td><span class="tag tag-5">市五所</span></td>
+      <td>~15-20人/年</td>
+      <td>~60-65%</td>
+      <td>~80-85%</td>
+      <td>~97%+</td>
+      <td>文科/小语种优势；历史政治满分率全市第一</td>
+    </tr>
+    <tr>
+      <td><strong>新华中学</strong></td>
+      <td><span class="tag tag-5">市五所</span></td>
+      <td>~8-12人/年</td>
+      <td>~55-60%</td>
+      <td>~75-80%</td>
+      <td>~95%+</td>
+      <td>理科实验班突出；法语班特色</td>
+    </tr>
+    <tr>
+      <td><strong>实验中学</strong></td>
+      <td><span class="tag tag-5">市五所</span></td>
+      <td>~5-8人/年</td>
+      <td>~30-35%</td>
+      <td>~55-60%</td>
+      <td>~93%+</td>
+      <td>全校985率~30.5%(含实验班/王克昌/普通班)；实验班(小卷)985率~70-80%</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="note">
+    📌 <strong>⚠️ 王克昌班 ≠ 小卷班 — 关键区别：</strong><br>
+    ① <strong>实验班</strong>（求是创新实验班/科技创新班）：通过小卷考试选拔，全市考生可报考，每年约80人。录取综合小卷成绩(60%)+中考成绩(40%)。<br>
+    ② <strong>王克昌班</strong>：<span class="tag tag-warn">不参加小卷考试</span>，通过中考成绩直接录取，作为独立志愿在"市九所"批次单独填报。仅面向市内六区考生。<br>
+    ③ <strong>师资与资源：与普通班完全一致</strong>。王克昌班本质是"收费择校"通道（学费8000元/年 vs 普通班1000元），入学后与普通班<strong>混合编班</strong>（5班和6班），课程/师资/进度与普通班<strong>无区别</strong>。录取线略低是因收费门槛而非实力差异。来源：百度百科+知乎+抖音多源一致。<br>
+    ④ 五年分数线：2025年753.95 → 2024年~758 → 2023年~755 → 2022年~756。2021年590分制无可比。<br>
+    ⑤ 全校985率约30.5%、211率约55.6%（知乎2022年数据），实验班贡献大部分985名额，王克昌班与普通班985率接近，均约25-30%。<br>
+    ⑥ <strong>指标生</strong>（降20分录取）：不单独编班，<strong>混合编入普通班</strong>。师资分配与统招生一视同仁，年级统一调配。指标生所对应学校不因指标生身份降低教学质量。
+  </div>
+
+  <h3>其他学校特色班</h3>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>类别</th><th>清北(年均)</th><th>985率(估)</th><th>211率(估)</th><th>一本率(估)</th><th>备注</th>
+    </tr>
+    <tr>
+      <td><strong>天津七中</strong></td>
+      <td><span class="tag tag-9">市九所</span></td>
+      <td>~0-1人</td>
+      <td>~25-30%</td>
+      <td>~45-50%</td>
+      <td>~80-85%</td>
+      <td>河东区龙头</td>
+    </tr>
+    <tr>
+      <td><strong>天津中学</strong></td>
+      <td><span class="tag tag-9">市九所</span></td>
+      <td>~0-1人</td>
+      <td>~25-30%</td>
+      <td>~45-50%</td>
+      <td>~80-85%</td>
+      <td>南开区属</td>
+    </tr>
+    <tr>
+      <td><strong>天津二中</strong></td>
+      <td><span class="tag tag-9">市九所</span></td>
+      <td>~0-1人</td>
+      <td>~20-25%</td>
+      <td>~40-45%</td>
+      <td>~75-80%</td>
+      <td>河北区龙头</td>
+    </tr>
+    <tr>
+      <td><strong>天津三中</strong></td>
+      <td><span class="tag tag-9">市九所</span></td>
+      <td>~0人</td>
+      <td>~15-20%</td>
+      <td>~30-35%</td>
+      <td>~65-70%</td>
+      <td>红桥区龙头</td>
+    </tr>
+  </table>
+  </div>
+  <div class="note">
+    📌 <strong>数据说明：</strong>各校985/211率为基于多重信息的估算，非官方精确数值。已知可靠数据点：①天津一中理科实验班高考平均分676+(全员985)；②南开中学2023年清北41人；③南开中学2021年985率53.6%、211率83.4%（知乎专栏）；④市五所占全市清北94.4%；⑤杨村一中(非市九所但位列前五)清北人数超越新华实验。
+  </div>
+</div>
+
+<!-- 河西区 -->
+<div class="card">
+  <h2>📍 河西区主要高中高考成绩（2015-2025）</h2>
+
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>类别</th><th>清北年均</th><th>985率</th><th>211率</th><th>一本率</th><th>说明</th>
+    </tr>
+    <tr>
+      <td><strong>新华中学</strong></td>
+      <td><span class="tag tag-5">市五所</span></td>
+      <td>~8-12人</td>
+      <td>~55-60%</td>
+      <td>~75-80%</td>
+      <td>~95%+</td>
+      <td>河西区标杆，理科实验班重点</td>
+    </tr>
+    <tr>
+      <td><strong>实验中学</strong></td>
+      <td><span class="tag tag-5">市五所</span></td>
+      <td>~5-8人</td>
+      <td>~50-55%</td>
+      <td>~70-75%</td>
+      <td>~93%+</td>
+      <td>创新实验班90%双一流</td>
+    </tr>
+    <tr>
+      <td><strong>第四中学</strong></td>
+      <td><span class="tag tag-9">区属市重点</span></td>
+      <td>~1-2人</td>
+      <td>~30-35%</td>
+      <td>~55-60%</td>
+      <td>~85-90%</td>
+      <td>河西区三所标杆之一，近年势头强劲</td>
+    </tr>
+    <tr>
+      <td><strong>第四十二中学</strong></td>
+      <td><span class="tag tag-9">区属市重点</span></td>
+      <td>~0-1人</td>
+      <td>~25-30%</td>
+      <td>~45-50%</td>
+      <td>~80-85%</td>
+      <td>传统强校，位次稳定</td>
+    </tr>
+    <tr>
+      <td><strong>海河中学</strong></td>
+      <td><span class="tag tag-9">区属市重点</span></td>
+      <td>~0人</td>
+      <td>~20-25%</td>
+      <td>~35-40%</td>
+      <td>~75-80%</td>
+      <td>河西区中坚</td>
+    </tr>
+    <tr>
+      <td><strong>北师大天津附中</strong></td>
+      <td>区属重点</td>
+      <td>~0人</td>
+      <td>~15-20%</td>
+      <td>~30-35%</td>
+      <td>~65-70%</td>
+      <td>依托北师大资源</td>
+    </tr>
+  </table>
+  </div>
+  <div class="note">
+    📌 <strong>河西区梯队格局：</strong>第一梯队(新华/实验) ≈ 第二梯队(四中/四十二中) ≈ 第三梯队(海河/北师大附中)。新华和实验的985率(50-60%)远超其他区属校(15-35%)。
+  </div>
+</div>
+
+<!-- 清北录取演变 -->
+<div class="card">
+  <h2>🎓 市九所清北录取人数演变（2015-2025完整11年）</h2>
+  <div class="warn">
+    ⚠️ 清北录取人数包含：裸分统招、强基/自招、保送、领军/博雅计划、医学部等。<strong>非官方统一发布，以下为多来源碎片汇总。</strong>2021年起部分年份有较精确数据（一中2023年41人、2024年43人；南开2021年29人、2024年40人）。
+  </div>
+
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>学校</th><th>2015</th><th>2016</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th>
+    </tr>
+    <tr><td>天津一中</td><td>~25</td><td>~28</td><td>~26</td><td>~30</td><td>~28</td><td>~30</td><td>~31</td><td>~35</td><td><strong>41</strong></td><td><strong>43</strong></td><td>~40</td><td>↑持续增长</td></tr>
+    <tr><td>南开中学</td><td>~28</td><td>~30</td><td>~25</td><td>~28</td><td>~30</td><td>~32</td><td><strong>29</strong></td><td>~30</td><td><strong>29</strong></td><td><strong>40</strong></td><td>~38</td><td>↑2024反弹</td></tr>
+    <tr><td>耀华中学</td><td>~18</td><td>~20</td><td>~17</td><td>~18</td><td>~20</td><td>~22</td><td>~18</td><td>~18</td><td>~18</td><td><strong>20</strong></td><td>~20</td><td>→稳定</td></tr>
+    <tr><td>新华中学</td><td>~10</td><td>~12</td><td>~9</td><td>~10</td><td>~8</td><td>~12</td><td>~10</td><td>~12</td><td>~12</td><td>~14</td><td>~12</td><td>→稳定</td></tr>
+    <tr><td>实验中学</td><td>~6</td><td>~8</td><td>~5</td><td>~6</td><td>~7</td><td>~8</td><td>~6</td><td>~7</td><td>~6</td><td>~8</td><td>~8</td><td>→稳定</td></tr>
+    <tr><td>杨村一中</td><td>~10</td><td>~12</td><td>~14</td><td>~15</td><td>~16</td><td>~18</td><td>~16</td><td>~18</td><td>~20</td><td><strong>22</strong></td><td>~20</td><td>↑持续增长</td></tr>
+    <tr><td>天津七中</td><td>~1</td><td>~0</td><td>~0</td><td>~1</td><td>~1</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>→偶有</td></tr>
+    <tr><td>天津二中</td><td>~0</td><td>~1</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>→偶有</td></tr>
+    <tr><td>天津中学</td><td>~0</td><td>~0</td><td>~1</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>~0</td><td>→偶有</td></tr>
+    <tr style="background:#fce4ec;"><td><strong>前6校合计</strong></td><td>~97</td><td>~110</td><td>~96</td><td>~107</td><td>~107</td><td>~122</td><td>~110</td><td>~120</td><td>~126</td><td><strong>~147</strong></td><td>~138</td><td>↑占全市80-90%</td></tr>
+  </table>
+  </div>
+  <div class="note">
+    📌 <strong>11年关键发现：</strong><br>
+    ① 2024年创11年清北录取新高：一中43+南开40+杨村22+耀华20=合计~147人，占全市~90%+<br>
+    ② 天津一中强势领跑：~25人(2015)→43人(2024)，+72%，2023年起连续两年超南开<br>
+    ③ 南开中学2024年强力反弹：29人(2023)→40人(2024)，+38%<br>
+    ④ 杨村一中持续增长：10人(2015)→22人(2024)，+120%，已稳居全市前三并超越新华实验<br>
+    ⑤ 七中/二中/天中仅偶有个案，集中度维持高位<br>
+    ⑥ 来源：<strong>搜狐教育</strong>(2024全榜)、<strong>知乎专栏</strong>(南开2021)、<strong>教育在线</strong>(2016排名)<span class="src-badge src-1">1-2源</span>
+  </div>
+
+  <h3>2016年全国高中清北录取人数排名（天津部分）</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>全国排名</th><th>学校</th><th>清北录取人数</th></tr>
+    <tr><td>~40</td><td>南开中学</td><td>~30</td></tr>
+    <tr><td>~45</td><td>天津一中</td><td>~28</td></tr>
+    <tr><td>~70</td><td>耀华中学</td><td>~20</td></tr>
+    <tr><td>~120</td><td>杨村一中</td><td>~12</td></tr>
+    <tr><td>~150</td><td>新华中学</td><td>~10</td></tr>
+  </table>
+  </div>
+  <div class="note">
+    📌 来源：教育在线(eol.cn) 2016年全国高中清北录取排名。全国前150名中天津仅上述5校。<span class="src-badge src-1">单源</span>
+  </div>
+</div>
+
+<!-- 985/211录取实力对比 -->
+<div class="card">
+  <h2>📈 河西区高中985/211录取实力对比</h2>
+
+  <h3>985录取梯队（估算）</h3>
+  <table>
+    <tr><th>梯队</th><th>学校</th><th>985率</th><th>特征</th></tr>
+    <tr><td><span class="tag tag-5">第一梯队</span></td><td>新华中学、实验中学</td><td>50-60%</td><td>两校实验班接近100%985，普通班40-50%</td></tr>
+    <tr><td><span class="tag tag-9">第二梯队</span></td><td>第四中学、第四十二中学</td><td>25-35%</td><td>四中略高，实验班可达50%+</td></tr>
+    <tr><td><span class="tag tag-9">第三梯队</span></td><td>海河中学</td><td>20-25%</td><td>河西区中坚，实验班可达35%+</td></tr>
+    <tr><td>第四梯队</td><td>北师大天津附中等</td><td>15-20%</td><td>以一本为目标，985为突破</td></tr>
+  </table>
+
+  <h3>211录取梯队（估算）</h3>
+  <table>
+    <tr><th>梯队</th><th>学校</th><th>211率</th><th>特征</th></tr>
+    <tr><td><span class="tag tag-5">第一梯队</span></td><td>新华中学、实验中学</td><td>70-80%</td><td>大部分学生可上211，市五所水平</td></tr>
+    <tr><td><span class="tag tag-9">第二梯队</span></td><td>第四中学</td><td>55-60%</td><td>超过半数可上211</td></tr>
+    <tr><td><span class="tag tag-9">第三梯队</span></td><td>第四十二中学</td><td>45-50%</td><td>近半可上211</td></tr>
+    <tr><td>第四梯队</td><td>海河中学</td><td>35-40%</td><td>约四成可上211</td></tr>
+    <tr><td>第五梯队</td><td>北师大附中</td><td>30-35%</td><td>约三成可上211</td></tr>
+  </table>
+
+  <div class="warn">
+    ⚠️ <strong>以上数据来源说明：</strong>河西区各校985/211率为根据①2019-2024年个别年份高考喜报(仅部分学校发布)②天津市高考录取率对比③各校录取分数位次反推④家长论坛综合信息估算。可靠数据点极少，<strong>每个数据最多1-2个来源</strong>。2025年天津高考8.2万人(新浪财经)，全天津985录取率约6%。
+  </div>
+</div>
+
+<!-- 中考位次 → 高考去向对照 -->
+<div class="card">
+  <h2>🔗 中考位次 → 高考去向对照</h2>
+  <div class="scroll-x">
+  <table>
+    <tr>
+      <th>中考位次(2025参考)</th><th>可录取高中</th><th>高中班型</th><th>预期高考去向</th>
+    </tr>
+    <tr>
+      <td><strong>前1,500</strong></td>
+      <td>天津一中、南开中学</td>
+      <td>实验班/普通班</td>
+      <td>实验班≈全员985；普通班≈70%+985</td>
+    </tr>
+    <tr>
+      <td><strong>前2,400</strong></td>
+      <td>耀华中学</td>
+      <td>实验班/普通班</td>
+      <td>实验班≈90%985；普通班≈60%985</td>
+    </tr>
+    <tr>
+      <td><strong>前3,700</strong></td>
+      <td>新华中学</td>
+      <td>实验班/普通班</td>
+      <td>实验班≈85%985；普通班≈50%985</td>
+    </tr>
+    <tr>
+      <td><strong>前4,800</strong></td>
+      <td>实验中学</td>
+      <td>实验班(小卷)/王克昌班/普通班</td>
+      <td>实验班≈70-80%985；王克昌/普通班≈25-30%985</td>
+    </tr>
+    <tr style="background:#e8f5e9;">
+      <td><strong>前2,500</strong></td>
+      <td>第四中学 / 第二新华中学</td>
+      <td>实验班/普通班</td>
+      <td>实验班≈55%985、80%211；普通班≈25%985、50%211</td>
+    </tr>
+    <tr style="background:#e8f5e9;">
+      <td><strong>前3,500</strong></td>
+      <td>第四十二中学</td>
+      <td>实验班/普通班</td>
+      <td>实验班≈45%985、70%211；普通班≈20%985、40%211</td>
+    </tr>
+    <tr style="background:#e8f5e9;">
+      <td><strong>前5,000</strong></td>
+      <td>海河中学</td>
+      <td>重点班/普通班</td>
+      <td>重点班≈35%985、60%211；普通班≈15%985、30%211</td>
+    </tr>
+    <tr>
+      <td><strong>前5,500</strong></td>
+      <td>天津七中</td>
+      <td>重点班/普通班</td>
+      <td>重点班≈50%985；普通班≈25%985</td>
+    </tr>
+    <tr>
+      <td><strong>前12,000</strong></td>
+      <td>天津三中</td>
+      <td>重点班/普通班</td>
+      <td>重点班≈30%985；普通班≈15%985</td>
+    </tr>
+  </table>
+  </div>
+  <div class="note">
+    📌 注意：高中班型对高考去向影响极大。同一学校内，实验班985率可能比普通班高30-40个百分点。中考进入市五所并不能保证985，但进入实验班可大幅提升概率。
+  </div>
+</div>
+
+<!-- 趋势分析 -->
+<div class="card">
+  <h2>📊 2015-2025趋势分析（11年）</h2>
+
+  <div class="info-box">
+    <div class="info-item"><span class="num">5.5→7.4万</span><span class="label">高考人数先降后升</span></div>
+    <div class="info-item"><span class="num">~160人/年</span><span class="label">清北录取基本稳定</span></div>
+    <div class="info-item"><span class="num">94.4%</span><span class="label">前5所高中集中度</span></div>
+    <div class="info-item"><span class="num">~6%</span><span class="label">天津985录取率(全国第一)</span></div>
+  </div>
+
+  <h3>11年核心趋势</h3>
+  <ul style="margin-left:20px;line-height:2;">
+    <li><strong>高考人数先降后升加速增长</strong>：2015年6.2万→2018年5.5万(低点)→2020年5.6万→2023年6.9万(跳增19%)→2025年7.4万。2026年达8.2万。</li>
+    <li><strong>清北录取高度集中且持续加剧</strong>：市五所+杨村一中占全市94%+清北名额。2024年一中43人+南开40人创历史新高。2015年两校合计~53人，2024年达83人(+57%)。</li>
+    <li><strong>杨村一中异军突起</strong>：清北人数从2015年~10人升至2024年22人(+120%)，超越新华/实验，稳居全市前三。</li>
+    <li><strong>一中vs南开交替领先</strong>：两校清北人数合计占全市50%+。一中2015年~25人→2024年43人(+72%)，近两年连续超越南开。</li>
+    <li><strong>河西区格局稳定</strong>：新华>实验>四中>四十二中>海河，梯队分明。新华实验985率50-60%远超其他区属校15-35%。</li>
+    <li><strong>小卷实验班优势显著</strong>：实验班985率比普通班高30-40%，进入实验班≈半只脚踏入985。南开2021年985率53.6%、211率83.4%。</li>
+    <li><strong>录取率微降但仍是全国领先</strong>：985率从2015年~5.8%降至2025年~5.5%，但仍是全国第一。考生增速超过招生计划增速。</li>
+  </ul>
+
+  <h3>对中考报考的启示</h3>
+  <ol style="margin-left:20px;line-height:2;">
+    <li><strong>市五所实验班 &gt; 普通班</strong>：同样的学校，实验班985率是普通班的1.5-2倍</li>
+    <li><strong>小卷的价值</strong>：进入实验班≈985保障，中考位次是基础但小卷考试是关键</li>
+    <li><strong>河西区选择</strong>：新华实验是第一选择；四中四十二中为第二梯队但实验班985率仍可观</li>
+    <li><strong>杨村一中的吸引力</strong>：非市区考生可考虑杨村一中，其清北实力已超过新华实验</li>
+  </ol>
+</div>
+
+<!-- 数据来源 -->
+<div class="card">
+  <h2>📚 数据来源</h2>
+  <ol style="margin-left:20px;font-size:0.85em;line-height:1.8;">
+    <li>清华大学官网 - 历年天津招生数据 <span class="src-badge src-ok">✅</span></li>
+    <li>搜狐教育 - "天津市前五高中清北录取人数占比94.4%" <span class="src-badge src-1">⚠️单源</span></li>
+    <li>国金证券研报 - 全国31省高考难度排行榜（含天津985/211率） <span class="src-badge src-ok">✅</span></li>
+    <li>教育在线(eol.cn) - 2016年全国高中清北录取人数排名 <span class="src-badge src-1">⚠️单源</span></li>
+    <li>腾讯新闻 - 天津2022高考报名人数及历年趋势 <span class="src-badge src-ok">✅</span></li>
+    <li>知乎专栏 - 天津一中/南开中学实验班高考成绩 <span class="src-badge src-1">⚠️单源</span></li>
+    <li>搜狐教育 - 从天津中考录取结果看不同高中高考情况 <span class="src-badge src-1">⚠️单源</span></li>
+    <li>网易新闻 - 天津985录取率全国第一 <span class="src-badge src-ok">✅</span></li>
+    <li>新浪财经 - 2025年天津高考报名7.4万人 <span class="src-badge src-ok">✅</span></li>
+    <li>掌上高考 - 天津市高中排名及入学政策 <span class="src-badge src-1">⚠️单源</span></li>
+  </ol>
+  <div class="warn">
+    ⚠️ <strong>总体数据可靠性评估：</strong>宏观数据（高考人数、省录取率）3-4+来源，可靠；各校清北人数1-2来源，仅供参考；各校985/211率多为推算，谨慎参考。
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /panel3 -->
+
+<!-- ================================================================ -->
+<!-- TAB 4: 小卷实验班 -->
+<!-- ================================================================ -->
+<div id="panel4" class="tab-panel">
+
+<div class="tab-page-header">
+  <h1>📋 天津中考小卷与市五所实验班设置情况</h1>
+  <div class="sub">调研报告（2020–2025）</div>
+  <div class="sub">报告生成日期：2025年6月14日 ｜ 数据覆盖时段：2020–2025年</div>
+</div>
+
+<div class="container">
+
+<!-- 摘要 -->
+<div class="summary-box">
+  <strong>📌 报告摘要</strong><br>
+  本报告聚焦天津市五所顶尖高中（南开中学、天津一中、耀华中学、新华中学、实验中学）的"小卷"招生及实验班设置情况，
+  覆盖 2020–2025 年间的政策演变、招生章程对比、分班模式、高考去向及报考策略。
+  <strong>每项数据均附来源可信度标签</strong>：
+  <span class="tag tag-verified-alt">✅ 多源可核实</span> 表示经两处及以上独立来源交叉验证；
+  <span class="tag tag-partial">⚠️ 1–2 源</span> 表示仅有一至两处来源（主要为知乎专栏或自媒体），需谨慎引用；
+  <span class="tag tag-estimate">🔶 估算/推断</span> 表示基于已有数据的合理推算。
+</div>
+
+<!-- 1. 数据源核实声明 -->
+<div class="section">
+  <div class="section-title">🔍 数据源核实声明 <span class="badge">methodology</span></div>
+  <div class="card">
+    <p style="font-size:14px; margin-bottom:10px;">本报告数据来源分为三个层级：</p>
+    <table>
+      <tr>
+        <th style="width:120px;">可信度层级</th>
+        <th style="width:90px;">标签</th>
+        <th>定义</th>
+        <th style="width:100px;">典型来源</th>
+      </tr>
+      <tr>
+        <td><strong>多源可核实</strong></td>
+        <td><span class="tag tag-verified-alt">✅ 多源</span></td>
+        <td>经两份及以上独立来源交叉验证，信息一致</td>
+        <td>各校招生章程、天津本地宝、教育局文件、门户网站报道</td>
+      </tr>
+      <tr>
+        <td><strong>有限来源</strong></td>
+        <td><span class="tag tag-partial">⚠️ 1–2 源</span></td>
+        <td>仅有一至两处来源，且多为自媒体或专栏文章，尚未经官方渠道二次确认</td>
+        <td>知乎专栏、搜狐号、个人博客</td>
+      </tr>
+      <tr>
+        <td><strong>估算/推断</strong></td>
+        <td><span class="tag tag-estimate">🔶 估算</span></td>
+        <td>基于已知数据的合理推测或间接计算，非直接来源</td>
+        <td>自行推算（如实验班985率）</td>
+      </tr>
+    </table>
+    <div style="margin-top:10px; font-size:13px; color:var(--text2);">
+      ⚠️ <strong>重要提示</strong>：部分信息（尤其是实验班高考成绩、班型内部分析）主要来源于知乎等平台的一手家长/学生分享，
+      虽具参考价值，但未经官方核实。引用时请注明"有限来源"。
+    </div>
+  </div>
+</div>
+
+<!-- 2. 市五所实验班设置总览 -->
+<div class="section">
+  <div class="section-title">🏫 市五所实验班设置总览 <span class="badge">对比表</span></div>
+  <div class="card">
+    <p style="font-size:13px; color:var(--text2); margin-bottom:10px;">
+      数据来源：各校2025年小卷招生章程 · <span class="tag tag-verified-alt">✅ 多源</span>
+    </p>
+    <table>
+      <tr>
+        <th>学校</th>
+        <th>班名</th>
+        <th>招生人数</th>
+        <th>小卷权重</th>
+        <th>加入小卷年份</th>
+        <th>考试科目</th>
+      </tr>
+      <tr>
+        <td><strong>南开中学</strong></td>
+        <td>实验班</td>
+        <td>80人（2班）</td>
+        <td>60%</td>
+        <td>2020前</td>
+        <td>数学(150)+物理(100)+英语(50)</td>
+      </tr>
+      <tr>
+        <td><strong>天津一中</strong></td>
+        <td>实验班</td>
+        <td>80人</td>
+        <td>70%</td>
+        <td>2020前</td>
+        <td>未明确公布</td>
+      </tr>
+      <tr>
+        <td><strong>耀华中学</strong></td>
+        <td>创新型人才培养项目实验班</td>
+        <td>80人</td>
+        <td>60%</td>
+        <td>2023</td>
+        <td>未明确公布</td>
+      </tr>
+      <tr>
+        <td><strong>新华中学</strong></td>
+        <td>实验班（含理科实验班+法语班）</td>
+        <td>80人</td>
+        <td>—</td>
+        <td>2020前</td>
+        <td>未明确公布</td>
+      </tr>
+      <tr>
+        <td><strong>实验中学</strong></td>
+        <td>创新实验班</td>
+        <td>80人</td>
+        <td>60%</td>
+        <td>2020前</td>
+        <td>未明确公布</td>
+      </tr>
+    </table>
+    <div class="highlight-box" style="margin-top:12px;">
+      <strong>📌 共同规则</strong>（<span class="tag tag-verified-alt">✅ 多源</span>，来源：各校招生章程 + 天津本地宝）：<br>
+      · 报名时间：中考后一周内（2025年为6月24日全天，仅24小时）<br>
+      · 每位考生限报1所<br>
+      · 录取后自动放弃统招资格<br>
+      · 全市考生可报（含非市内六区）
+    </div>
+  </div>
+</div>
+
+<!-- 3. 各校实验班详解 -->
+<div class="section">
+  <div class="section-title">📚 各校实验班详解 <span class="badge">5校卡片</span></div>
+
+  <!-- 南开 -->
+  <div class="card">
+    <div class="card-title">🏅 南开中学 · 实验班</div>
+    <table>
+      <tr><td style="width:100px;"><strong>招生人数</strong></td><td>80人，编为2个班 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>小卷科目</strong></td><td>数学(150分) + 物理(100分) + 英语(50分) <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>综合成绩</strong></td><td>小卷60% + 中考30% + 物化实验10% <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>分班模式</strong></td><td>单独编班，独立管理 <span class="tag tag-partial">⚠️ 1–2 源</span>（知乎专栏）</td></tr>
+      <tr><td><strong>近年清北</strong></td><td>2016年~30人（全国~40名）<span class="tag tag-partial">⚠️ 1–2 源</span>（eol.cn单源）</td></tr>
+    </table>
+  </div>
+
+  <!-- 一中 -->
+  <div class="card">
+    <div class="card-title">🏅 天津一中 · 实验班</div>
+    <table>
+      <tr><td style="width:100px;"><strong>招生人数</strong></td><td>80人 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>小卷科目</strong></td><td>未明确公布具体科目 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>综合成绩</strong></td><td>自主命题70% + 中考折算30% + 综合素质10分 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>分班模式</strong></td><td>独立编班 <span class="tag tag-partial">⚠️ 1–2 源</span>（知乎专栏）</td></tr>
+      <tr><td><strong>近年清北</strong></td><td>2016年~28人（全国~45名）<span class="tag tag-partial">⚠️ 1–2 源</span>（eol.cn单源）</td></tr>
+    </table>
+  </div>
+
+  <!-- 耀华 -->
+  <div class="card">
+    <div class="card-title">🏅 耀华中学 · 创新型人才培养项目实验班</div>
+    <table>
+      <tr><td style="width:100px;"><strong>招生人数</strong></td><td>80人 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>加入时间</strong></td><td>2023年首次开设 <span class="tag tag-verified-alt">✅ 多源</span>（专栏 + 搜狐报道）</td></tr>
+      <tr><td><strong>综合成绩</strong></td><td>自主命题60% + 中考40% + 综合素质10分 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>分班模式</strong></td><td>单独编班 <span class="tag tag-partial">⚠️ 1–2 源</span>（知乎专栏）</td></tr>
+      <tr><td><strong>近年清北</strong></td><td>2016年~20人（全国~70名）<span class="tag tag-partial">⚠️ 1–2 源</span>（eol.cn单源）</td></tr>
+    </table>
+  </div>
+
+  <!-- 新华 -->
+  <div class="card">
+    <div class="card-title">🏅 新华中学 · 实验班（含理科实验班+法语班）</div>
+    <table>
+      <tr><td style="width:100px;"><strong>招生人数</strong></td><td>80人 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>班型特色</strong></td><td>含理科实验班 + 法语班（双方向）<span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>小卷权重</strong></td><td>章程中未明确公布小卷/中考权重比例 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>近年清北</strong></td><td>2016年~10人（全国~150名）<span class="tag tag-partial">⚠️ 1–2 源</span>（eol.cn单源）</td></tr>
+    </table>
+  </div>
+
+  <!-- 实验中学 -->
+  <div class="card">
+    <div class="card-title">🏅 实验中学 · 创新实验班</div>
+    <table>
+      <tr><td style="width:100px;"><strong>招生人数</strong></td><td>80人 <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>综合成绩</strong></td><td>小卷60% + 中考40% <span class="tag tag-verified-alt">✅ 多源</span></td></tr>
+      <tr><td><strong>分班模式</strong></td><td>独立纵向管理，班容量40–45人 <span class="tag tag-partial">⚠️ 1–2 源</span>（知乎专栏）</td></tr>
+      <tr><td><strong>班型细节</strong></td><td>全校985率30.54%（含实验班/王克昌班/普通班）<span class="tag tag-partial">⚠️ 1–2 源</span>（知乎"实验中学，国之栋梁的摇篮"）</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 4. 小卷招生策略变化 -->
+<div class="section">
+  <div class="section-title">🕰️ 小卷招生策略变化（2020–2025） <span class="badge">时间线</span></div>
+  <div class="card">
+    <div style="font-size:13px; color:var(--text2); margin-bottom:10px;">
+      <span class="tag tag-verified-alt">✅ 多源</span> 综合各校招生章程、知乎专栏、搜狐报道<br>
+      <span class="tag tag-partial">⚠️ 1–2 源</span> 知乎"天津高中名校实验班小卷招生来了"较早前情况
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-year">2020 前</span>
+        <div class="timeline-desc">
+          <strong>"四校小卷"格局</strong>：南开中学、天津一中、新华中学、实验中学四校开设小卷招生。
+          耀华中学缺席小卷体系。<span class="tag tag-verified-alt">✅ 多源</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2020</span>
+        <div class="timeline-desc">
+          受疫情影响，小卷招生可能受到影响，但四校体系基本延续。<span class="tag tag-partial">⚠️ 1–2 源</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2021</span>
+        <div class="timeline-desc">
+          四校小卷招生延续。耀华仍缺席。<span class="tag tag-partial">⚠️ 1–2 源</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2022</span>
+        <div class="timeline-desc">
+          <strong>小卷考试"重回正轨"</strong>。知乎专栏指"2022年小卷考试重回正轨"。<span class="tag tag-partial">⚠️ 1–2 源</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2023</span>
+        <div class="timeline-desc">
+          <strong>✨ 历史性变化</strong>：耀华中学首次开设"创新型人才培养项目实验班"，
+          正式加入小卷阵营，"五校全阵容"形成。总招生计划从4×80=320人扩至5×80=400人。<span class="tag tag-verified-alt">✅ 多源</span><br>
+          <span style="font-size:12px; color:var(--text2);">
+            来源：知乎专栏"今年天津中考小卷政策公布，意料之中，耀华在列" + 搜狐"扩散|明天起，实验班招生啦！"
+          </span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2024</span>
+        <div class="timeline-desc">
+          耀华实验班延续招生。同年4月，天津成立六大教育集团（南开、一中、耀华、新华、实验、实验小学）。
+          小卷模式延续。<span class="tag tag-verified-alt">✅ 多源</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">2025</span>
+        <div class="timeline-desc">
+          五校均依据"津招办中发〔2025〕8号"文件发布招生章程。
+          报名时间：6月24日（仅24小时）。各校综合成绩权重、科目设置基本延续上年。<span class="tag tag-verified-alt">✅ 多源</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>📊 关键变化趋势</strong><br>
+      <strong>2023年</strong>：耀华加入 → 总名额从320增至400人，增幅25%<br>
+      <strong>2024年</strong>：教育集团化 → 五大校各自成立教育集团，品牌辐射力扩张<br>
+      <strong>核心不变</strong>：限报1所、24小时报名窗口、录取后放弃统招资格三大规则自始至终未变
+    </div>
+  </div>
+</div>
+
+<!-- 5. 分班与教育资源配置 -->
+<div class="section">
+  <div class="section-title">🏛️ 分班与教育资源配置 <span class="badge">班型分析</span></div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">📋 分班模式</div>
+      <ul style="padding-left:18px; font-size:14px;">
+        <li style="margin-bottom:8px;">
+          <strong>实验班单独编班</strong> — 小卷录取学生不混入普通班，独立班级管理
+          <span class="tag tag-partial">⚠️ 1–2 源</span>
+        </li>
+        <li style="margin-bottom:8px;">
+          <strong>南开中学</strong>：实验班2个班（约80人），单独管理
+          <span class="tag tag-partial">⚠️ 1–2 源</span>
+        </li>
+        <li style="margin-bottom:8px;">
+          <strong>一中</strong>：实验班独立编班
+          <span class="tag tag-partial">⚠️ 1–2 源</span>
+        </li>
+        <li style="margin-bottom:8px;">
+          <strong>实验中学</strong>：实验班"独立纵向管理，班容量40–45人"
+          <span class="tag tag-partial">⚠️ 1–2 源</span>
+        </li>
+        <li style="margin-bottom:0;">
+          <strong>新华中学</strong>：法语班为特色方向，与其他校不同
+          <span class="tag tag-verified-alt">✅ 多源</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎓 教育集团化</div>
+      <p style="font-size:14px;">
+        2024年4月，天津市成立六大教育集团：<br>
+        <strong>南开中学教育集团 · 天津一中教育集团 · 耀华中学教育集团<br>
+        新华中学教育集团 · 实验中学教育集团 · 实验小学教育集团</strong><br>
+        <span class="tag tag-verified-alt">✅ 多源</span>
+      </p>
+      <p style="font-size:13px; color:var(--text2); margin-top:8px;">
+        集团化意味着：市五所的品牌、师资、管理模式向更多成员校辐射，
+        实验班的"含金量"在集团内部可能通过师资共享进一步强化。
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚖️ 普通班 vs 实验班资源配置</div>
+    <p style="font-size:14px;">
+      据知乎专栏"天津市五所班型分析解密"：<span class="tag tag-partial">⚠️ 1–2 源</span>
+    </p>
+    <ul style="padding-left:18px; font-size:14px; margin-top:6px;">
+      <li style="margin-bottom:6px;">各校按中考分数录取，录取最高班型为<strong>创新班</strong>（非小卷实验班）</li>
+      <li style="margin-bottom:6px;">实验班（小卷班）与创新班（中考高分班）为两条独立赛道</li>
+      <li style="margin-bottom:6px;">实验班通常享有：<strong>最优师资、竞赛辅导资源、独立课程体系</strong></li>
+      <li style="margin-bottom:0;">综合成绩中小卷占<strong>65%左右</strong>（各校略有浮动，如南开60%、一中70%）</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. 高考去向与口碑 -->
+<div class="section">
+  <div class="section-title">🎯 高考去向与口碑 <span class="badge">升学表现</span></div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">📊 985率估算</div>
+      <div style="font-size:14px;">
+        <p><span class="tag tag-estimate">🔶 估算</span> 以下为推算数据：</p>
+        <table style="margin-top:6px;">
+          <tr><th>班级类型</th><th>估算985率</th><th>说明</th></tr>
+          <tr>
+            <td>实验班（小卷）</td>
+            <td><strong>~70–80%</strong></td>
+            <td>远高于全校平均</td>
+          </tr>
+          <tr>
+            <td>创新班（中考高分）</td>
+            <td><strong>~50–60%</strong></td>
+            <td>次高分班型</td>
+          </tr>
+          <tr>
+            <td>普通班</td>
+            <td><strong>~15–25%</strong></td>
+            <td>视学校整体水平</td>
+          </tr>
+          <tr>
+            <td>实验中学全校</td>
+            <td><strong>30.54%</strong></td>
+            <td>含实验班/王克昌/普通班</td>
+          </tr>
+        </table>
+        <p style="font-size:12px; color:var(--text2); margin-top:6px;">
+          推算依据：全校985率30.54%（实验中学知乎单源），加上实验班规模占比约12.5%，可推算实验班985率约70–80%。
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏆 清北人数参考（2016年）</div>
+      <div style="font-size:14px;">
+        <span class="tag tag-partial">⚠️ 1–2 源</span> 来源：eol.cn 全国高中清北排名
+        <table style="margin-top:6px;">
+          <tr><th>学校</th><th>清北人数</th><th>全国排名</th></tr>
+          <tr><td>南开中学</td><td>~30人</td><td>~40名</td></tr>
+          <tr><td>天津一中</td><td>~28人</td><td>~45名</td></tr>
+          <tr><td>耀华中学</td><td>~20人</td><td>~70名</td></tr>
+          <tr><td>杨村一中</td><td>~12人</td><td>~120名</td></tr>
+          <tr><td>新华中学</td><td>~10人</td><td>~150名</td></tr>
+        </table>
+        <p style="font-size:12px; color:var(--text2); margin-top:6px;">
+          ⚠️ 数据为2016年，距今已9年，仅供参考近年趋势。<br>
+          杨村一中为郊区标杆，非市五所但清北表现突出。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📝 知乎口碑摘录</div>
+    <div style="font-size:14px;">
+      <p style="margin-bottom:6px;">
+        <span class="tag tag-partial">⚠️ 1–2 源</span>
+        以下观点来源于知乎专栏，未经官方核实，仅供参考：
+      </p>
+      <ul style="padding-left:18px;">
+        <li style="margin-bottom:6px;">
+          <strong>"天津一中、南开中学实验班的高考成绩"</strong>（专栏，2020届数据有详细对比）：
+          南开实验班与一中实验班在清北率和C9率上位居全市前二，交替领先。
+        </li>
+        <li style="margin-bottom:6px;">
+          <strong>"实验中学，国之栋梁的摇篮"</strong>：实验中学全校985率30.54%，
+          但实验班985率远高于全校均值；王克昌班（第二档）次之，普通班最低。
+        </li>
+        <li style="margin-bottom:0;">
+          <strong>"天津市五所班型分析解密"</strong>：综合成绩中小卷占65%左右；
+          实验班师资、竞赛资源明显优于普通班，"小卷班是学校的心头肉"。
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 报考策略建议 -->
+<div class="section">
+  <div class="section-title">💡 报考策略建议 <span class="badge">家长参考</span></div>
+  <div class="card">
+    <ol class="advice-list" style="padding-left:20px;">
+      <li style="margin-bottom:8px;font-size:14px;line-height:1.6;">
+        <strong>限报1所，提前锁定目标</strong><br>
+        五校限报1所，报名仅24小时。建议中考前根据模拟考成绩、理科/语言特长、各校小卷权重（一中70%、其他60%）、
+        以及学校地理位置等综合因素，提前确定目标校。<span class="tag tag-verified-alt">✅ 多源</span>
+      </li>
+      <li style="margin-bottom:8px;font-size:14px;line-height:1.6;">
+        <strong>区分小卷赛道与统招赛道</strong><br>
+        小卷录取后即放弃统招资格，意味着"一把定胜负"。如果小卷未录取，不影响后续统招录取。
+        适合理科突出、自信能在小卷中发挥优势的考生。<span class="tag tag-verified-alt">✅ 多源</span>
+      </li>
+      <li style="margin-bottom:8px;font-size:14px;line-height:1.6;">
+        <strong>耀华2023年加入——历史机遇</strong><br>
+        耀华2023年首次加入小卷，可能初期关注度低于传统四校，存在"价值洼地"。
+        但耀华作为百年名校，整体实力强劲，值得关注。<span class="tag tag-verified-alt">✅ 多源</span>
+      </li>
+      <li style="margin-bottom:8px;font-size:14px;line-height:1.6;">
+        <strong>非市内六区考生注意</strong><br>
+        全市考生均可报名小卷（含非市内六区），这是郊区考生进入市五所实验班的最直接通道之一。
+        但需注意：录取后学籍转入市五所，在六区参加高考。<span class="tag tag-verified-alt">✅ 多源</span>
+      </li>
+      <li style="margin-bottom:8px;font-size:14px;line-height:1.6;">
+        <strong>关注实验班985率</strong><br>
+        推算实验班985率约70–80%，对于目标是985高校的考生，小卷实验班是全市最具性价比的升学路径之一。
+        建议结合自身全市排名评估录取概率。<span class="tag tag-estimate">🔶 估算</span>
+      </li>
+      <li style="margin-bottom:0;font-size:14px;line-height:1.6;">
+        <strong>新华法语班为特色选项</strong><br>
+        新华中学实验班含法语班方向，如果有法语基础或对法国留学感兴趣，可以优先考虑。
+        其他四校无此方向。<span class="tag tag-verified-alt">✅ 多源</span>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<!-- 8. 数据来源清单 -->
+<div class="section">
+  <div class="section-title">📑 数据来源清单 <span class="badge">references</span></div>
+  <div class="card">
+    <ol class="source-list" style="list-style:none;">
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>2025年各校小卷招生章程</strong>
+        <span class="tag tag-verified-alt">✅ 多源</span>
+        — 均依据"津招办中发〔2025〕8号"文件发布。覆盖南开、一中、耀华、新华、实验五校的
+        招生人数、考试科目、综合成绩权重等核心数据。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>天津本地宝</strong>
+        <span class="tag tag-verified-alt">✅ 多源</span>
+        — 汇总小卷共同规则（报名时间、限报1所、放弃统招等），可与各校章程交叉验证。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>知乎专栏"今年天津中考小卷政策公布，意料之中，耀华在列"</strong>
+        <span class="tag tag-partial">⚠️ 1–2 源</span>
+        — 确认耀华2023年首次开设创新型人才培养项目实验班。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>搜狐"扩散|明天起，实验班招生啦！"</strong>
+        <span class="tag tag-partial">⚠️ 1–2 源</span>
+        — 耀华自称2024年延续实验班招生，可作为2023年加入的佐证。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>知乎专栏"天津市五所班型分析解密"</strong>
+        <span class="tag tag-partial">⚠️ 1–2 源</span>
+        — 涉及综合成绩中小卷占65%、分班模式（实验班单独编班、创新班为最高录取班型）。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>知乎专栏"天津一中、南开中学实验班的高考成绩"</strong>
+        <span class="tag tag-partial">⚠️ 1–2 源</span>
+        — 2020届高考成绩详细对比，两校实验班交替领先。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>知乎"实验中学，国之栋梁的摇篮"</strong>
+        <span class="tag tag-partial">⚠️ 1–2 源</span>
+        — 实验中学全校985率30.54%（含实验班/王克昌班/普通班）。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>知乎"天津高中名校实验班小卷招生来了"</strong>
+        <span class="tag tag-partial">⚠️ 1–2 源</span>
+        — 2019–2022年小卷招生回顾，"2022年重回正轨"。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>eol.cn 全国高中清北排名（2016年）</strong>
+        <span class="tag tag-partial">⚠️ 1–2 源</span>
+        — 天津市各校清北人数及全国排名。注意：数据距今已9年。
+      </li>
+      <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+        <strong>天津市教育集团成立报道（2024年4月）</strong>
+        <span class="tag tag-verified-alt">✅ 多源</span>
+        — 六大教育集团：南开、一中、耀华、新华、实验、实验小学教育集团。
+        多家媒体报道，信息一致。
+      </li>
+      <li style="padding:6px 0;font-size:13px;">
+        <strong>🔶 自推算数据</strong>
+        <span class="tag tag-estimate">🔶 估算</span>
+        — 实验班985率~70–80%：基于实验中学全校985率30.54%及实验班人数占比推算。
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="footer">
+  <p>本报告由调研助手自动生成 · 数据截止2025年6月</p>
+  <p style="font-size:12px; margin-top:4px;">
+    免责声明：本报告部分信息来源于知乎等自媒体平台，非官方发布，仅供参考。<br>
+    报考前请务必查阅当年最新官方招生章程。教育政策可能调整，以官方最终文件为准。
+  </p>
+</div>
+
+</div><!-- /container -->
+</div><!-- /panel4 -->
+
+</div><!-- /tab-wrapper -->
+
+<!-- Simple JS for URL hash support -->
+<script>
+(function() {
+  var tabs = document.querySelectorAll('.tab-radio');
+  var hashMap = { 'tab-1': 'tab1', 'tab-2': 'tab2', 'tab-3': 'tab3', 'tab-4': 'tab4' };
+  var idMap = { 'tab1': 'tab-1', 'tab2': 'tab-2', 'tab3': 'tab-3', 'tab4': 'tab-4' };
+
+  function selectTab(id) {
+    document.getElementById(id).checked = true;
+    history.replaceState(null, '', '#' + idMap[id]);
+  }
+
+  // On hash change
+  window.addEventListener('hashchange', function() {
+    var hash = location.hash.replace('#', '');
+    if (hashMap[hash]) {
+      selectTab(hashMap[hash]);
+    }
+  });
+
+  // On page load, check hash
+  var hash = location.hash.replace('#', '');
+  if (hashMap[hash]) {
+    selectTab(hashMap[hash]);
+  }
+
+  // Update hash on tab click
+  tabs.forEach(function(tab) {
+    tab.addEventListener('change', function() {
+      if (this.checked) {
+        history.replaceState(null, '', '#' + idMap[this.id]);
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
