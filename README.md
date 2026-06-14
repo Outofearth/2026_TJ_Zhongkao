@@ -8,17 +8,13 @@
 
 | 文件 | 大小 | 内容 | 推荐场景 |
 |------|:----:|------|---------|
-| **`tianjin_zhongkao_all_in_one.html`** | 148KB | 🏆 **四合一整合版**，标签页切换 | **首选打开** |
-| `tianjin_zhongkao_score_analysis_2021_2025.html` | 65KB | 中考一分一段、录取线五年历史 | 单独查阅 |
-| `tianjin_zhongkao_2026_prediction.html` | 29KB | 2026年中考报考策略预测 | 单独查阅 |
-| `tianjin_gaokao_2015_2025_analysis.html` | 28KB | 高考成绩与985/211录取分析 | 单独查阅 |
-| `tianjin_xiaojuan_experimental_class_report.html` | 32KB | 小卷与实验班调研报告 | 单独查阅 |
+| **`index.html`** | 148KB | 🏆 **整合版**，标签页切换 | **首选打开** |
 
 ---
 
 ## 📖 整合版阅读方法
 
-打开 **`tianjin_zhongkao_all_in_one.html`**，页面顶部有4个标签页：
+打开 **`index.html`**，页面顶部有4个标签页：
 
 ```
 [📊 中考五年历史] [🔮 2026预测] [🏫 高考11年分析] [📋 小卷实验班]
