@@ -7,6 +7,7 @@
       "views": 157,
       "createdAt": "2026/6/14 18:37:43",
       "status": "enabled",
+      "visibility": "",
       "expireDate": "",
       "password": "",
       "domain": "exam.mwt.us.ci",
@@ -19,6 +20,7 @@
   "contactInfo": {
     "email": "admin@mwt.us.ci",
     "bio": "项目管理平台，专注于提供优秀的项目展示和分享体验。",
-    "githubUser": "Outofearth"
+    "githubUser": "Outofearth",
+    "githubRepo": "Outofearth/2026_TJ_Zhongkao"
   }
 }
