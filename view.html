@@ -445,19 +445,30 @@
         if (resp.ok) return await resp.json();
       } catch (e) { /* 继续尝试备用方案 */ }
 
-      /** 备用：独立仓库模式，尝试加载数据文件 */
+      /** 备用1：从 HTML 中提取引用的 JSON 数据文件名 */
       try {
         const manifestResp = await fetch(`${baseUrl}?_t=${Date.now()}`);
         if (manifestResp.ok) {
           const html = await manifestResp.text();
-          /** 从 HTML 中提取引用的 JSON 数据文件名 */
           const jsonMatch = html.match(/(?:href|src)=["']([^"']*\.json)["']/);
           if (jsonMatch) {
             const dataResp = await fetch(`${baseUrl}${jsonMatch[1]}?_t=${Date.now()}`);
             if (dataResp.ok) return await dataResp.json();
           }
         }
-      } catch (e) { /* 忽略 */ }
+      } catch (e) { /* 继续尝试 */ }
+
+      /** 备用2：直接尝试常见数据文件名（独立仓库通常只有一个 .json 数据文件） */
+      const candidateNames = ['data.json', 'static-data.json', 'project.json'];
+      for (const name of candidateNames) {
+        try {
+          const resp = await fetch(`${baseUrl}${name}?_t=${Date.now()}`);
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data.projects && Array.isArray(data.projects)) return data;
+          }
+        } catch (e) { /* 继续下一个 */ }
+      }
 
       throw new Error('无法加载项目数据（未找到 projects.json 或数据文件）');
     }
