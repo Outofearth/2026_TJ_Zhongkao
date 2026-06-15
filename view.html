@@ -357,6 +357,7 @@
     let currentIssueNumber = null;       // 对应的 GitHub Issue 编号
     let githubConfig = {};               // GitHub 配置（来自 config.yaml）
     let userConfig = {};                 // 用户配置
+    let projectData = null;              // 原始项目数据（含 contactInfo）
 
     // ========== 初始化 ==========
     document.addEventListener('DOMContentLoaded', async () => {
@@ -385,7 +386,7 @@
         }
 
         // 2. 加载项目数据（优先使用 ?data= 指定的文件）
-        let projectData;
+        projectData = null;
         if (dataFile) {
           projectData = await fetchDataFile(dataFile);
         } else {
@@ -1518,13 +1519,18 @@
 
     /**
      * 加载联系信息并渲染
+     * 优先从项目数据文件读取（独立仓库部署模式）
+     * 回退到 config.yaml 配置（本地开发模式）
      */
     function loadContactInfo() {
       const container = document.getElementById('contactInfo');
-      const email = userConfig.email || '';
-      const githubUser = githubConfig.username || '';
-      const bio = userConfig.bio || '';
-      
+
+      /** 优先从同步的数据文件中获取联系信息 */
+      const contactFromData = projectData?.contactInfo || {};
+      const email = contactFromData.email || userConfig.email || '';
+      const githubUser = contactFromData.githubUser || githubConfig.username || '';
+      const bio = contactFromData.bio || userConfig.bio || '';
+
       let html = '';
       
       if (bio) {
