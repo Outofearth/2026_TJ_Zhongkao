@@ -432,14 +432,34 @@
     }
 
     /**
-     * 加载项目数据（projects.json）
-     * @returns {Promise<Object>} 项目数据对象
+     * 加载项目数据（优先 projects.json，失败时自动发现数据文件）
+     * 独立仓库部署时，数据文件为 {name}.json 格式
+     * @returns {Promise<Object>} 项目数据对象 {projects: [...]}
      */
     async function fetchProjects() {
       const baseUrl = getBaseUrl();
-      const response = await fetch(`${baseUrl}projects.json?_t=${Date.now()}`);
-      if (!response.ok) throw new Error('无法加载项目数据');
-      return await response.json();
+
+      /** 优先尝试加载 projects.json（主管理站模式） */
+      try {
+        const resp = await fetch(`${baseUrl}projects.json?_t=${Date.now()}`);
+        if (resp.ok) return await resp.json();
+      } catch (e) { /* 继续尝试备用方案 */ }
+
+      /** 备用：独立仓库模式，尝试加载数据文件 */
+      try {
+        const manifestResp = await fetch(`${baseUrl}?_t=${Date.now()}`);
+        if (manifestResp.ok) {
+          const html = await manifestResp.text();
+          /** 从 HTML 中提取引用的 JSON 数据文件名 */
+          const jsonMatch = html.match(/(?:href|src)=["']([^"']*\.json)["']/);
+          if (jsonMatch) {
+            const dataResp = await fetch(`${baseUrl}${jsonMatch[1]}?_t=${Date.now()}`);
+            if (dataResp.ok) return await dataResp.json();
+          }
+        }
+      } catch (e) { /* 忽略 */ }
+
+      throw new Error('无法加载项目数据（未找到 projects.json 或数据文件）');
     }
 
     /**
