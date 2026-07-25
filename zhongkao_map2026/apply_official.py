@@ -1,7 +1,7 @@
-import re
+import re, os
 
-BASE = r"C:\Users\ALTC\WorkBuddy\2026-07-09-11-29-25"
-path = BASE + r"\gen_map.py"
+BASE = os.path.dirname(os.path.abspath(__file__))
+path = os.path.join(BASE, "gen_map.py")
 
 # ---------- 1) 解析三个官方文件 ----------
 def parse_file(fname, year):

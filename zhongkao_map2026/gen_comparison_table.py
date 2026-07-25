@@ -2,7 +2,7 @@
 """生成官方数据对照总表"""
 import re, os
 
-BASE = r"C:\Users\ALTC\WorkBuddy\2026-07-09-11-29-25"
+BASE = os.path.dirname(os.path.abspath(__file__))
 
 def parse_official(path):
     result = {}

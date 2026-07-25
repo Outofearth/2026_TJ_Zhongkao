@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json, csv
+import json, csv, os
 
 # 字段: (校名, 行政区, 纬度WGS84, 经度WGS84, 属性[市属/区属/民办], 2023, 2024, 2025)
 # 录取分数线来源(公开网络汇总, 仅供参考):
@@ -198,7 +198,7 @@ COLORS = ["#e6194B","#3cb44b","#f58231","#4363d8","#911eb4","#d63384","#20b2aa",
 COLOR_MAP = dict(zip(DISTRICTS, COLORS))
 
 # ---------------- 导出 CSV (utf-8-sig, Excel 友好) ----------------
-csv_path = r"C:\Users\ALTC\WorkBuddy\2026-07-09-11-29-25\天津高中录取分数线_2023-2025.csv"
+csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "天津高中录取分数线_2023-2025.csv")
 with open(csv_path, "w", encoding="utf-8-sig", newline="") as f:
     w = csv.writer(f)
     w.writerow(["学校","行政区","属性","纬度WGS84","经度WGS84","2023录取分","2023位次","2024录取分","2024位次","2025录取分","2025位次"])
@@ -610,7 +610,7 @@ pinnedCardNames.forEach(nm=>{ const m=markers.find(x=>x.s.name===nm); if(m) crea
 </html>"""
 
 html = html.replace("__DATA__", json.dumps(payload, ensure_ascii=False))
-with open(r"C:\Users\ALTC\WorkBuddy\2026-07-09-11-29-25\天津市高中地图.html", "w", encoding="utf-8") as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "天津市高中地图.html"), "w", encoding="utf-8") as f:
     f.write(html)
 
 n_city = sum(1 for s in SCHOOLS if s[4]=="市属")
