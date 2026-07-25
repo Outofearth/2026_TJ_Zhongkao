@@ -79,7 +79,8 @@ body {
 #tab1:checked ~ .tab-wrapper #panel1,
 #tab2:checked ~ .tab-wrapper #panel2,
 #tab3:checked ~ .tab-wrapper #panel3,
-#tab4:checked ~ .tab-wrapper #panel4 {
+#tab4:checked ~ .tab-wrapper #panel4,
+#tab5:checked ~ .tab-wrapper #panel5 {
   display: block;
 }
 
@@ -87,7 +88,8 @@ body {
 #tab1:checked ~ .tab-nav label[for="tab1"],
 #tab2:checked ~ .tab-nav label[for="tab2"],
 #tab3:checked ~ .tab-nav label[for="tab3"],
-#tab4:checked ~ .tab-nav label[for="tab4"] {
+#tab4:checked ~ .tab-nav label[for="tab4"],
+#tab5:checked ~ .tab-nav label[for="tab5"] {
   color: #fff;
   border-bottom-color: #fff;
   background: rgba(255,255,255,0.15);
@@ -399,6 +401,15 @@ tr:hover { background: #e8eaf6; }
 .source-list li a:hover { text-decoration: underline; }
 ul[style*="margin-left"] li { margin-bottom: 4px; }
 
+/* ===== Map Panel (iframe) ===== */
+#panel5.tab-panel { animation: fadeIn 0.3s ease; }
+.map-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 62px);
+  border: 0;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .tab-nav label { padding: 10px 8px; min-width: 80px; }
@@ -425,6 +436,7 @@ ul[style*="margin-left"] li { margin-bottom: 4px; }
 <input type="radio" name="tab-group" id="tab2" class="tab-radio">
 <input type="radio" name="tab-group" id="tab3" class="tab-radio">
 <input type="radio" name="tab-group" id="tab4" class="tab-radio">
+<input type="radio" name="tab-group" id="tab5" class="tab-radio">
 
 <!-- Tab Navigation -->
 <nav class="tab-nav">
@@ -443,6 +455,10 @@ ul[style*="margin-left"] li { margin-bottom: 4px; }
   <label for="tab4">
     <span class="tab-icon">📋</span>
     <span class="tab-text">小卷实验班</span>
+  </label>
+  <label for="tab5">
+    <span class="tab-icon">🗺️</span>
+    <span class="tab-text">高中地图</span>
   </label>
 </nav>
 
@@ -2875,14 +2891,21 @@ ul[style*="margin-left"] li { margin-bottom: 4px; }
 </div><!-- /container -->
 </div><!-- /panel4 -->
 
+<!-- ================================================================ -->
+<!-- TAB 5: 天津市高中地图 -->
+<!-- ================================================================ -->
+<div id="panel5" class="tab-panel">
+  <iframe class="map-frame" src="zhongkao_map2026/天津市高中地图.html" title="天津市高中分布地图" loading="lazy"></iframe>
+</div><!-- /panel5 -->
+
 </div><!-- /tab-wrapper -->
 
 <!-- Simple JS for URL hash support -->
 <script>
 (function() {
   var tabs = document.querySelectorAll('.tab-radio');
-  var hashMap = { 'tab-1': 'tab1', 'tab-2': 'tab2', 'tab-3': 'tab3', 'tab-4': 'tab4' };
-  var idMap = { 'tab1': 'tab-1', 'tab2': 'tab-2', 'tab3': 'tab-3', 'tab4': 'tab-4' };
+  var hashMap = { 'tab-1': 'tab1', 'tab-2': 'tab2', 'tab-3': 'tab3', 'tab-4': 'tab4', 'tab-5': 'tab5' };
+  var idMap = { 'tab1': 'tab-1', 'tab2': 'tab-2', 'tab3': 'tab-3', 'tab4': 'tab-4', 'tab5': 'tab-5' };
 
   function selectTab(id) {
     document.getElementById(id).checked = true;

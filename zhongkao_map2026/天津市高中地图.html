@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天津市高中地图（高德底图·精简版）</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  html,body{margin:0;height:100%;font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e1e;}
+  #map{height:100%;width:100%;background:#0b0b0b;}
+  .panel{position:absolute;z-index:1000;background:rgba(28,28,30,.93);color:#e6e6e6;
+         border:1px solid #444;border-radius:10px;padding:12px 14px;box-shadow:0 2px 12px rgba(0,0,0,.55);}
+  #ctrl{top:12px;right:12px;width:208px;max-height:84vh;overflow:auto;font-size:13px;}
+  #ctrl h3{margin:0 0 8px;font-size:14px;color:#fff;}
+  #ctrl .row{display:flex;align-items:center;gap:6px;margin:3px 0;cursor:pointer;}
+  #ctrl input[type=text]{width:100%;box-sizing:border-box;padding:6px 8px;border-radius:6px;
+        border:1px solid #555;background:#2a2a2a;color:#eee;margin-bottom:8px;font-size:13px;}
+  .toggle{padding:7px 8px;margin:4px 0 8px;background:#0e639c;border:none;color:#fff;
+        border-radius:6px;cursor:pointer;font-size:12px;width:100%;}
+  .toggle:hover{background:#1177bb;}
+  .sec{margin:10px 0 4px;font-size:12px;color:#9cdcfe;border-top:1px solid #3a3a3a;padding-top:8px;}
+  .swatch{width:12px;height:12px;border-radius:50%;flex:0 0 auto;}
+  .star{color:#ff3b30;font-size:14px;line-height:12px;}
+  #about{bottom:10px;left:10px;font-size:11px;max-width:280px;transition:max-height .3s ease;overflow:hidden;
+        max-height:28px;border-radius:8px;}
+  #about.open{max-height:320px;overflow:auto;}
+  #about .ab-head{display:flex;align-items:center;gap:4px;cursor:pointer;padding:5px 10px;
+        user-select:none;color:#9a9a9a;font-size:11px;line-height:1.3;}
+  #about .ab-head:hover{color:#ccc;}
+  #about .ab-body{padding:0 10px 8px;display:none;border-top:1px solid #3a3a3a;margin-top:0;padding-top:6px;}
+  #about.open .ab-body{display:block;}
+  #about .ab-body p{margin:3px 0;color:#999;line-height:1.45;}
+  #about .ab-body b{color:#ddd;}
+  #about .lg{display:flex;flex-wrap:wrap;gap:3px 10px;margin:4px 0;}
+  #about .li{display:flex;align-items:center;gap:4px;font-size:11px;color:#bbb;}
+  #table{top:70px;left:12px;width:340px;max-height:78vh;overflow:auto;font-size:12px;display:none;}
+  #table table{width:100%;border-collapse:collapse;}
+  #table th,#table td{border:1px solid #3a3a3a;padding:4px 6px;text-align:center;}
+  #table th{background:#333;position:sticky;top:0;color:#fff;cursor:pointer;}
+  #table tr:hover{background:#2c2c2c;cursor:pointer;}
+  #table .nm{text-align:left;}
+  .badge{display:inline-block;padding:1px 6px;border-radius:8px;font-size:10px;font-weight:bold;}
+  .b-city{background:#ff3b30;color:#fff;}
+  .b-dist{background:#ff8c00;color:#fff;}
+  .b-pri{background:#888;color:#fff;}
+  .leaflet-popup-content{font-size:13px;}
+  .school-label{background:transparent;border:none;color:#111;font-size:11px;font-weight:bold;
+        text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 3px #fff;white-space:nowrap;
+        pointer-events:auto;cursor:context-menu;}
+  .score-tbl{border-collapse:collapse;margin-top:6px;}
+  .score-tbl td{border:1px solid #ddd;padding:2px 10px;}
+  #links{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:500;}
+  .card{position:fixed;z-index:620;width:300px;background:rgba(28,28,30,.97);color:#e6e6e6;
+        border:1px solid #555;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.6);font-size:12px;display:none;}
+  .card.show{display:block;}
+  .card .bar{display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:move;
+        background:rgba(255,255,255,.06);border-bottom:1px solid #444;border-radius:10px 10px 0 0;user-select:none;}
+  .card .bar .nm{font-weight:bold;color:#fff;flex:1;font-size:13px;}
+  .card .bar .pin{cursor:pointer;font-size:16px;line-height:1;filter:grayscale(1);opacity:.55;
+        border-radius:50%;padding:2px 3px;transition:all .15s;}
+  .card .bar .pin:hover{opacity:1;filter:grayscale(.4);}
+  .card .bar .pin.on{filter:none;opacity:1;color:#2ecc71;background:rgba(46,204,113,.22);
+        box-shadow:0 0 0 1px rgba(46,204,113,.6);}
+  .card .bar .x{cursor:pointer;color:#bbb;font-size:15px;line-height:1;padding:0 2px;}
+  .card .body{padding:8px 10px;}
+  .card table{width:100%;border-collapse:collapse;margin-top:4px;}
+  .card td{border:1px solid #3a3a3a;padding:3px 6px;text-align:center;}
+  .card .yr{color:#9cdcfe;text-align:left;}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<svg id="links"></svg>
+
+<div id="about" class="panel">
+  <div class="ab-head" onclick="this.parentNode.classList.toggle('open')">
+    <span style="font-size:13px;">ℹ️</span> 天津市区高中分布地图 · <b id="cnt">0</b> 所 · 点击展开
+  </div>
+  <div class="ab-body">
+    <p><b>范围</b>：市内六区 + 海河教育园区</p>
+    <p><b>属性</b>：★ 市属 &nbsp; ● 区属 &nbsp; ○ 民办</p>
+    <div class="lg">
+      <span class="li"><span class="star">★</span> 市属</span>
+      <span class="li"><span class="swatch" style="background:#ff8c00;border:2px solid #fff;"></span> 区属</span>
+      <span class="li"><span class="swatch" style="background:#fff;border:2px solid #999;"></span> 民办</span>
+    </div>
+    <p style="margin-top:6px;"><b>数据来源</b>：zhaokao.net 官方录取分数线 PDF（2023-2025）。</p>
+    <p style="color:#777;">位次 = 全市累计人数（一分一段表）。数据仅供参考，以官方公布为准。右键学校图标可收藏。</p>
+  </div>
+</div>
+
+<div id="ctrl" class="panel">
+  <h3>筛选</h3>
+  <input id="search" type="text" placeholder="搜索学校名称…">
+  <div class="sec">按属性</div>
+  <div id="levelChecks"></div>
+  <div class="sec">收藏</div>
+  <label class="row"><input type="checkbox" id="favOnly"> <span style="color:#2ecc71;font-weight:bold;">✓</span> 只看收藏（<span id="favCnt">0</span>）</label>
+  <div style="font-size:11px;color:#9a9a9a;margin:2px 0 6px;">提示：在地图上<b style="color:#ccc;">右键点击学校</b>可收藏/取消，收藏后图标带 <span style="color:#2ecc71;">✓</span> 角标。</div>
+  <button class="toggle" id="lblBtn">显示全部学校名称</button>
+  <button class="toggle" id="tblBtn" style="background:#5a3e8c;">查看分数线数据表</button>
+</div>
+
+<div id="table" class="panel">
+  <h3 style="margin:0 0 8px;font-size:14px;color:#fff;">录取分数线（历年）</h3>
+  <table id="scoreTable">
+    <thead><tr><th data-k="name">学校</th><th data-k="level">属性</th><th data-k="s2023">2023<br>分数/位次</th><th data-k="s2024">2024<br>分数/位次</th><th data-k="s2025">2025<br>分数/位次</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script>
+const D = {"schools": [{"name": "天津一中", "dist": "和平区", "lat": 39.1127941, "lng": 117.1883652, "level": "市属", "color": "#e6194B", "s2023": 769.5, "s2024": 772.25, "s2025": 768.9, "r2023": 1477, "r2024": 1283, "r2025": 1088}, {"name": "耀华中学", "dist": "和平区", "lat": 39.1180772, "lng": 117.1940022, "level": "市属", "color": "#e6194B", "s2023": 764.25, "s2024": 768.25, "s2025": 762.8, "r2023": 2682, "r2024": 2320, "r2025": 1982}, {"name": "第二十中学", "dist": "和平区", "lat": 39.1135415, "lng": 117.2072324, "level": "区属", "color": "#e6194B", "s2023": 755.0, "s2024": 760.75, "s2025": 753.0, "r2023": 6100, "r2024": 5391, "r2025": 3962}, {"name": "第二南开中学", "dist": "和平区", "lat": 39.1267514, "lng": 117.17648, "level": "区属", "color": "#e6194B", "s2023": 747.45, "s2024": 754.75, "s2025": 746.7, "r2023": 9227, "r2024": 8354, "r2025": 5472}, {"name": "第五十五中学", "dist": "和平区", "lat": 39.1132831, "lng": 117.175431, "level": "区属", "color": "#e6194B", "s2023": 736.25, "s2024": 747.5, "s2025": 737.5, "r2023": 15065, "r2024": 12495, "r2025": 7732}, {"name": "双菱中学", "dist": "和平区", "lat": 39.1201783, "lng": 117.2012284, "level": "民办", "color": "#e6194B", "s2023": 729.45, "s2024": 743.25, "s2025": 730.8, "r2023": 18773, "r2024": 14913, "r2025": 9513}, {"name": "第二十一中学", "dist": "和平区", "lat": 39.1031973, "lng": 117.1863043, "level": "区属", "color": "#e6194B", "s2023": 722.0, "s2024": 736.25, "s2025": 726.15, "r2023": 23234, "r2024": 19454, "r2025": 18205}, {"name": "汇文中学", "dist": "和平区", "lat": 39.1210806, "lng": 117.1833546, "level": "区属", "color": "#e6194B", "s2023": 718.0, "s2024": 730.6, "s2025": 722.25, "r2023": 25465, "r2024": 23166, "r2025": 20534}, {"name": "益中学校", "dist": "和平区", "lat": 39.1028954, "lng": 117.177104, "level": "民办", "color": "#e6194B", "s2023": 716.4, "s2024": 729.5, "s2025": 716.05, "r2023": 26048, "r2024": 23777, "r2025": 24228}, {"name": "建华中学", "dist": "和平区", "lat": 39.1219124, "lng": 117.1796862, "level": "民办", "color": "#e6194B", "s2023": 698.15, "s2024": 711.45, "s2025": 707.65, "r2023": 35751, "r2024": 34431, "r2025": 29807}, {"name": "嘉诚中学", "dist": "和平区", "lat": 39.1466855, "lng": 117.2107218, "level": "民办", "color": "#e6194B", "s2023": 694.75, "s2024": 704.75, "s2025": 695.73, "r2023": 38265, "r2024": 38389, "r2025": 36950}, {"name": "新华中学", "dist": "河西区", "lat": 39.1097957, "lng": 117.2057589, "level": "市属", "color": "#3cb44b", "s2023": 760.0, "s2024": 764.55, "s2025": 758.25, "r2023": 4258, "r2024": 3638, "r2025": 2884}, {"name": "实验中学", "dist": "河西区", "lat": 39.0973701, "lng": 117.1846561, "level": "市属", "color": "#3cb44b", "s2023": 757.0, "s2024": 762.5, "s2025": 755.15, "r2023": 5350, "r2024": 4481, "r2025": 3491}, {"name": "第四中学", "dist": "河西区", "lat": 39.0787207, "lng": 117.2236638, "level": "区属", "color": "#3cb44b", "s2023": 751.5, "s2024": 758.0, "s2025": 747.9, "r2023": 7399, "r2024": 6821, "r2025": 5186}, {"name": "第四十一中学", "dist": "河西区", "lat": 39.103368, "lng": 117.1941674, "level": "区属", "color": "#3cb44b", "s2023": 710.5, "s2024": 721.25, "s2025": 708.5, "r2023": 29286, "r2024": 28651, "r2025": 15296}, {"name": "海河中学", "dist": "河西区", "lat": 39.110849, "lng": 117.2181663, "level": "区属", "color": "#3cb44b", "s2023": 738.4, "s2024": 748.5, "s2025": 735.75, "r2023": 14016, "r2024": 11869, "r2025": 8181}, {"name": "北师大天津附中", "dist": "河西区", "lat": 39.0703765, "lng": 117.2629592, "level": "区属", "color": "#3cb44b", "s2023": 714.5, "s2024": 723.5, "s2025": 714.25, "r2023": 27138, "r2024": 27435, "r2025": 13853}, {"name": "微山路中学", "dist": "河西区", "lat": 39.0592451, "lng": 117.2568084, "level": "区属", "color": "#3cb44b", "s2023": 693.25, "s2024": 706.25, "s2025": 695.15, "r2023": 38747, "r2024": 37271, "r2025": 18407}, {"name": "梅江中学", "dist": "河西区", "lat": 39.0692718, "lng": 117.2001941, "level": "区属", "color": "#3cb44b", "s2023": 678.25, "s2024": 692.75, "s2025": 683.0, "r2023": 45730, "r2024": 44664, "r2025": 20892}, {"name": "梧桐中学", "dist": "河西区", "lat": 39.0570934, "lng": 117.2134216, "level": "区属", "color": "#3cb44b", "s2023": 710.7, "s2024": 721.8, "s2025": 711.7, "r2023": 29286, "r2024": 28651, "r2025": 14482}, {"name": "第二新华中学", "dist": "河西区", "lat": 39.038324, "lng": 117.2480789, "level": "区属", "color": "#3cb44b", "s2023": 748.25, "s2024": 754.74, "s2025": 746.5, "r2023": 8763, "r2024": 8354, "r2025": 5521}, {"name": "第四十二中学", "dist": "河西区", "lat": 39.093869, "lng": 117.2199361, "level": "区属", "color": "#3cb44b", "s2023": 745.0, "s2024": 752.5, "s2025": 742.0, "r2023": 11049, "r2024": 9492, "r2025": 10427}, {"name": "觉民中学", "dist": "河西区", "lat": 39.0947681, "lng": 117.2128466, "level": "区属", "color": "#3cb44b", "s2023": 706.75, "s2024": 733.75, "s2025": 724.9, "r2023": 31490, "r2024": 21311, "r2025": 19663}, {"name": "卓越中学", "dist": "河西区", "lat": 39.0800651, "lng": 117.2209909, "level": "区属", "color": "#3cb44b", "s2023": 698.0, "s2024": 716.31, "s2025": 706.35, "r2023": 36263, "r2024": 31549, "r2025": 30390}, {"name": "景海道中学", "dist": "河西区", "lat": 39.063276, "lng": 117.237112, "level": "区属", "color": "#3cb44b", "s2023": null, "s2024": null, "s2025": null, "r2023": null, "r2024": null, "r2025": null}, {"name": "培杰中学", "dist": "河西区", "lat": 39.0731968, "lng": 117.2648101, "level": "民办", "color": "#3cb44b", "s2023": 667.25, "s2024": 672.3, "s2025": 649.25, "r2023": 50295, "r2024": 53958, "r2025": 60701}, {"name": "自立中学", "dist": "河西区", "lat": 39.0952925, "lng": 117.2132824, "level": "民办", "color": "#3cb44b", "s2023": 666.85, "s2024": 644.05, "s2025": 642.6, "r2023": 50702, "r2024": 64801, "r2025": 63692}, {"name": "南开翔宇学校", "dist": "河西区", "lat": 39.0431075, "lng": 117.2241882, "level": "民办", "color": "#3cb44b", "s2023": 703.0, "s2024": 710.75, "s2025": 704.25, "r2023": 33668, "r2024": 35016, "r2025": 30946}, {"name": "天明高级中学", "dist": "河西区", "lat": 39.052, "lng": 117.248, "level": "民办", "color": "#3cb44b", "s2023": null, "s2024": null, "s2025": 666.65, "r2023": null, "r2024": null, "r2025": 52647}, {"name": "华兰萨顿高级中学", "dist": "河西区", "lat": 39.0775429, "lng": 117.2109589, "level": "民办", "color": "#3cb44b", "s2023": null, "s2024": null, "s2025": 472.8, "r2023": null, "r2024": null, "r2025": 100244}, {"name": "明德致远高级中学", "dist": "河西区", "lat": 39.092108, "lng": 117.2204416, "level": "民办", "color": "#3cb44b", "s2023": null, "s2024": null, "s2025": 519.9, "r2023": null, "r2024": null, "r2025": 96926}, {"name": "南开中学", "dist": "南开区", "lat": 39.1305977, "lng": 117.1649425, "level": "市属", "color": "#f58231", "s2023": 767.65, "s2024": 770.75, "s2025": 766.09, "r2023": 1917, "r2024": 1789, "r2025": 1460}, {"name": "天津中学", "dist": "南开区", "lat": 39.083043, "lng": 117.124362, "level": "市属", "color": "#f58231", "s2023": 731.65, "s2024": 739.95, "s2025": 730.25, "r2023": 17731, "r2024": 17508, "r2025": 9675}, {"name": "南大附中", "dist": "南开区", "lat": 39.1116288, "lng": 117.1477168, "level": "区属", "color": "#f58231", "s2023": 735.25, "s2024": 745.35, "s2025": 729.0, "r2023": 15577, "r2024": 13690, "r2025": 9973}, {"name": "天大附中", "dist": "南开区", "lat": 39.1035523, "lng": 117.1665262, "level": "区属", "color": "#f58231", "s2023": 707.8, "s2024": 718.81, "s2025": 707.2, "r2023": 30927, "r2024": 30390, "r2025": 15614}, {"name": "崇化中学", "dist": "南开区", "lat": 39.1425332, "lng": 117.1721059, "level": "区属", "color": "#f58231", "s2023": 718.3, "s2024": 730.73, "s2025": 718.05, "r2023": 24885, "r2024": 23166, "r2025": 12877}, {"name": "第二十五中学", "dist": "南开区", "lat": 39.1237285, "lng": 117.1573625, "level": "区属", "color": "#f58231", "s2023": 714.7, "s2024": 726.0, "s2025": 715.25, "r2023": 27138, "r2024": 26226, "r2025": 13598}, {"name": "育红中学", "dist": "南开区", "lat": 39.125, "lng": 117.171, "level": "区属", "color": "#f58231", "s2023": 673.15, "s2024": 686.9, "s2025": 673.05, "r2023": 47815, "r2024": 47566, "r2025": 49046}, {"name": "津英中学", "dist": "南开区", "lat": 39.1372952, "lng": 117.1299026, "level": "民办", "color": "#f58231", "s2023": 630.5, "s2024": 645.9, "s2025": 651.9, "r2023": 63509, "r2024": 64427, "r2025": 58900}, {"name": "第四十三中学", "dist": "南开区", "lat": 39.1377368, "lng": 117.1332137, "level": "区属", "color": "#f58231", "s2023": 699.25, "s2024": 707.65, "s2025": 695.5, "r2023": 35272, "r2024": 36725, "r2025": 36950}, {"name": "第九中学", "dist": "南开区", "lat": 39.072867, "lng": 117.1559714, "level": "区属", "color": "#f58231", "s2023": 684.0, "s2024": 696.1, "s2025": 679.7, "r2023": 43519, "r2024": 42668, "r2025": 45864}, {"name": "第六十三中学", "dist": "南开区", "lat": 39.103216, "lng": 117.1301027, "level": "区属", "color": "#f58231", "s2023": null, "s2024": null, "s2025": null, "r2023": null, "r2024": null, "r2025": null}, {"name": "天津师范大学南开附属中学", "dist": "南开区", "lat": 39.1215, "lng": 117.1245, "level": "区属", "color": "#f58231", "s2023": null, "s2024": null, "s2025": null, "r2023": null, "r2024": null, "r2025": null}, {"name": "南开翔宇学校", "dist": "南开区", "lat": 39.133, "lng": 117.1377, "level": "民办", "color": "#f58231", "s2023": 700.5, "s2024": 709.0, "s2025": 703.0, "r2023": 34730, "r2024": 36143, "r2025": 32784}, {"name": "南开日新学校", "dist": "南开区", "lat": 39.0856, "lng": 117.1431, "level": "民办", "color": "#f58231", "s2023": null, "s2024": 759.8, "s2025": 760.75, "r2023": null, "r2024": 5863, "r2025": 3166}, {"name": "美达菲学校", "dist": "南开区", "lat": 39.1253593, "lng": 117.1154405, "level": "民办", "color": "#f58231", "s2023": 661.69, "s2024": 695.8, "s2025": 692.8, "r2023": 52685, "r2024": 43170, "r2025": 38714}, {"name": "第七中学", "dist": "河东区", "lat": 39.1276573, "lng": 117.232232, "level": "区属", "color": "#4363d8", "s2023": 734.25, "s2024": 741.2, "s2025": 734.15, "r2023": 16143, "r2024": 16243, "r2025": 8601}, {"name": "第四十五中学", "dist": "河东区", "lat": 39.1028566, "lng": 117.2643649, "level": "区属", "color": "#4363d8", "s2023": 719.5, "s2024": 732.31, "s2025": 720.05, "r2023": 24348, "r2024": 21907, "r2025": 12322}, {"name": "第一〇二中学", "dist": "河东区", "lat": 39.1360207, "lng": 117.239022, "level": "区属", "color": "#4363d8", "s2023": 706.5, "s2024": 719.0, "s2025": 709.7, "r2023": 31490, "r2024": 30390, "r2025": 14991}, {"name": "第五十四中学", "dist": "河东区", "lat": 39.1131772, "lng": 117.2274031, "level": "区属", "color": "#4363d8", "s2023": 686.55, "s2024": 697.0, "s2025": 686.75, "r2023": 42165, "r2024": 42668, "r2025": 20192}, {"name": "第三十二中学", "dist": "河东区", "lat": 39.1416718, "lng": 117.1993958, "level": "区属", "color": "#4363d8", "s2023": 661.2, "s2024": 676.0, "s2025": 660.75, "r2023": 52685, "r2024": 52642, "r2025": 56585}, {"name": "第八十二中学", "dist": "河东区", "lat": 39.1068395, "lng": 117.2422806, "level": "区属", "color": "#4363d8", "s2023": 645.6, "s2024": 662.25, "s2025": 648.4, "r2023": 58931, "r2024": 58143, "r2025": 61116}, {"name": "第八中学", "dist": "河东区", "lat": 39.1484083, "lng": 117.2787262, "level": "区属", "color": "#4363d8", "s2023": 630.25, "s2024": 650.2, "s2025": 641.25, "r2023": 63509, "r2024": 62609, "r2025": 64138}, {"name": "第九十八中学", "dist": "河东区", "lat": 39.1108839, "lng": 117.2535205, "level": "区属", "color": "#4363d8", "s2023": 614.15, "s2024": 632.75, "s2025": 626.65, "r2023": 67972, "r2024": 68862, "r2025": 70019}, {"name": "华英中学", "dist": "河东区", "lat": 39.1073, "lng": 117.2519, "level": "民办", "color": "#4363d8", "s2023": null, "s2024": null, "s2025": 669.8, "r2023": null, "r2024": null, "r2025": 51148}, {"name": "求真中学", "dist": "河东区", "lat": 39.1471162, "lng": 117.2264332, "level": "民办", "color": "#4363d8", "s2023": 595.25, "s2024": 601.8, "s2025": 599.35, "r2023": 72807, "r2024": 77591, "r2025": 79176}, {"name": "第二中学", "dist": "河北区", "lat": 39.1525676, "lng": 117.2038422, "level": "区属", "color": "#911eb4", "s2023": 727.6, "s2024": 738.1, "s2025": 730.5, "r2023": 19923, "r2024": 18130, "r2025": 9601}, {"name": "第十四中学", "dist": "河北区", "lat": 39.1642369, "lng": 117.2144959, "level": "区属", "color": "#911eb4", "s2023": 694.25, "s2024": 707.65, "s2025": 698.75, "r2023": 38265, "r2024": 36725, "r2025": 17613}, {"name": "第五十七中学", "dist": "河北区", "lat": 39.1586625, "lng": 117.1989072, "level": "区属", "color": "#911eb4", "s2023": 672.45, "s2024": 689.25, "s2025": 677.5, "r2023": 48276, "r2024": 46136, "r2025": 21919}, {"name": "木斋中学", "dist": "河北区", "lat": 39.1509977, "lng": 117.1910495, "level": "区属", "color": "#911eb4", "s2023": 626.35, "s2024": 644.65, "s2025": 638.75, "r2023": 64687, "r2024": 64801, "r2025": 27726}, {"name": "教育科学研究院附属河北中学", "dist": "河北区", "lat": 39.1574, "lng": 117.2224, "level": "区属", "color": "#911eb4", "s2023": 652.22, "s2024": 669.39, "s2025": 655.05, "r2023": 56299, "r2024": 55220, "r2025": 58006}, {"name": "美术中学", "dist": "河北区", "lat": 39.1576123, "lng": 117.1837738, "level": "区属", "color": "#911eb4", "s2023": null, "s2024": null, "s2025": null, "r2023": null, "r2024": null, "r2025": null}, {"name": "外国语大学附属河北外国语中学", "dist": "河北区", "lat": 39.152, "lng": 117.188, "level": "区属", "color": "#911eb4", "s2023": null, "s2024": 710.9, "s2025": 738.75, "r2023": null, "r2024": 35016, "r2025": 11829}, {"name": "扶轮中学", "dist": "河北区", "lat": 39.158, "lng": 117.19, "level": "区属", "color": "#911eb4", "s2023": 659.25, "s2024": 678.15, "s2025": 668.6, "r2023": 53796, "r2024": 51272, "r2025": 51678}, {"name": "红光中学", "dist": "河北区", "lat": 39.1699222, "lng": 117.216673, "level": "区属", "color": "#911eb4", "s2023": null, "s2024": null, "s2025": 711.65, "r2023": null, "r2024": null, "r2025": 27307}, {"name": "博文中学", "dist": "河北区", "lat": 39.158421, "lng": 117.2466391, "level": "民办", "color": "#911eb4", "s2023": 592.05, "s2024": 570.5, "s2025": 593.95, "r2023": 73504, "r2024": 84445, "r2025": 79773}, {"name": "意斯特艺术高级中学", "dist": "河北区", "lat": 39.1541, "lng": 117.207, "level": "民办", "color": "#911eb4", "s2023": null, "s2024": null, "s2025": null, "r2023": null, "r2024": null, "r2025": null}, {"name": "第三中学", "dist": "红桥区", "lat": 39.1829342, "lng": 117.1504713, "level": "区属", "color": "#d63384", "s2023": 716.0, "s2024": 725.25, "s2025": 713.2, "r2023": 26613, "r2024": 26226, "r2025": 14121}, {"name": "第五中学", "dist": "红桥区", "lat": 39.15739, "lng": 117.1258746, "level": "区属", "color": "#d63384", "s2023": 703.75, "s2024": 715.45, "s2025": 702.75, "r2023": 33153, "r2024": 32112, "r2025": 16696}, {"name": "民族中学", "dist": "红桥区", "lat": 39.1522743, "lng": 117.142644, "level": "区属", "color": "#d63384", "s2023": 689.75, "s2024": 700.35, "s2025": 690.5, "r2023": 40761, "r2024": 40547, "r2025": 19431}, {"name": "第五十一中学", "dist": "红桥区", "lat": 39.1456631, "lng": 117.1528069, "level": "区属", "color": "#d63384", "s2023": 658.85, "s2024": null, "s2025": 660.8, "r2023": 54161, "r2024": null, "r2025": 56585}, {"name": "新华中学和苑学校", "dist": "红桥区", "lat": 39.1553, "lng": 117.1033, "level": "区属", "color": "#d63384", "s2023": null, "s2024": null, "s2025": 707.85, "r2023": null, "r2024": null, "r2025": 29807}, {"name": "耀华中学红桥学校", "dist": "红桥区", "lat": 39.1433436, "lng": 117.1417815, "level": "区属", "color": "#d63384", "s2023": 733.7, "s2024": 744.75, "s2025": 728.1, "r2023": 16669, "r2024": 14277, "r2025": 16606}, {"name": "河北工业大学附属实验学校", "dist": "红桥区", "lat": 39.1761, "lng": 117.1684, "level": "区属", "color": "#d63384", "s2023": 627.25, "s2024": 643.45, "s2025": 639.0, "r2023": 64383, "r2024": 65153, "r2025": 65376}, {"name": "铃铛阁外国语中学", "dist": "红桥区", "lat": 39.148852, "lng": 117.1538453, "level": "区属", "color": "#d63384", "s2023": null, "s2024": null, "s2025": null, "r2023": null, "r2024": null, "r2025": null}, {"name": "河北工业大学附属红桥中学", "dist": "红桥区", "lat": 39.1699713, "lng": 117.1652959, "level": "区属", "color": "#d63384", "s2023": 658.85, "s2024": 674.8, "s2025": null, "r2023": 54161, "r2024": 53082, "r2025": null}, {"name": "复兴中学", "dist": "红桥区", "lat": 39.1486, "lng": 117.1582, "level": "区属", "color": "#d63384", "s2023": 667.8, "s2024": 684.95, "s2025": 671.15, "r2023": 50295, "r2024": 48490, "r2025": 49565}, {"name": "天骄高级中学", "dist": "红桥区", "lat": 39.1533661, "lng": 117.1151999, "level": "民办", "color": "#d63384", "s2023": 584.77, "s2024": 576.75, "s2025": 537.6, "r2023": 75268, "r2024": 83201, "r2025": 94033}, {"name": "海教园南开学校", "dist": "海教园", "lat": 39.0076697, "lng": 117.3324601, "level": "区属", "color": "#20b2aa", "s2023": 666.6, "s2024": 677.0, "s2025": 662.6, "r2023": 50702, "r2024": 52177, "r2025": 54634}], "districts": ["和平区", "河西区", "南开区", "河东区", "河北区", "红桥区", "海教园", "东丽区", "西青区", "津南区", "北辰区", "武清区", "宝坻区", "滨海新区", "宁河区", "静海区", "蓟州区"], "colors": ["#e6194B", "#3cb44b", "#f58231", "#4363d8", "#911eb4", "#d63384", "#20b2aa", "#f032e6", "#469990", "#9A6324", "#800000", "#000075", "#808000", "#6f42c1", "#42d4f4", "#2e8b57", "#fd9e02"]};
+
+// WGS-84 -> GCJ-02（高德坐标系）
+function wgs84togcj02(lng, lat){
+  const a=6378245.0, ee=0.00669342162296594323;
+  const tLat = (x,y)=>{ let r=-100+2*x+3*y+0.2*y*y+0.1*x*y+0.2*Math.sqrt(Math.abs(x))
+    +(20*Math.sin(6*x*Math.PI)+20*Math.sin(2*x*Math.PI))*2/3
+    +(20*Math.sin(y*Math.PI)+40*Math.sin(y/3*Math.PI))*2/3
+    +(160*Math.sin(y/12*Math.PI)+320*Math.sin(y*Math.PI/30))*2/3; return r; };
+  const tLng = (x,y)=>{ let r=300+x+2*y+0.1*x*x+0.1*x*y+0.1*Math.sqrt(Math.abs(x))
+    +(20*Math.sin(6*x*Math.PI)+20*Math.sin(2*x*Math.PI))*2/3
+    +(20*Math.sin(x*Math.PI)+40*Math.sin(x/3*Math.PI))*2/3
+    +(150*Math.sin(x/12*Math.PI)+300*Math.sin(x/30*Math.PI))*2/3; return r; };
+  let dLat=tLat(lng-105.0,lat-35.0), dLng=tLng(lng-105.0,lat-35.0);
+  const radLat=lat/180*Math.PI, magic=Math.sin(radLat);
+  let mm=1-ee*magic*magic, sq=Math.sqrt(mm);
+  dLat=(dLat*180)/((a*(1-ee))/(mm*sq)*Math.PI);
+  dLng=(dLng*180)/(a/sq*Math.cos(radLat)*Math.PI);
+  return [lng+dLng, lat+dLat];
+}
+
+// 高德路网底图（中文标注，主要道路为主，POI干扰少）
+const map = L.map('map',{zoomControl:true}).setView([39.3,117.3],9);
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+  {subdomains:'1234', maxZoom:18, attribution:'© 高德地图 GS(2023)1234号'}).addTo(map);
+
+const LEVELS=["市属","区属","民办"];
+
+// ---------- 收藏功能（localStorage 持久化）----------
+function safeParse(key){ try{ return JSON.parse(localStorage.getItem(key)||'[]'); }catch(_){ return []; } }
+let favs = new Set(safeParse('tj_fav_schools'));
+function saveFavs(){ localStorage.setItem('tj_fav_schools', JSON.stringify([...favs])); }
+function toggleFav(s, marker){
+  if(favs.has(s.name)) favs.delete(s.name); else favs.add(s.name);
+  saveFavs();
+  marker.setIcon(iconFor(s));
+  updateFavCount();
+  buildTable();
+}
+function updateFavCount(){
+  const el=document.getElementById('favCnt'); if(el) el.textContent=favs.size;
+}
+
+// 收藏对勾角标
+function checkBadge(){
+  return '<div style="position:absolute;top:-7px;right:-7px;width:15px;height:15px;border-radius:50%;'+
+    'background:#2ecc71;border:1.5px solid #fff;color:#fff;font-size:11px;line-height:14px;'+
+    'text-align:center;font-weight:bold;box-shadow:0 0 4px rgba(0,0,0,.7);z-index:2;">✓</div>';
+}
+function iconFor(s){
+  const fav = favs.has(s.name);
+  const badge = fav ? checkBadge() : '';
+  if(s.level==="市属"){
+    return L.divIcon({className:'', html:'<div style="position:relative;font-size:34px;line-height:24px;color:#ff3b30;'+
+      'text-shadow:0 0 4px #000,0 0 4px #000,0 0 8px rgba(255,59,48,.8);">★'+badge+'</div>',
+      iconSize:[34,34], iconAnchor:[17,17]});
+  }
+  if(s.level==="民办"){
+    return L.divIcon({className:'', html:'<div style="position:relative;width:16px;height:16px;border-radius:50%;'+
+      'background:#fff;border:3px solid #999;box-shadow:0 0 6px rgba(0,0,0,.7);">'+badge+'</div>',
+      iconSize:[16,16], iconAnchor:[8,8]});
+  }
+  return L.divIcon({className:'', html:'<div style="position:relative;width:20px;height:20px;border-radius:50%;background:#ff8c00;'+
+    'border:3px solid #fff;box-shadow:0 0 8px rgba(255,140,0,.9),0 0 3px rgba(0,0,0,.8);">'+badge+'</div>',
+    iconSize:[20,20], iconAnchor:[10,10]});
+}
+function fmt(v){ return (v===null||v===undefined) ? '—' : v; }
+function badge(level){
+  if(level==="市属") return '<span class="badge b-city">市属</span>';
+  if(level==="区属") return '<span class="badge b-dist">区属</span>';
+  return '<span class="badge b-pri">民办</span>';
+}
+
+// ---------- 学校标记 ----------
+const showLabels={val:false};
+const markers=[];
+D.schools.forEach(s=>{
+  const [glng,glat]=wgs84togcj02(s.lng,s.lat);
+  const marker=L.marker([glat,glng],{icon:iconFor(s)});
+  marker.bindTooltip(s.name,{direction:'top',offset:[0,-6]});
+  marker.on('click',()=>openCard(m));
+  marker.on('contextmenu',e=>{ L.DomEvent.preventDefault(e); toggleFav(s,marker); });
+  marker.addTo(map);
+  const label=L.marker([glat,glng],{icon:L.divIcon({className:'school-label',html:s.name,iconSize:[0,0],iconAnchor:[0,0]}),interactive:true,zIndexOffset:1000});
+  label.on('contextmenu',e=>{ L.DomEvent.preventDefault(e); toggleFav(s,marker); });
+  label.on('click',()=>openCard(m));
+  label.addTo(map);
+  const m={marker,label,s,glat,glng};
+  markers.push(m);
+});
+
+// ---------- 学校详情浮窗（钉住 + 拖动 + 连线）----------
+const linksSvg=document.getElementById('links');
+const SVGNS='http://www.w3.org/2000/svg';
+let cards=[];
+const pinnedCardNames=new Set(safeParse('tj_pin_cards'));
+function scoreRow(y,sc,rk){ return '<tr><td class="yr">'+y+'</td><td>'+fmt(sc)+'</td><td>位次</td><td>'+fmt(rk)+'</td></tr>'; }
+function openCard(m){
+  const s=m.s;
+  let c=cards.find(c=>c.name===s.name);
+  if(c){ c.el.classList.add('show'); bringFront(c); return; }
+  cards.filter(c=>!c.pinned).forEach(closeCard);
+  createCard(m);
+}
+function createCard(m){
+  const s=m.s;
+  const el=document.createElement('div'); el.className='card';
+  const on=pinnedCardNames.has(s.name);
+  const pinTitle=on?'已钉住（点击取消钉住并关闭）':'钉住/取消钉住（固定显示此学校）';
+  el.innerHTML='<div class="bar"><span class="pin'+(on?' on':'')+'" title="'+pinTitle+'">📌</span>'+
+    '<span class="nm">'+s.name+'</span><span class="x" title="关闭">✕</span></div>'+
+    '<div class="body">'+badge(s.level)+' &nbsp;'+s.dist+
+    '<table>'+scoreRow('2023',s.s2023,s.r2023)+scoreRow('2024',s.s2024,s.r2024)+scoreRow('2025',s.s2025,s.r2025)+'</table></div>';
+  document.body.appendChild(el);
+  const pt=map.latLngToContainerPoint([m.glat,m.glng]);
+  let x=pt.x+24, y=pt.y-24;
+  x=Math.max(8,Math.min(x,window.innerWidth-318));
+  y=Math.max(8,Math.min(y,window.innerHeight-230));
+  el.style.left=x+'px'; el.style.top=y+'px';
+  const c={name:s.name,s,m,el,pinned:on,x,y};
+  el.querySelector('.pin').onclick=()=>togglePin(c);
+  el.querySelector('.x').onclick=()=>closeCard(c);
+  enableDrag(c);
+  cards.push(c); el.classList.add('show');
+  drawLinks(); bringFront(c);
+  return c;
+}
+function togglePin(c){
+  c.pinned=!c.pinned;
+  if(c.pinned){
+    pinnedCardNames.add(c.name);
+    c.el.querySelector('.pin').classList.add('on');
+    c.el.querySelector('.pin').title='已钉住（点击取消钉住并关闭）';
+  }else{
+    pinnedCardNames.delete(c.name);
+    c.el.querySelector('.pin').classList.remove('on');
+    c.el.querySelector('.pin').title='钉住/取消钉住（固定显示此学校）';
+  }
+  localStorage.setItem('tj_pin_cards',JSON.stringify([...pinnedCardNames]));
+  drawLinks();
+  if(!c.pinned) closeCard(c);
+}
+function closeCard(c){
+  if(c.el&&c.el.parentNode) c.el.parentNode.removeChild(c.el);
+  cards=cards.filter(x=>x!==c);
+  drawLinks();
+}
+function bringFront(c){ cards.forEach(x=>x.el.style.zIndex=620); c.el.style.zIndex=630; }
+function enableDrag(c){
+  const bar=c.el.querySelector('.bar');
+  let drag=false,sx=0,sy=0,ox=0,oy=0;
+  bar.addEventListener('pointerdown',e=>{
+    if(e.target.closest('.pin')||e.target.closest('.x')) return; // 图钉/关闭按钮独立响应点击，不触发拖动
+    drag=true; sx=e.clientX; sy=e.clientY; ox=c.x; oy=c.y; bar.setPointerCapture(e.pointerId); e.preventDefault();
+  });
+  bar.addEventListener('pointermove',e=>{ if(!drag) return; c.x=ox+(e.clientX-sx); c.y=oy+(e.clientY-sy);
+    c.x=Math.max(4,Math.min(c.x,window.innerWidth-c.el.offsetWidth-4));
+    c.y=Math.max(4,Math.min(c.y,window.innerHeight-c.el.offsetHeight-4));
+    c.el.style.left=c.x+'px'; c.el.style.top=c.y+'px'; drawLinks(); });
+  bar.addEventListener('pointerup',e=>{ drag=false; try{bar.releasePointerCapture(e.pointerId);}catch(_){} });
+  bar.addEventListener('pointercancel',e=>{ drag=false; });
+}
+function drawLinks(){
+  while(linksSvg.firstChild) linksSvg.removeChild(linksSvg.firstChild);
+  cards.forEach(c=>{
+    const pt=map.latLngToContainerPoint([c.m.glat,c.m.glng]);
+    const ln=document.createElementNS(SVGNS,'line');
+    ln.setAttribute('x1',pt.x); ln.setAttribute('y1',pt.y);
+    ln.setAttribute('x2',c.x); ln.setAttribute('y2',c.y+c.el.offsetHeight/2);
+    ln.setAttribute('stroke',c.pinned?'#2ecc71':'#ffd479');
+    ln.setAttribute('stroke-width',c.pinned?2.5:1.8);
+    if(!c.pinned) ln.setAttribute('stroke-dasharray','6,4');
+    linksSvg.appendChild(ln);
+    const dot=document.createElementNS(SVGNS,'circle');
+    dot.setAttribute('cx',pt.x); dot.setAttribute('cy',pt.y); dot.setAttribute('r',3.5);
+    dot.setAttribute('fill',c.pinned?'#2ecc71':'#ffd479');
+    linksSvg.appendChild(dot);
+  });
+}
+map.on('move zoom zoomend movestart',drawLinks);
+window.addEventListener('resize',drawLinks);
+
+// ---------- 控件 ----------
+const lc=document.getElementById('levelChecks');
+LEVELS.forEach(l=>{
+  const row=document.createElement('label'); row.className='row';
+  const sym = l==="市属"?'<span class="star">★</span>':(l==="民办"?'<span class="swatch" style="background:#fff;border:2px solid #999;"></span>':'<span class="swatch" style="background:#ff8c00;"></span>');
+  row.innerHTML = sym+'<input type="checkbox" data-l="'+l+'" checked> '+l;
+  lc.appendChild(row);
+});
+function applyFilter(){
+  const q=document.getElementById('search').value.trim();
+  const favOnly=document.getElementById('favOnly').checked;
+  const actL={}; document.querySelectorAll('#levelChecks input').forEach(c=>actL[c.dataset.l]=c.checked);
+  let shown=0;
+  markers.forEach(m=>{
+    const okL=actL[m.s.level];
+    const okQ=!q||m.s.name.includes(q);
+    const okF=!favOnly||favs.has(m.s.name);
+    const vis=okL&&okQ&&okF;
+    if(vis){
+      shown++;
+      if(!map.hasLayer(m.marker)) m.marker.addTo(map);
+      if(m.label&&!map.hasLayer(m.label)) m.label.addTo(map);
+    }else{
+      if(map.hasLayer(m.marker)) m.marker.removeFrom(map);
+      if(m.label&&map.hasLayer(m.label)) m.label.removeFrom(map);
+    }
+  });
+  document.getElementById('cnt').textContent=shown;
+  buildTable();
+}
+let tableOrder=null;
+function buildTable(){
+  const q=document.getElementById('search').value.trim();
+  const favOnly=document.getElementById('favOnly').checked;
+  const actL={}; document.querySelectorAll('#levelChecks input').forEach(c=>actL[c.dataset.l]=c.checked);
+  const src=tableOrder||markers;
+  const tb=document.querySelector('#scoreTable tbody'); tb.innerHTML='';
+  src.filter(m=>actL[m.s.level]&&(!q||m.s.name.includes(q))&&(!favOnly||favs.has(m.s.name)))
+    .forEach(m=>{
+      const s=m.s;
+      const tr=document.createElement('tr');
+      const favMark=favs.has(s.name)?'<span style="color:#2ecc71;font-weight:bold;" title="已收藏">✓</span> ':'';
+      tr.innerHTML='<td class="nm">'+favMark+s.name+'</td><td>'+badge(s.level)+'</td>'+
+        '<td style="text-align:center">'+fmt(s.s2023)+'<br><small>（'+fmt(s.r2023)+'）</small></td>'+
+        '<td style="text-align:center">'+fmt(s.s2024)+'<br><small>（'+fmt(s.r2024)+'）</small></td>'+
+        '<td style="text-align:center">'+fmt(s.s2025)+'<br><small>（'+fmt(s.r2025)+'）</small></td>';
+      tr.onclick=()=>{ openCard(m); };
+      tb.appendChild(tr);
+    });
+}
+
+document.querySelectorAll('#levelChecks input').forEach(c=>c.addEventListener('change',applyFilter));
+document.getElementById('search').addEventListener('input',applyFilter);
+document.getElementById('favOnly').addEventListener('change',applyFilter);
+document.getElementById('lblBtn').addEventListener('click',e=>{
+  showLabels.val=!showLabels.val;
+  e.target.textContent=showLabels.val?'隐藏全部学校名称':'显示全部学校名称';
+  applyFilter();
+});
+document.getElementById('tblBtn').addEventListener('click',e=>{
+  const t=document.getElementById('table');
+  const open=t.style.display!=='block';
+  t.style.display=open?'block':'none';
+  e.target.textContent=open?'关闭分数线数据表':'查看分数线数据表';
+  if(open) buildTable();
+});
+let sortKey='name', sortAsc=true;
+document.querySelectorAll('#scoreTable th').forEach(th=>{
+  th.onclick=()=>{
+    const k=th.dataset.k; if(k===sortKey) sortAsc=!sortAsc; else {sortKey=k;sortAsc=true;}
+    tableOrder=markers.slice().sort((A,B)=>{
+      let va=A.s[k],vb=B.s[k];
+      if(k==='name'||k==='level'){va=''+(va||'');vb=''+(vb||'');return sortAsc?va.localeCompare(vb):vb.localeCompare(va);}
+      if(va===null)va=-1; if(vb===null)vb=-1;
+      return sortAsc?va-vb:vb-va;
+    });
+    buildTable();
+  };
+});
+
+const all=L.featureGroup(markers.map(m=>m.marker));
+map.fitBounds(all.getBounds().pad(0.08));
+updateFavCount();
+applyFilter();
+pinnedCardNames.forEach(nm=>{ const m=markers.find(x=>x.s.name===nm); if(m) createCard(m); });
+</script>
+</body>
+</html>
