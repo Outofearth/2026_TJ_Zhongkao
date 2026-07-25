@@ -4,3 +4,5 @@
 # 系统 / 编辑器杂项
 .DS_Store
 Thumbs.db
+__pycache__/
+*.pyc
